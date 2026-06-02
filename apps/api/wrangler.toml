@@ -1,0 +1,15 @@
+name = "webbios-api"
+main = "src/index.ts"
+compatibility_date = "2024-03-20"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "webbios_d1"
+database_id = "your-database-id"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "your-kv-namespace-id"
+
+[vars]
+ENVIRONMENT = "production"

@@ -1,0 +1,17 @@
+{
+  "name": "@webbios/api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.2.0",
+    "@webbios/shared": "workspace:*",
+    "@webbios/db": "workspace:*"
+  },
+  "devDependencies": {
+    "wrangler": "^3.48.0"
+  }
+}

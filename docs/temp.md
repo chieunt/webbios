@@ -1,0 +1,1 @@
+Hãy tham khảo cấu trúc database của project cbc-ecosystem tại đây: 'E:\Coolmom Workspace\cbc-ecosystem'. Hiện tại hệ thống đó đang chạy ổn định và đáp ứng tốt các yêu cầu nghiệp vụ. Em hãy dựa trên đó để thiết kế db cho WebbiOS
