@@ -61,7 +61,9 @@ export const UpdatesPage = () => {
       if (jobId) {
         const checkInterval = setInterval(async () => {
           try {
-            const jobRes = await fetch(`https://platform.webbios.dev/api/v1/platform/jobs/${jobId}`);
+            const jobRes = await fetch(`https://platform.webbios.dev/api/v1/platform/jobs/${jobId}?t=${Date.now()}`, {
+              cache: 'no-store'
+            });
             const jobData = await jobRes.json();
             if (jobData.success && jobData.job) {
               const mapped = mapStatusToProgress(jobData.job.status);
