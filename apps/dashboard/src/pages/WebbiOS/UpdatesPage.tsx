@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { DownloadCloud, RefreshCw, CheckCircle, AlertTriangle } from 'lucide-react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { DownloadCloud, RefreshCw, CheckCircle, AlertTriangle, XCircle } from 'lucide-react';
 import { useUpdateChecker } from '../../hooks/useUpdateChecker';
 import { useTranslation } from 'react-i18next';
 import { webbios } from '../../api';
@@ -10,11 +10,14 @@ export const UpdatesPage = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateStatus, setUpdateStatus] = useState<string | null>(null);
   const [updateProgress, setUpdateProgress] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const currentVersion = import.meta.env.VITE_APP_VERSION || '1.0.0';
 
   const startPolling = useCallback((jobId: string) => {
-    const checkInterval = setInterval(async () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    
+    intervalRef.current = setInterval(async () => {
       try {
         const jobRes = await fetch(`https://platform.webbios.dev/api/v1/platform/jobs/${jobId}?t=${Date.now()}`, {
           cache: 'no-store'
@@ -24,7 +27,7 @@ export const UpdatesPage = () => {
           const mapped = mapStatusToProgress(jobData.job.status);
 
           if (jobData.job.status === 'success') {
-            clearInterval(checkInterval);
+            if (intervalRef.current) clearInterval(intervalRef.current);
             localStorage.removeItem('webbios_active_update_job');
             localStorage.removeItem('webbios_update_status');
             setUpdateStatus(mapped.label);
@@ -33,7 +36,7 @@ export const UpdatesPage = () => {
               window.location.href = window.location.pathname + '?v=' + Date.now();
             }, 2000);
           } else if (jobData.job.status === 'failed') {
-            clearInterval(checkInterval);
+            if (intervalRef.current) clearInterval(intervalRef.current);
             localStorage.removeItem('webbios_active_update_job');
             setUpdateStatus('Lỗi: ' + (jobData.job.errorMessage || 'Cập nhật thất bại'));
             setUpdateProgress(0);
@@ -55,6 +58,9 @@ export const UpdatesPage = () => {
       setUpdateProgress(10);
       startPolling(savedJobId);
     }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [startPolling]);
 
   const mapStatusToProgress = (status: string): { label: string; progress: number } => {
@@ -106,6 +112,8 @@ export const UpdatesPage = () => {
       if (jobId) {
         localStorage.setItem('webbios_active_update_job', jobId);
         startPolling(jobId);
+      } else {
+        throw new Error('Không nhận được Job ID từ máy chủ.');
       }
 
     } catch (error: unknown) {
@@ -114,9 +122,11 @@ export const UpdatesPage = () => {
       } else {
         setUpdateStatus('Lỗi: Cập nhật thất bại');
       }
-      setTimeout(() => setIsUpdating(false), 3000);
+      setIsUpdating(false);
     }
   };
+
+  const hasError = updateStatus?.startsWith('Lỗi');
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
@@ -163,14 +173,18 @@ export const UpdatesPage = () => {
             )}
           </div>
 
-          {isUpdating && (
-            <div className="mt-6 p-4 bg-gray-50 rounded border border-gray-100">
+          {(isUpdating || hasError) && (
+            <div className={`mt-6 p-4 rounded border ${hasError ? 'bg-red-50 border-red-100' : 'bg-gray-50 border-gray-100'}`}>
               <div className="flex flex-col space-y-3">
-                <div className="flex items-center space-x-3 text-sm text-gray-700">
-                  <RefreshCw size={16} className="text-blue-500 animate-spin" />
+                <div className={`flex items-center space-x-3 text-sm ${hasError ? 'text-red-700' : 'text-gray-700'}`}>
+                  {hasError ? (
+                    <XCircle size={16} className="text-red-500" />
+                  ) : (
+                    <RefreshCw size={16} className="text-blue-500 animate-spin" />
+                  )}
                   <span className="font-medium">{updateStatus}</span>
                 </div>
-                {updateProgress > 0 && (
+                {updateProgress > 0 && !hasError && (
                   <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
                     <div
                       className="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-out"
