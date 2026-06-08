@@ -57,7 +57,7 @@ export const UpdatesPage = () => {
       setUpdateStatus('Đang cập nhật...');
       setUpdateProgress(5);
 
-      const jobId = (res as any).data?.jobId;
+      const jobId = (res as any).jobId;
       if (jobId) {
         const checkInterval = setInterval(async () => {
           try {
