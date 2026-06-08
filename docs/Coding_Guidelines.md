@@ -57,6 +57,11 @@ Tài liệu này đóng vai trò "Kim chỉ nam" định hình tư duy và cách
     *   Biến boolean (true/false) bắt đầu bằng `is`, `has`, `can`, `should` (VD: `isActive`, `hasPermission`).
     *   Hàm sự kiện UI bắt đầu bằng `handle` hoặc `on` (VD: `handleSubmit`, `onClick`).
 *   **Tên không chung chung**: Không dùng `data`, `info`, `res`. Hãy dùng `productList`, `userData`.
+*   **Database Table Prefix**: Mọi bảng trong D1 Database PHẢI có prefix theo Layer:
+    *   `wb_` — Core Kernel (VD: `wb_users`, `wb_settings`)
+    *   `web_` — Web Foundation (VD: `web_articles`, `web_nav_menus`)
+    *   `com_` — Commerce Suite (VD: `com_products`, `com_orders`)
+    *   `edu_` — Education Suite, `ppl_` — People Suite, `bkg_` — Booking Suite, `evt_` — Event Suite, `gen_` — Genealogy Suite
 
 ---
 
@@ -82,10 +87,11 @@ Tài liệu này đóng vai trò "Kim chỉ nam" định hình tư duy và cách
 
 ## 8. Quy chuẩn UI Components (WebbiOS Design Language)
 
+*   **Sử dụng Chung Component Lõi (Single Source of Truth)**: Mọi thành phần giao diện cơ bản (như Nút bấm - Button, Ô nhập liệu - Input, Dropdown, Table...) trên TOÀN BỘ hệ thống (từ trang Login, Dashboard, cho đến các trang con) **BẮT BUỘC phải import từ thư viện `@webbios/ui`**. Tuyệt đối không viết lại các thẻ HTML thuần túy (ví dụ `<button>`, `<input>`) kết hợp với class Tailwind thủ công để tránh phân mảnh thiết kế và rác code.
 *   Sử dụng Tailwind CSS làm nền tảng (WebbiOS Design Language - WDL).
-*   Các UI Components chung (`@webbios/ui`) không được truyền custom class (`className`) tùy tiện (như màu sắc, font chữ) để đảm bảo tính đồng nhất giao diện toàn hệ thống.
+*   Các UI Components chung (`@webbios/ui`) không được truyền custom class (`className`) tùy tiện (như màu sắc, font chữ) để đảm bảo tính đồng nhất giao diện toàn hệ thống, trừ khi dùng cho mục đích căn chỉnh layout (margin, width, height).
 *   Component chia làm 2 cấp:
-    1. **Core UI Components** (`@webbios/ui`): Button, Input, Card.
+    1. **Core UI Components** (`@webbios/ui`): Button, Input, Card, Table...
     2. **Module Components** (`apps/dashboard/src/modules/orders/components`): Component phức tạp gắn với nghiệp vụ (VD: `OrderSummaryCard`).
 
 ---
@@ -96,3 +102,28 @@ Tài liệu này đóng vai trò "Kim chỉ nam" định hình tư duy và cách
 *   **PRD.md**: Lưu giữ tổng quan kiến trúc và luồng nghiệp vụ.
 *   **Feature Docs**: Khi làm module mới, tạo file thiết kế trong `docs/features/`. (Ví dụ: `docs/features/Product_Module.md` mô tả DB Schema, API Endpoints, UI Design cho module Sản phẩm).
 *   **Cập nhật liên tục**: Code thay đổi, tài liệu cũng phải được cập nhật đồng bộ.
+
+### Quy định viết tài liệu mã nguồn (WebbiSDK JSDoc)
+Để hệ thống WebbiOS Developer Portal (developers.webbi.vn) tự động sinh ra tài liệu chuẩn xác, **bất kỳ ai khi cập nhật hoặc thêm mới code vào `packages/sdk` đều BẮT BUỘC tuân thủ các quy định sau**:
+1. **Tiếng Anh 100%**: Tất cả các comment (JSDoc) trong `packages/sdk` phải được viết bằng tiếng Anh.
+2. **Comment cho MỌI Export**: Bất kỳ class, interface, type, method, hoặc property nào được export ra ngoài (public API) đều phải có comment JSDoc đi kèm. ĐỪNG BAO GIỜ quên viết JSDoc cho các tính năng mới trong SDK.
+3. **Cấu trúc JSDoc chuẩn**:
+   - Dòng đầu tiên: Mô tả ngắn gọn chức năng (Summary).
+   - `@param {tên_biến}`: Mô tả rõ ràng mục đích của từng tham số.
+   - `@returns`: Mô tả dữ liệu trả về (nếu có).
+   - `@throws`: Ghi chú các lỗi có thể xảy ra (nếu có).
+   - `@example`: Khuyến khích thêm ví dụ cách sử dụng hàm (đặc biệt là các hàm phức tạp).
+4. **Auto-Generate**: Hệ thống sẽ dùng `TypeDoc` và `Astro Starlight` để quét tự động các comment này. Nếu bạn viết sai format, tài liệu trên Developer Portal sẽ bị hiển thị sai lệch.
+5. **Enforcement**: NGHIÊM CẤM merge code hoặc commit code vào `packages/sdk` nếu chưa hoàn thiện 100% JSDoc theo chuẩn trên. Mọi đoạn code SDK thiếu tài liệu sẽ bị coi là code lỗi.
+
+---
+
+## 10. Quy chuẩn Đa ngôn ngữ (i18n - Internationalization)
+
+Toàn bộ các văn bản (text) hiển thị trên giao diện người dùng (UI) bắt buộc phải tuân thủ chuẩn đa ngôn ngữ:
+
+*   **Tuyệt đối không Fix Cứng (Hardcode)**: Không được gõ trực tiếp chữ Tiếng Việt hoặc Tiếng Anh vào trong các component React (VD: Không dùng `<button>Lưu</button>`).
+*   **Sử dụng react-i18next**: Tất cả text phải được gọi thông qua hook `useTranslation()` (VD: `<button>{t('common.save')}</button>`).
+*   **Cấu trúc file ngôn ngữ**: Từ khóa dịch thuật phải được lưu tập trung tại thư mục `src/locales/` dưới định dạng JSON (`en.json`, `vi.json`).
+*   **Quy tắc đặt Key**: Đặt tên key theo cấu trúc phân tầng logic: `[tên_trang].[khu_vực].[tên_nút_hoặc_nhãn]`. (VD: `dashboard.analytics.cpuTime` hoặc `sidebar.accountHome`).
+*   **Cập nhật đồng bộ**: Khi thêm một tính năng mới, lập trình viên phải có trách nhiệm bổ sung đầy đủ các từ khóa vào **CẢ HAI** file ngôn ngữ (`en.json` và `vi.json`). Mặc định ngôn ngữ của hệ thống là Tiếng Việt (`vi`).

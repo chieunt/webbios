@@ -1,8 +1,8 @@
 # WebbiOS — Product Requirements Document (PRD)
 
-> **Version:** 1.0.0-draft
+> **Version:** 2.0.0
 > **Ngày tạo:** 2026-06-01
-> **Cập nhật lần cuối:** 2026-06-01
+> **Cập nhật lần cuối:** 2026-06-05
 > **Tác giả:** WebbiOS Team
 
 ---
@@ -45,43 +45,115 @@
 
 ### 1.1. WebbiOS là gì?
 
-**WebbiOS** là một nền tảng mã nguồn (open-core) giúp xây dựng website và ứng dụng quản lý bán hàng (mini ERP) cho doanh nghiệp nhỏ và vừa (SMB). WebbiOS được xây dựng **100% trên hạ tầng Cloudflare** (Workers, D1, R2, KV, Queues, Pages, CDN) với mục tiêu mang lại hiệu năng cao, chi phí duy trì cực thấp (thậm chí = 0), và khả năng mở rộng không giới hạn.
+**WebbiOS** (Webbi Open System) là một **nền tảng mở đa năng** cho phép xây dựng mọi loại website và hệ thống quản lý dành cho doanh nghiệp nhỏ và vừa (SMB). WebbiOS được xây dựng **100% trên hạ tầng Cloudflare** (Workers, D1, R2, KV, Queues, Pages, CDN).
 
-### 1.2. Mô hình phân phối
+WebbiOS không giới hạn ở thương mại điện tử. Bằng kiến trúc **Core Kernel + Solution Suite + Blueprint**, WebbiOS có thể trở thành: website bán hàng, web công ty, blog, hệ thống quản lý trường học, nền tảng gia phả, hệ thống đặt lịch spa/nhà hàng — hoặc bất kỳ nghiệp vụ nào khác.
+
+> **"OS" trong WebbiOS = Open System (Hệ thống mở)** — không phải Operating System truyền thống. WebbiOS là nền tảng mở có thể chạy trên mọi thiết bị, mở rộng không giới hạn, và kết nối dễ dàng với các hệ thống khác.
+
+### 1.2. Triết lý "Open System"
+
+WebbiOS được thiết kế như một **hệ sinh thái mở** — tương tự cách một hệ điều hành hoạt động:
+
+| Khái niệm OS truyền thống | WebbiOS tương đương |
+|---|---|
+| **Kernel** | Core Kernel (Hono.js + D1) — nhân xử lý: Auth, Media, Settings, App Manager |
+| **File System** | Cloudflare R2 — lưu trữ file/media |
+| **User & Permissions** | Identity Hub (wb_users, wb_roles, wb_permissions) — phân quyền động |
+| **App Store** | App Marketplace — cài/gỡ Suite/App bằng 1 click |
+| **Process Isolation** | Mỗi Suite/App = 1 Worker riêng biệt — cách ly hoàn toàn |
+| **System Preferences** | Settings (key-value) — cấu hình mọi thứ |
+| **Desktop Environment** | Web Foundation App — Content Engine, Theme System, Navigation |
+| **API / SDK** | WebbiSDK, WebbiCLI — công cụ cho developer |
+| **Inter-Process Communication** | Event System (hooks) — giao tiếp giữa Core và Suites |
+| **Cron / Scheduler** | Cron Triggers — tác vụ định kỳ |
+| **Installer / Setup Wizard** | Blueprint Registry — công thức đóng gói 1-click |
+
+Sự khác biệt cốt lõi: WebbiOS **không giới hạn bởi phần cứng**, chạy trên edge (Cloudflare), và mọi thành phần đều có thể được mở rộng, tùy chỉnh bởi đối tác/khách hàng.
+
+### 1.3. Hệ sinh thái Webbi
+
+```
+Webbi (webbi.vn)                    ← Thương hiệu mẹ
+│
+├── WebbiOS (os.webbi.vn)           ← Platform / Engine chính
+│   ├── Core API                    ← Nhân hệ thống
+│   ├── Dashboard                   ← Giao diện quản trị
+│   └── App Marketplace             ← Cửa hàng ứng dụng
+│
+├── WebbiSDK                        ← Bộ công cụ lập trình cho developer (npm)
+├── WebbiCLI                        ← Command line tool (scaffold, deploy, debug)
+├── Webbi Developer Portal          ← Tài liệu và API cho lập trình viên (developers.webbi.vn)
+├── Webbi Mail                      ← Email miễn phí cho khách hàng
+│
+├── Gói dịch vụ:
+│   ├── Webbi GO                    ← Gói miễn phí / Starter
+│   ├── Webbi Pro                   ← Gói chuyên nghiệp
+│   └── Webbi Enterprise            ← Gói doanh nghiệp (custom)
+│
+└── Dịch vụ tiện ích khác           ← Webbi + <tên dịch vụ>
+```
+
+### 1.4. Hệ thống Blueprint (Thay thế Chế độ hoạt động)
+
+Thay vì 2 chế độ cố định (ERP-only / Full), WebbiOS sử dụng **Blueprint** — công thức đóng gói 1-click, tự động cài Core + Suite + Theme phù hợp:
+
+| Blueprint | Core Kernel | Web Foundation | Suite | Theme | Doanh thu Tier 3 |
+|---|---|---|---|---|---|
+| **Web Bán hàng** | ✅ | ✅ | Commerce | starter-shop | ✅ Payments + Shipping |
+| **Mini-ERP** | ✅ | ❌ | Commerce | *(không cần)* | ✅ Payments + Shipping |
+| **Web Công ty** | ✅ | ✅ | *(không cần)* | starter-corporate | ❌ |
+| **Landing Page** | ✅ | ✅ | *(không cần)* | starter-landing | ❌ |
+| **Blog** | ✅ | ✅ | *(không cần)* | starter-blog | ❌ |
+| **Trường học** | ✅ | ✅ | Education | starter-school | ✅ Payments |
+| **Nhà hàng / Spa** | ✅ | ✅ | Booking (+Commerce) | starter-booking | ✅ Payments |
+| **Sự kiện** | ✅ | ✅ | Event | starter-event | ✅ Payments |
+| **Gia phả** | ✅ | ✅ | Genealogy | starter-genealogy | ❌ |
+| **HRM nội bộ** | ✅ | ❌ | People | *(không cần)* | ❌ |
+
+> Khách hàng có thể **cài thêm Suite/App bất kỳ lúc nào** sau khi khởi tạo. Blueprint chỉ là bộ cài đặt ban đầu.
+
+### 1.5. Mô hình phân phối
 
 WebbiOS kết hợp mô hình phân phối của **WordPress** (bàn giao source code, self-hosted) với bộ tính năng e-commerce mạnh mẽ tương tự **Shopify** và khả năng quản lý của một **Mini ERP**:
 
 | Đặc điểm | WordPress | Shopify | Haravan/Sapo | **WebbiOS** |
 |---|---|---|---|---|
-| Mô hình | Self-hosted | SaaS | SaaS | **Self-hosted** |
+| Mô hình | Self-hosted | SaaS | SaaS | **Self-hosted (Open System)** |
 | Source code | ✅ Bàn giao | ❌ Không | ❌ Không | **✅ Bàn giao** |
 | Tự chủ dữ liệu | ✅ Hoàn toàn | ❌ Không | ❌ Không | **✅ Hoàn toàn (Riêng tư)** |
-| Infra | VPS/Hosting | Cloud | Cloud của hãng| **Cloudflare** |
+| Infra | VPS/Hosting | Cloud | Cloud của hãng| **Cloudflare Edge** |
 | Chi phí duy trì | $5-50/tháng | $29-299/tháng| 300K-1M+/tháng| **$0-5/tháng** |
-| E-commerce | Cần plugin | Built-in | Built-in | **Built-in** |
-| Quản lý (ERP) | ❌ Yếu | ⚠️ Cơ bản | ✅ Tốt | **✅ Tốt (Module hóa)** |
+| Đa năng | ✅ (Plugin) | ❌ Chỉ e-commerce | ❌ Chỉ e-commerce | **✅ Blueprint + Suite** |
+| Quản lý (ERP) | ❌ Yếu | ⚠️ Cơ bản | ✅ Tốt | **✅ Suite hóa** |
+| App Ecosystem | Plugin (chia sẻ process) | App (API) | App (API) | **Suite/App-as-Worker (cách ly)** |
+| SDK / CLI | ❌ | ❌ | ❌ | **✅ WebbiSDK + WebbiCLI** |
 
-### 1.3. USP (Unique Selling Proposition)
+### 1.6. USP (Unique Selling Proposition)
 
-1. **Chi phí duy trì = 0** — Chạy trên Cloudflare Free Tier, không cần thuê VPS hay hosting.
-2. **Sở hữu source code & Tự chủ dữ liệu** — Khách hàng toàn quyền kiểm soát data, tránh rủi ro lock-in và bảo mật pháp lý, thuế.
-3. **Hiệu năng Edge & 3-Tier Cache** — Nhanh vô đối với CDN Cache, KV Cache và D1 Edge SQLite.
-4. **Quản lý đa kênh (Mini ERP)** — Sẵn sàng mở rộng thành hệ thống quản lý bán hàng đa kênh, tồn kho, đối soát (không chỉ là web TMĐT).
-5. **Cài đặt 1-Click Automation** — Dù self-hosted nhưng khách hàng không cần kiến thức IT, mọi thứ được deploy qua WebbiOS tự động cấu hình Cloudflare API.
-6. **Kiến trúc App-as-Worker & Universal Storefront** — Cài app, đổi theme tức thì mà không cần rebuild/redeploy.
+1. **Open System** — Nền tảng mở, mở rộng không giới hạn. Suite, App, Theme, API — mọi thứ đều có thể tùy chỉnh.
+2. **Chi phí duy trì = 0** — Chạy trên Cloudflare Free Tier, không cần thuê VPS hay hosting.
+3. **Sở hữu source code & Tự chủ dữ liệu** — Khách hàng toàn quyền kiểm soát data, tránh rủi ro lock-in.
+4. **Hiệu năng Edge & 4-Tier Cache** — Nhanh vô đối với CDN Cache, API Cache, KV Cache và D1 Edge SQLite.
+5. **Đa năng qua Blueprint** — Một Core Kernel duy nhất phục vụ mọi loại website & hệ thống quản lý.
+6. **Suite/App-as-Worker** — Mỗi Suite/App là Worker độc lập, cách ly hoàn toàn, cài/gỡ không ảnh hưởng hệ thống.
+7. **Cài đặt 1-Click Automation** — Khách không cần kiến thức IT, WebbiOS tự deploy qua Cloudflare API.
+8. **Hệ sinh thái Webbi** — SDK, CLI, Mail, Marketplace — đầy đủ công cụ cho developer và khách hàng.
+
+---
 
 ## 2. Tầm nhìn & Mục tiêu
 
 ### 2.1. Tầm nhìn
 
-Biến WebbiOS trở thành **nền tảng xây dựng web/app e-commerce hàng đầu** cho thị trường Việt Nam và Đông Nam Á, với:
+> **"WebbiOS — Open System for Modern Commerce"**
 
-- Hiệu năng cao nhờ edge computing
-- Chi phí duy trì rẻ nhất thị trường (= 0 với gói Free)
-- Khả năng mở rộng không giới hạn
-- Cập nhật phiên bản thường xuyên
-- Hệ sinh thái theme/apps phong phú
-- Bàn giao full source code
+Biến WebbiOS trở thành **nền tảng mở hàng đầu** cho thương mại điện tử và quản lý bán hàng tại Việt Nam và Đông Nam Á — nơi mà:
+
+- Mọi doanh nghiệp đều có thể **sở hữu** hệ thống của mình (không phụ thuộc vendor)
+- Mọi developer đều có thể **đóng góp** vào hệ sinh thái (theme, app, plugin)
+- Mọi đối tác đều có thể **kinh doanh** trên nền tảng (reseller, agency, SaaS)
+- Chi phí vận hành **tiệm cận 0** nhờ edge computing
 
 ### 2.2. Mục tiêu kinh doanh
 
@@ -89,111 +161,103 @@ Biến WebbiOS trở thành **nền tảng xây dựng web/app e-commerce hàng 
 |---|---|
 | **0-6 tháng** | Hoàn thiện WebbiOS 1.0, ra mắt beta cho 10-20 khách hàng đầu tiên |
 | **6-12 tháng** | Ra mắt chính thức, 100+ khách hàng, marketplace có 5+ theme và 10+ apps |
-| **12-24 tháng** | 500+ khách hàng, mở rộng ra thị trường Đông Nam Á |
-| **24+ tháng** | 2000+ khách hàng, hệ sinh thái developer đóng góp theme/apps |
+| **12-24 tháng** | 500+ khách hàng, mở rộng ra thị trường Đông Nam Á, WebbiSDK cho developer |
+| **24+ tháng** | 2000+ khách hàng, hệ sinh thái developer đóng góp theme/apps, Webbi Enterprise |
 
 ### 2.3. Thị trường mục tiêu
 
-- **Giai đoạn 1:** Việt Nam — SMB có nhu cầu bán hàng online (thời trang, mỹ phẩm, F&B, phụ kiện...)
+- **Giai đoạn 1:** Việt Nam — SMB có nhu cầu bán hàng online/offline (thời trang, mỹ phẩm, F&B, phụ kiện...)
 - **Giai đoạn 2:** Đông Nam Á và quốc tế — sau khi đã chứng minh hiệu quả tại Việt Nam
 
 ### 2.4. Nguồn doanh thu
 
 | Nguồn thu | Mô tả | Ước tính |
 |---|---|---|
-| **Bán license WebbiOS** | Bán quyền sử dụng WebbiOS (one-time hoặc annual) | $50-200/license |
-| **Theme trả phí** | Bán theme premium trên Marketplace | $20-50/theme |
-| **Apps trả phí** | Bán apps premium trên Marketplace | $10-100/app |
-| **webbi.vn SaaS** | Gói dịch vụ managed hosting cho khách không muốn tự quản lý | $5-20/tháng |
+| **Webbi GO** (Free) | Gói miễn phí, giới hạn tính năng | $0 (lead gen) |
+| **Webbi Pro** | Gói chuyên nghiệp, đầy đủ tính năng | $5-20/tháng |
+| **Webbi Enterprise** | Gói doanh nghiệp, custom theo yêu cầu | Theo hợp đồng |
+| **Theme trả phí** | Theme premium trên Marketplace | $20-50/theme |
+| **Apps trả phí** | Apps premium trên Marketplace | $10-100/app |
+| **Webbi Mail** | Email business cho khách hàng | Free 1 email, trả phí thêm |
 | **Dịch vụ tùy chỉnh** | Tư vấn, thiết kế, phát triển theo yêu cầu | Theo dự án |
 
 ---
 
 ## 3. Đối tượng người dùng
 
-### 3.1. Personas
+### 3.1. Chủ doanh nghiệp / Cửa hàng (Admin)
 
-#### Persona 1: Chủ shop online (End User)
-- **Tên:** Chị Lan — Chủ shop thời trang online
-- **Nhu cầu:** Cần website bán hàng chuyên nghiệp, chi phí thấp, tự quản lý được
-- **Kỹ năng IT:** Cơ bản — biết dùng Facebook, Zalo, Shopee
-- **Pain point:** Shopify đắt ($29/tháng), Haravan giới hạn tính năng, WooCommerce phức tạp
-- **Kỳ vọng:** Giao diện quản trị dễ dùng, tốc độ nhanh, chi phí rẻ
+- **Đặc điểm:** Không có/ít kiến thức IT, bận rộn, quan tâm đến doanh số, hàng tồn, lợi nhuận.
+- **Nhu cầu:** Quản lý mọi thứ ở một nơi, giao diện dễ dùng (tiếng Việt), xem báo cáo nhanh, quản lý nhân viên.
+- **Tương tác:** Sử dụng Dashboard (web/mobile).
 
-#### Persona 2: Developer / Agency (Builder)
-- **Tên:** Anh Minh — Freelance developer
-- **Nhu cầu:** Nền tảng để xây dựng website cho khách hàng, kiếm thêm thu nhập từ theme/apps
-- **Kỹ năng IT:** Cao — React, TypeScript, API
-- **Pain point:** WordPress + WooCommerce quá chậm, Shopify theme bị giới hạn
-- **Kỳ vọng:** API mạnh, plugin system linh hoạt, SDK dễ dùng, tài liệu đầy đủ
+### 3.2. Nhân viên bán hàng / Thu ngân (Staff)
 
-#### Persona 3: Doanh nghiệp SMB (Business Owner)
-- **Tên:** Anh Tuấn — Giám đốc công ty phân phối
-- **Nhu cầu:** Website B2B/B2C, quản lý kho, đa kênh
-- **Kỹ năng IT:** Trung bình — biết dùng ERP cơ bản
-- **Pain point:** Giải pháp hiện tại đắt, không customize được, phụ thuộc vendor
-- **Kỳ vọng:** Sở hữu source code, tự chủ dữ liệu, scalable
+- **Đặc điểm:** Thao tác nhanh, cần sự chính xác.
+- **Nhu cầu:** Tạo đơn hàng nhanh (POS), kiểm tra tồn kho, xem thông tin khách hàng.
+- **Tương tác:** Sử dụng Dashboard (phân quyền hạn chế).
 
-### 3.2. Vai trò trong hệ thống
+### 3.3. Khách mua hàng (Customer)
 
-| Vai trò | Mô tả | Quyền hạn |
-|---|---|---|
-| **Owner** | Chủ shop — người mua license WebbiOS | Toàn quyền: quản lý mọi thứ, xóa shop, mời thành viên |
-| **Admin** | Quản lý — được Owner ủy quyền | Gần toàn quyền: quản lý sản phẩm, đơn hàng, khách hàng, cài đặt. Không thể xóa shop hoặc thay đổi quyền Owner |
-| **Staff** | Nhân viên | Quyền hạn chế: xem đơn hàng, xử lý đơn, xem sản phẩm, chat với khách |
-| **Viewer** | Người xem | Chỉ đọc: xem báo cáo, xem sản phẩm, xem đơn hàng |
+- **Đặc điểm:** Thích trải nghiệm mua sắm nhanh chóng, mượt mà.
+- **Nhu cầu:** Tìm kiếm sản phẩm nhanh, thanh toán dễ dàng, theo dõi đơn hàng, tích điểm.
+- **Tương tác:** Sử dụng Storefront (Website).
+
+### 3.4. Developer / Agency (Đối tác)
+
+- **Đặc điểm:** Có kiến thức lập trình (JS/TS, React).
+- **Nhu cầu:** Muốn tạo theme/app để bán hoặc làm cho khách hàng. Cần API rõ ràng, SDK dễ dùng, tài liệu đầy đủ.
+- **Tương tác:** Sử dụng API, WebbiSDK, WebbiCLI, đọc Docs.
 
 ---
 
 ## 4. Kiến trúc hệ thống
 
-### 4.1. Tổng quan kiến trúc
+### 4.1. Kiến trúc Serverless 100% Cloudflare
 
-WebbiOS áp dụng kiến trúc **API-first / Modular Architecture**, trong đó:
-- **API Backend** là trung tâm xử lý, phân chia thành các Module (Core & Optional ERP).
-- **Dashboard** là SPA giao tiếp với API.
-- **Storefront** là kiến trúc "Universal Storefront" kết hợp Slot System (Theme là config-driven).
-- **Apps** hoạt động theo mô hình "App-as-Worker" hoàn toàn độc lập.
+WebbiOS sử dụng hoàn toàn hệ sinh thái Cloudflare để tối đa hóa hiệu năng và giảm chi phí:
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    100% Cloudflare Infrastructure               │
-│  ┌──────────────────┐     ┌──────────────────────────────────┐  │
-│  │  Dashboard (SPA) │     │  Core API Worker (Hono.js)       │  │
-│  │  ─────────────── │────▶│  ├── Core Modules (Auth, Order)  │  │
-│  │  CF Pages (Free) │     │  ├── ERP Modules (POS, CRM)      │  │
-│  └──────────────────┘     │  └── Automation / Orchestrator   │  │
-│                           │  Bindings:                       │  │
-│  ┌──────────────────┐     │  ├── D1 (Database)               │  │
-│  │  Storefront      │────▶│  ├── R2 (Storage)                │  │
-│  │  (Universal)     │     │  ├── KV (Cache/Session)          │  │
-│  │  CF Pages (Free) │     │  └── Queues (Background Jobs)    │  │
-│  └──────────────────┘     └──────────────────────────────────┘  │
-│                                           │ fetch()             │
-│  ┌──────────────────┐             ┌───────▼───────┐             │
-│  │ Cloudflare CDN   │             │ App Workers   │             │
-│  │ (Cache Tầng 1)   │             │ (Độc lập)     │             │
-│  └──────────────────┘             └───────────────┘             │
-└─────────────────────────────────────────────────────────────────┘
-```
+1. **Cloudflare CDN:** Cache tĩnh (hình ảnh, CSS, JS) và cache động (HTML, API GET).
+2. **Cloudflare Workers (Core API):** Xử lý logic backend (Hono.js). Scale tự động, zero cold-start.
+3. **Cloudflare Pages (Dashboard):** Hosting giao diện quản trị React (SPA).
+4. **Cloudflare D1 (Database):** Cơ sở dữ liệu SQLite ở edge. Nhanh, rẻ, phù hợp với quy mô SMB.
+5. **Cloudflare R2 (Storage):** Lưu trữ file upload. Tương thích S3, không phí egress.
+6. **Cloudflare KV (Cache/Config):** Lưu trữ cấu hình hệ thống, phiên bản, rate limiting.
+7. **Cloudflare Queues (Background Jobs):** Xử lý gửi email, webhook, xử lý ảnh bất đồng bộ.
+8. **Suite/App-as-Worker:** Mỗi Suite/App mở rộng là 1 Worker độc lập, giao tiếp với Core API qua Service Bindings/HTTPS.
 
-### 4.2. Kiến trúc Module (Hướng tới Mini ERP)
+### 4.2. Kiến trúc 4-Layer
 
-WebbiOS được thiết kế để không chỉ là nền tảng e-commerce mà còn là Mini ERP:
-- **Core Modules (Luôn bật):** Products, Orders, Customers, Payments, Shipping, Settings.
-- **ERP Modules (Bật/tắt theo nhu cầu):** POS, CRM, Inventory (chuyển kho, đối soát), HRM, Finance (thu chi, công nợ).
-- Khách hàng có thể dùng WebbiOS chỉ như phần mềm quản lý (chỉ dùng Dashboard) hoặc cả Storefront.
+WebbiOS được thiết kế theo kiến trúc 4 lớp (Four-Layer Architecture):
+
+- **Layer 1 — Core Kernel (Luôn có):** Auth, RBAC, Identity Hub (wb_users), Media Manager (R2), Settings (KV), App Manager, Event Bus, Gateway Client, Audit Log, Dashboard Shell. **KHÔNG chứa** Products, Orders, Customers, Content, Theme.
+- **Layer 2 — Web Foundation App (Tùy chọn):** Content Engine (Pages + Articles), Theme System, Menu & Navigation, SEO Engine. Biến backend thành website có giao diện public. Blueprint "Mini-ERP" không cần layer này.
+- **Layer 3 — Solution Suites (Tùy chọn):** Commerce Suite (Products, Orders, Customers, Inventory, POS, CRM), Education Suite, People Suite, Booking Suite, Event Suite, v.v. Mỗi Suite = 1 Worker riêng, bảng DB có prefix riêng (`com_`, `edu_`, `ppl_`).
+- **Layer 4 — Blueprint (webbios.dev):** Công thức đóng gói 1-click. Định nghĩa Core + Suite + Theme nào được cài tự động khi khách hàng đăng ký.
 
 ### 4.3. Yêu cầu Hạ tầng bắt buộc (Cloudflare DNS)
 
 Để tối ưu hóa bảo mật và tự động hóa, WebbiOS **bắt buộc** khách hàng phải trỏ tên miền về **Cloudflare DNS**. WebbiOS sẽ gọi Cloudflare API để tự động cấu hình: Proxy (orange cloud), SSL (Full Strict), Cache Rules, và Route.
 
-### 4.4. Chiến lược 3 Tầng Cache (3-Tier Caching)
+### 4.4. Chiến lược 4 Tầng Cache (4-Tier Caching)
 
 Hệ thống tận dụng tối đa Cloudflare để đạt hiệu năng < 50ms:
-1. **Tầng 1: CF CDN Cache (Edge)**: Cache toàn bộ API response (GET) và HTML tại edge. Quản lý invalidation bằng `Cache-Tag` (purge chính xác khi update).
-2. **Tầng 2: KV Cache (Global)**: Lưu trữ settings, theme config, installed apps data. Đọc sub-ms.
-3. **Tầng 3: D1 Database (Source of Truth)**: Fallback khi cache miss. Dùng `waitUntil` để write-back lên cache sau khi đọc D1.
+
+| Tầng | Tên | Nơi lưu | Cache gì? | Khi nào dùng? |
+|---|---|---|---|---|
+| **1** | CF CDN Cache (Edge) | Edge POP | HTML, static assets, API response | Mọi request GET public |
+| **2** | API Response Cache | Worker Cache API | JSON response từ API | API public, không auth, không dynamic query |
+| **3** | KV Cache (Global) | KV Store | Settings, config, theme data | Dữ liệu cấu hình ít thay đổi |
+| **4** | D1 Database | SQLite (D1) | Source of Truth | Fallback khi tất cả cache miss |
+
+**Chi tiết từng tầng:**
+
+1. **Tầng 1: CF CDN Cache (Edge)** — Cache toàn bộ API response (GET) và HTML tại edge. Quản lý invalidation bằng `Cache-Tag` (purge chính xác khi update).
+2. **Tầng 2: API Response Cache (Worker)** — Dùng Cloudflare `Cache API` (`caches.default`) trong Worker. Cache toàn bộ kết quả trả về từ API, **trừ** những API có auth header hoặc dynamic query params (`?search=`, `?page=`, `?sort=`). Invalidation cùng lúc với CDN purge.
+3. **Tầng 3: KV Cache (Global)** — Lưu trữ settings, theme config, installed apps data. Đọc sub-ms. Write khi config thay đổi.
+4. **Tầng 4: D1 Database (Source of Truth)** — Fallback khi cache miss. Dùng `waitUntil` để write-back lên cache tầng 2+3 sau khi đọc D1.
+
+---
 
 ## 5. Công nghệ sử dụng
 
@@ -207,7 +271,8 @@ Hệ thống tận dụng tối đa Cloudflare để đạt hiệu năng < 50ms:
 | **Dashboard Build** | Vite | 6.x | Build nhanh, HMR, ESM native |
 | **Dashboard Routing** | React Router | 7.x | Mature, type-safe routing |
 | **Dashboard Styling** | TailwindCSS | 4.x | Utility-first, responsive, customizable |
-| **Storefront SDK** | React + TypeScript | Latest | Type-safe, reusable components |
+| **SDK** | @webbi/sdk (React + TS) | Latest | Type-safe, hooks, API client cho Theme/App |
+| **CLI** | @webbi/cli | Latest | Scaffold, dev, deploy, publish |
 | **Database** | Cloudflare D1 (SQLite) | Latest | Serverless SQL, free 5GB |
 | **ORM** | Drizzle ORM | Latest | Lightweight, D1 native support, type-safe |
 | **File Storage** | Cloudflare R2 | Latest | S3-compatible, no egress fees, free 10GB |
@@ -221,7 +286,6 @@ Hệ thống tận dụng tối đa Cloudflare để đạt hiệu năng < 50ms:
 | **Build Pipeline** | Turborepo | Latest | Incremental builds, caching |
 | **Language** | TypeScript | 5.x | Type safety, DX |
 | **Testing** | Vitest | Latest | Fast, Vite-native |
-| **E2E Testing** | Playwright | Latest | Cross-browser |
 | **Linting** | ESLint + Prettier | Latest | Code quality |
 | **Deploy** | Wrangler CLI | Latest | Official CF deploy tool |
 | **VCS** | Git + GitHub | Latest | Source control, CI/CD |
@@ -230,7 +294,7 @@ Hệ thống tận dụng tối đa Cloudflare để đạt hiệu năng < 50ms:
 
 | Công nghệ | Lý do KHÔNG dùng |
 |---|---|
-| **Next.js (cho backend)** | API Routes không phải backend framework thực thụ, @opennextjs/cloudflare vẫn experimental, bundle size lớn |
+| **Next.js (cho backend)** | API Routes không phải backend framework thực thụ, bundle size lớn |
 | **Express.js** | Không chạy trên CF Workers (cần Node.js runtime) |
 | **PostgreSQL / MySQL** | Cần VPS/managed service, vi phạm nguyên tắc "100% Cloudflare" |
 | **Redis** | CF KV thay thế được cho hầu hết use case |
@@ -242,337 +306,287 @@ Hệ thống tận dụng tối đa Cloudflare để đạt hiệu năng < 50ms:
 
 ## 6. Cấu trúc Monorepo
 
-### 6.1. Tổng quan cấu trúc
+### 6.1. Nguyên tắc tổ chức
+
+WebbiOS Core repo chỉ chứa **nhân hệ thống** (api + dashboard). Apps và Themes là **repo riêng biệt**, phát triển bởi team hoặc cộng đồng, sử dụng `@webbi/sdk` và `@webbi/cli`.
+
+```
+┌─────────────────────────────┐     ┌──────────────────────────────┐
+│  WebbiOS (Core Monorepo)    │     │  Repos riêng biệt            │
+│  ──────────────────────     │     │  ──────────────────           │
+│  apps/                      │     │  webbi-storefront-starter/   │
+│  ├── api/       (Kernel)    │     │  webbi-theme-elegant/        │
+│  └── dashboard/ (Admin UI)  │     │  webbi-app-zalopay/          │
+│                             │     │  webbi-app-reviews/          │
+│  packages/                  │     │  webbi-app-loyalty/          │
+│  ├── config/                │     │  webbi-app-livechat/         │
+│  ├── db/                    │     │  ...                         │
+│  ├── shared/                │     │                              │
+│  └── ui/                    │     │  Tất cả depend on:           │
+│                             │     │  @webbi/sdk (npm)            │
+│  docs/                      │     │  @webbi/cli (npm)            │
+└─────────────────────────────┘     └──────────────────────────────┘
+```
+
+### 6.2. Core Monorepo (Private)
 
 ```
 WebbiOS/
-├── .github/
-│   └── workflows/              # CI/CD pipelines
-│       ├── ci.yml              # Lint, test, type-check
-│       ├── deploy-api.yml      # Deploy API to CF Workers
-│       ├── deploy-dashboard.yml # Deploy Dashboard to CF Pages
-│       └── release.yml         # Create release + tag
+├── apps/
+│   │   # --- PHẦN 1: CORE (Đóng gói để cài cho khách) ---
+│   ├── api/                          # Core API Worker (Kernel)
+│   │   ├── src/
+│   │   │   ├── index.ts              # Hono app entry point
+│   │   │   ├── bindings.ts           # CF bindings type definitions
+│   │   │   ├── routes/               # API route handlers
+│   │   │   │   ├── admin/            # /v1/admin/* (Dashboard API)
+│   │   │   │   │   ├── auth.ts
+│   │   │   │   │   ├── settings.ts
+│   │   │   │   │   ├── users.ts
+│   │   │   │   │   ├── media.ts
+│   │   │   │   │   ├── menus.ts
+│   │   │   │   │   ├── apps.ts
+│   │   │   │   │   ├── api-keys.ts
+│   │   │   │   │   └── audit.ts
+│   │   │   │   └── gateway/          # /v1/gateway/* (Platform Gateway API)
+│   │   │   │       ├── license.ts
+│   │   │   │       └── partner.ts
+│   │   │   │   # ⚠️ Products, Orders, Customers routes → Commerce Suite (Worker riêng)
+│   │   │   │   # ⚠️ Articles, Pages, Themes routes → Web Foundation App (Worker riêng)
+│   │   │   ├── services/             # Business logic
+│   │   │   ├── middleware/           # auth, rbac, rate-limit, cors, audit
+│   │   │   ├── events/              # Event system (IPC cho Apps)
+│   │   │   └── integrations/        # Payment, Shipping
+│   │   ├── wrangler.toml
+│   │   └── package.json
+│   │
+│   ├── dashboard/                    # Admin Dashboard (CF Pages)
+│   │   ├── src/
+│   │   │   ├── main.tsx
+│   │   │   ├── App.tsx
+│   │   │   ├── pages/               # LoginPage, DashboardPage, ProductsPage...
+│   │   │   ├── components/
+│   │   │   │   ├── ui/              # Base UI (Button, Input, Modal, Table)
+│   │   │   │   ├── layout/          # Sidebar, Header, MainLayout
+│   │   │   │   └── shared/          # ProductForm, OrderCard...
+│   │   │   ├── hooks/
+│   │   │   ├── stores/              # Zustand stores
+│   │   │   ├── api/                 # API client
+│   │   │   ├── locales/             # i18n (vi, en)
+│   │   │   └── utils/
+│   │   ├── vite.config.ts
+│   │   └── package.json
+│   │
+│   └── docs/                         # docs.webbios.dev (Astro Starlight)
 │
 ├── packages/
-│   ├── core/                   # Shared code
-│   │   ├── src/
-│   │   │   ├── types/          # Shared TypeScript types
-│   │   │   │   ├── product.ts
-│   │   │   │   ├── order.ts
-│   │   │   │   ├── customer.ts
-│   │   │   │   ├── payment.ts
-│   │   │   │   ├── shipping.ts
-│   │   │   │   ├── auth.ts
-│   │   │   │   ├── theme.ts
-│   │   │   │   ├── app.ts
-│   │   │   │   └── index.ts
-│   │   │   ├── constants/      # Shared constants
-│   │   │   │   ├── status.ts   # Order status, product status, etc.
-│   │   │   │   ├── errors.ts   # Error codes
-│   │   │   │   └── config.ts   # Default config values
-│   │   │   ├── utils/          # Shared utilities
-│   │   │   │   ├── slug.ts     # URL slug generation
-│   │   │   │   ├── currency.ts # Currency formatting (VND, USD)
-│   │   │   │   ├── date.ts     # Date formatting
-│   │   │   │   ├── validator.ts # Input validation
-│   │   │   │   └── id.ts       # ID generation (nanoid/ULID)
-│   │   │   └── index.ts
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   │
-│   ├── api/                    # Backend API
-│   │   ├── src/
-│   │   │   ├── index.ts        # Hono app entry point
-│   │   │   ├── bindings.ts     # CF bindings type definitions
-│   │   │   ├── routes/         # API route handlers
-│   │   │   │   ├── auth.ts
-│   │   │   │   ├── products.ts
-│   │   │   │   ├── orders.ts
-│   │   │   │   ├── customers.ts
-│   │   │   │   ├── payments.ts
-│   │   │   │   ├── shipping.ts
-│   │   │   │   ├── media.ts    # File upload/management
-│   │   │   │   ├── settings.ts
-│   │   │   │   ├── themes.ts
-│   │   │   │   ├── apps.ts
-│   │   │   │   ├── reports.ts
-│   │   │   │   ├── webhooks.ts
-│   │   │   │   └── storefront.ts # Public API for storefront
-│   │   │   ├── services/       # Business logic
-│   │   │   │   ├── auth.service.ts
-│   │   │   │   ├── product.service.ts
-│   │   │   │   ├── order.service.ts
-│   │   │   │   ├── customer.service.ts
-│   │   │   │   ├── payment.service.ts
-│   │   │   │   ├── shipping.service.ts
-│   │   │   │   ├── media.service.ts
-│   │   │   │   ├── cache.service.ts
-│   │   │   │   ├── theme.service.ts
-│   │   │   │   ├── app.service.ts
-│   │   │   │   └── version.service.ts
-│   │   │   ├── middleware/     # Hono middlewares
-│   │   │   │   ├── auth.ts     # JWT verification
-│   │   │   │   ├── rbac.ts     # Role-based access control
-│   │   │   │   ├── rate-limit.ts
-│   │   │   │   ├── cors.ts
-│   │   │   │   ├── logger.ts
-│   │   │   │   ├── error-handler.ts
-│   │   │   │   └── i18n.ts     # API response i18n
-│   │   │   ├── events/         # Event system
-│   │   │   │   ├── event-bus.ts
-│   │   │   │   ├── handlers/
-│   │   │   │   │   ├── order.handler.ts
-│   │   │   │   │   ├── product.handler.ts
-│   │   │   │   │   ├── customer.handler.ts
-│   │   │   │   │   └── payment.handler.ts
-│   │   │   │   └── types.ts    # Event type definitions
-│   │   │   ├── plugins/        # Plugin engine
-│   │   │   │   ├── plugin-manager.ts
-│   │   │   │   ├── plugin-context.ts
-│   │   │   │   ├── sandbox.ts
-│   │   │   │   └── hooks.ts
-│   │   │   ├── integrations/   # Third-party integrations
-│   │   │   │   ├── payment/
-│   │   │   │   │   ├── zalopay.ts
-│   │   │   │   │   ├── momo.ts
-│   │   │   │   │   └── shopeepay.ts
-│   │   │   │   └── shipping/
-│   │   │   │       ├── spx.ts
-│   │   │   │       ├── ghtk.ts
-│   │   │   │       ├── ghn.ts
-│   │   │   │       ├── viettel-post.ts
-│   │   │   │       └── ahamove.ts
-│   │   │   └── db/             # Database layer
-│   │   │       ├── schema.ts   # Drizzle schema
-│   │   │       ├── migrations/ # D1 migrations
-│   │   │       └── seed.ts     # Seed data
-│   │   ├── wrangler.toml       # CF Workers config
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   │
-│   ├── dashboard/              # Admin Dashboard
-│   │   ├── src/
-│   │   │   ├── main.tsx        # React entry point
-│   │   │   ├── App.tsx         # Root component + router
-│   │   │   ├── i18n.ts         # i18next config
-│   │   │   ├── api/            # API client
-│   │   │   │   ├── client.ts   # Fetch wrapper with auth
-│   │   │   │   ├── products.ts
-│   │   │   │   ├── orders.ts
-│   │   │   │   ├── customers.ts
-│   │   │   │   └── ...
-│   │   │   ├── pages/          # Page components
-│   │   │   │   ├── auth/
-│   │   │   │   │   ├── LoginPage.tsx
-│   │   │   │   │   ├── ForgotPasswordPage.tsx
-│   │   │   │   │   └── ResetPasswordPage.tsx
-│   │   │   │   ├── dashboard/
-│   │   │   │   │   └── DashboardPage.tsx    # Overview/home
-│   │   │   │   ├── products/
-│   │   │   │   │   ├── ProductsPage.tsx     # List
-│   │   │   │   │   ├── ProductDetailPage.tsx # Create/Edit
-│   │   │   │   │   ├── CategoriesPage.tsx
-│   │   │   │   │   └── InventoryPage.tsx
-│   │   │   │   ├── orders/
-│   │   │   │   │   ├── OrdersPage.tsx
-│   │   │   │   │   └── OrderDetailPage.tsx
-│   │   │   │   ├── customers/
-│   │   │   │   │   ├── CustomersPage.tsx
-│   │   │   │   │   └── CustomerDetailPage.tsx
-│   │   │   │   ├── reports/
-│   │   │   │   │   ├── SalesReportPage.tsx
-│   │   │   │   │   ├── ProductReportPage.tsx
-│   │   │   │   │   └── CustomerReportPage.tsx
-│   │   │   │   ├── settings/
-│   │   │   │   │   ├── GeneralPage.tsx
-│   │   │   │   │   ├── PaymentPage.tsx
-│   │   │   │   │   ├── ShippingPage.tsx
-│   │   │   │   │   ├── ThemesPage.tsx
-│   │   │   │   │   ├── AppsPage.tsx
-│   │   │   │   │   ├── UsersPage.tsx
-│   │   │   │   │   ├── DomainPage.tsx
-│   │   │   │   │   └── UpdatePage.tsx        # Version update
-│   │   │   │   └── marketing/
-│   │   │   │       ├── DiscountsPage.tsx
-│   │   │   │       └── CouponsPage.tsx
-│   │   │   ├── components/     # Reusable UI components
-│   │   │   │   ├── ui/         # Base UI (Button, Input, Modal, Table...)
-│   │   │   │   ├── layout/     # Sidebar, Header, MainLayout
-│   │   │   │   └── shared/     # Business components (ProductForm, OrderCard...)
-│   │   │   ├── hooks/          # Custom React hooks
-│   │   │   ├── stores/         # State management (Zustand)
-│   │   │   ├── locales/        # Translation files
-│   │   │   │   ├── vi/
-│   │   │   │   │   ├── common.json
-│   │   │   │   │   ├── products.json
-│   │   │   │   │   ├── orders.json
-│   │   │   │   │   └── ...
-│   │   │   │   └── en/         # Thêm sau
-│   │   │   └── utils/
-│   │   ├── public/
-│   │   │   └── _redirects      # SPA routing for CF Pages
-│   │   ├── index.html
-│   │   ├── vite.config.ts
-│   │   ├── tailwind.config.ts
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   │
-│   ├── storefront-sdk/         # SDK cho theme developers
-│   │   ├── src/
-│   │   │   ├── client.ts       # API client cho storefront
-│   │   │   ├── components/     # Reusable React components
-│   │   │   │   ├── ProductCard.tsx
-│   │   │   │   ├── ProductList.tsx
-│   │   │   │   ├── ProductDetail.tsx
-│   │   │   │   ├── Cart.tsx
-│   │   │   │   ├── CartItem.tsx
-│   │   │   │   ├── Checkout.tsx
-│   │   │   │   ├── CheckoutForm.tsx
-│   │   │   │   ├── SearchBar.tsx
-│   │   │   │   ├── CategoryNav.tsx
-│   │   │   │   ├── Pagination.tsx
-│   │   │   │   └── index.ts
-│   │   │   ├── hooks/          # React hooks
-│   │   │   │   ├── useProducts.ts
-│   │   │   │   ├── useProduct.ts
-│   │   │   │   ├── useCart.ts
-│   │   │   │   ├── useCheckout.ts
-│   │   │   │   ├── useCategories.ts
-│   │   │   │   ├── useSearch.ts
-│   │   │   │   ├── useCustomer.ts
-│   │   │   │   └── index.ts
-│   │   │   ├── providers/      # Context providers
-│   │   │   │   ├── WebbiOSProvider.tsx  # Root provider
-│   │   │   │   ├── CartProvider.tsx
-│   │   │   │   └── AuthProvider.tsx
-│   │   │   ├── types/
-│   │   │   └── index.ts        # Main exports
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   │
-│   └── cli/                    # WebbiOS CLI tool
-│       ├── src/
-│       │   ├── index.ts
-│       │   ├── commands/
-│       │   │   ├── init.ts     # webbios init
-│       │   │   ├── update.ts   # webbios update
-│       │   │   ├── deploy.ts   # webbios deploy
-│       │   │   ├── install.ts  # webbios install <app>
-│       │   │   ├── uninstall.ts
-│       │   │   └── migrate.ts  # webbios migrate
-│       │   └── utils/
-│       ├── package.json
-│       └── tsconfig.json
+│   ├── config/                       # Shared config (eslint, tsconfig, prettier)
+│   ├── db/                           # Database layer
+│   │   ├── schema.ts                 # Drizzle schema (Core wb_* tables)
+│   │   ├── migrations/               # D1 migrations
+│   │   └── seed.ts                   # Seed data
+│   ├── shared/                       # Shared types, constants, utils
+│   │   ├── types/                    # User, Role, Setting types
+│   │   ├── constants/                # Status codes, error codes
+│   │   └── utils/                    # slug, currency, date, id (ULID)
+│   ├── sdk/                          # @webbi/sdk — Published lên npm
+│   ├── cli/                          # @webbi/cli — CLI tool (init, pack, install, upgrade)
+│   └── ui/                           # UI component library (Dashboard)
 │
-├── themes/
-│   └── default/                # Theme mặc định
-│       ├── src/
-│       │   ├── pages/
-│       │   │   ├── HomePage.tsx
-│       │   │   ├── ProductPage.tsx
-│       │   │   ├── CategoryPage.tsx
-│       │   │   ├── CartPage.tsx
-│       │   │   ├── CheckoutPage.tsx
-│       │   │   ├── AccountPage.tsx
-│       │   │   ├── SearchPage.tsx
-│       │   │   └── NotFoundPage.tsx
-│       │   ├── layouts/
-│       │   │   ├── MainLayout.tsx
-│       │   │   ├── Header.tsx
-│       │   │   └── Footer.tsx
-│       │   ├── components/     # Theme-specific components
-│       │   ├── styles/
-│       │   │   └── theme.css
-│       │   ├── config.ts       # Theme configuration
-│       │   └── main.tsx
-│       ├── public/
-│       ├── theme.json          # Theme metadata
-│       ├── vite.config.ts
-│       ├── package.json
-│       └── tsconfig.json
+├── docs/
+│   ├── PRD.md
+│   ├── Database_Schema.md
+│   ├── Platform_PRD.md
+│   ├── Platform_Database_Schema.md
+│   ├── Coding_Guidelines.md
+│   └── Deployment_Guide.md
 │
-├── apps/                       # Sample apps for marketplace
-│   ├── loyalty-points/         # App mẫu: Tích điểm
-│   ├── reviews/                # App mẫu: Đánh giá sản phẩm
-│   └── live-chat/              # App mẫu: Chat trực tuyến
-│
-├── docs/                       # Documentation
-│   ├── PRD.md                  # This file
-│   ├── API.md                  # API documentation
-│   ├── THEME_GUIDE.md          # Theme development guide
-│   ├── APP_GUIDE.md            # App development guide
-│   └── DEPLOYMENT.md           # Deployment guide
-│
-├── pnpm-workspace.yaml         # pnpm monorepo config
-├── turbo.json                  # Turborepo config
-├── package.json                # Root package.json
-├── tsconfig.base.json          # Base TypeScript config
-├── .gitignore
-├── .eslintrc.js
-├── .prettierrc
-├── CHANGELOG.md
-└── README.md
+├── pnpm-workspace.yaml
+├── turbo.json
+├── tsconfig.base.json
+└── package.json
 ```
 
-### 6.2. Package Dependencies
+> ⚠️ Không có `storefront/`, `themes/`, hay marketplace apps trong Core repo — chúng nằm ở repo riêng.
+>
+> **WebbiOS Platform** (`api.webbios.dev`, `webbios.dev`) nằm ở repo riêng biệt (`WebbiPlatform`), sử dụng chính WebbiOS Core làm nền tảng admin (dogfooding). Xem chi tiết tại `Platform_PRD.md`.
+
+### 6.3. Npm Packages (Published lên npm registry)
+
+WebbiOS cung cấp 2 npm package chính cho developer:
+
+| Package | Mô tả | Sử dụng bởi |
+|---|---|---|
+| `@webbi/sdk` | SDK chính — types, API client, hooks, event handlers | App developers, Theme developers |
+| `@webbi/cli` | CLI tool — scaffold, dev, deploy, publish | App developers, Theme developers |
+
+**`@webbi/sdk` bao gồm:**
+```typescript
+// Types
+import type { Product, Order, Customer, Collection } from '@webbi/sdk';
+
+// API Client (cho Apps — gọi Core API)
+import { WebbiClient } from '@webbi/sdk';
+const client = new WebbiClient({ apiUrl, appId, appSecret });
+const products = await client.products.list();
+
+// React Hooks (cho Themes — Storefront)
+import { useProducts, useCart, useCheckout, useCustomer } from '@webbi/sdk/react';
+
+// Event Handlers (cho Apps — nhận event từ Core)
+import { defineEventHandler } from '@webbi/sdk';
+export const onOrderCreated = defineEventHandler('order.created', async (event) => { ... });
+```
+
+### 6.4. Webbi Developer Portal (docs.webbios.dev)
+
+Là trung tâm tài liệu kỹ thuật dành cho cộng đồng phát triển WebbiOS.
+- **Công nghệ:** Astro Starlight (tương tự Cloudflare Docs)
+- **Tính năng:**
+  - Auto-generated Docs từ `TypeDoc` (SDK comments). Nằm ngay trong thư mục `apps/docs` của Monorepo.
+  - Hướng dẫn thiết lập SDK, tạo App, tạo Theme.
+  - Tích hợp tìm kiếm (Algolia / Pagefind).
+
+**`@webbi/cli` commands:**
+```bash
+# Scaffold
+npx @webbi/cli create-app my-app        # Tạo App project từ template
+npx @webbi/cli create-theme my-theme    # Tạo Theme project từ template
+
+# Development
+webbi dev                                # Chạy local dev server + mock API
+webbi dev --link <api-url>               # Chạy local với real API
+
+# Deploy
+webbi deploy                             # Deploy lên Cloudflare
+webbi deploy --preview                   # Deploy preview (staging)
+
+# Publish (lên Marketplace)
+webbi publish                            # Submit lên Webbi Marketplace
+```
+
+### 6.4. Repo mẫu: App
 
 ```
-┌──────────┐
-│   core   │ ◀── Shared types, utils (no dependencies)
-└────┬─────┘
-     │
-     ├──────────────────┬────────────────────┐
-     ▼                  ▼                    ▼
-┌──────────┐    ┌──────────────┐    ┌────────────────┐
-│   api    │    │  dashboard   │    │ storefront-sdk │
-│          │    │  (depends on │    │  (depends on   │
-│(depends  │    │   core)      │    │   core)        │
-│ on core) │    └──────────────┘    └───────┬────────┘
-└──────────┘                                │
-                                            ▼
-                                    ┌──────────────┐
-                                    │  themes/*    │
-                                    │ (depends on  │
-                                    │ storefront-  │
-                                    │     sdk)     │
-                                    └──────────────┘
+webbi-app-zalopay/                       # Ví dụ App thanh toán ZaloPay
+├── src/
+│   ├── index.ts                         # Worker entry point
+│   ├── routes/
+│   │   ├── callback.ts                  # Webhook callback từ ZaloPay
+│   │   └── settings.ts                  # API cho settings UI trên Dashboard
+│   └── handlers/
+│       ├── order-created.ts             # Event: order.created
+│       └── order-paid.ts                # Event: order.paid
+├── app.json                             # App manifest
+├── wrangler.toml
+├── package.json                         # depends on @webbi/sdk
+└── tsconfig.json
 ```
 
-### 6.3. pnpm-workspace.yaml
+**`app.json` manifest:**
+```json
+{
+  "name": "ZaloPay Payment",
+  "slug": "zalopay-payment",
+  "version": "1.0.0",
+  "description": "Tích hợp thanh toán ZaloPay cho WebbiOS",
+  "permissions": ["orders:read", "payments:create"],
+  "hooks": ["order.created", "order.paid"],
+  "menu": {
+    "label": "ZaloPay",
+    "icon": "credit-card",
+    "path": "/apps/zalopay"
+  },
+  "settings_schema": [
+    { "key": "app_id", "type": "string", "label": "ZaloPay App ID", "required": true },
+    { "key": "secret_key", "type": "password", "label": "Secret Key", "required": true },
+    { "key": "sandbox", "type": "boolean", "label": "Sandbox Mode", "default": true }
+  ]
+}
+```
+
+### 6.5. Repo mẫu: Theme (Storefront)
+
+```
+webbi-storefront-starter/                # Theme mặc định
+├── src/
+│   ├── main.tsx                         # Entry point
+│   ├── pages/
+│   │   ├── HomePage.tsx
+│   │   ├── ProductPage.tsx
+│   │   ├── CollectionPage.tsx
+│   │   ├── CartPage.tsx
+│   │   ├── CheckoutPage.tsx
+│   │   ├── AccountPage.tsx
+│   │   ├── ArticlePage.tsx
+│   │   ├── SearchPage.tsx
+│   │   └── NotFoundPage.tsx
+│   ├── layouts/
+│   │   ├── MainLayout.tsx
+│   │   ├── Header.tsx
+│   │   └── Footer.tsx
+│   ├── components/                      # Theme-specific components
+│   └── styles/
+│       └── theme.css
+├── theme.json                           # Theme manifest
+├── vite.config.ts
+├── package.json                         # depends on @webbi/sdk
+└── tsconfig.json
+```
+
+**`theme.json` manifest:**
+```json
+{
+  "name": "Starter Theme",
+  "slug": "webbios-starter",
+  "version": "1.0.0",
+  "author": "WebbiOS Team",
+  "description": "Theme mặc định cho WebbiOS — tối giản, nhanh, responsive",
+  "preview_url": "https://demo.webbi.vn",
+  "config_schema": {
+    "primary_color": { "type": "color", "default": "#2563eb", "label": "Màu chủ đạo" },
+    "logo_url": { "type": "image", "label": "Logo" },
+    "show_banner": { "type": "boolean", "default": true, "label": "Hiện banner" },
+    "announcement_text": { "type": "string", "label": "Thông báo header" }
+  }
+}
+```
+
+### 6.6. Package Dependencies
+
+```
+┌──────────────────────────────────────────────┐
+│  npm Registry                                │
+│  ┌────────────┐     ┌────────────┐           │
+│  │ @webbi/sdk  │     │ @webbi/cli │           │
+│  │ (types,     │     │ (scaffold, │           │
+│  │  client,    │     │  dev,      │           │
+│  │  hooks)     │     │  deploy)   │           │
+│  └──────┬──────┘     └────────────┘           │
+│         │                                     │
+│    ┌────┴──────────────┬──────────────┐       │
+│    ▼                   ▼              ▼       │
+│  ┌──────────┐  ┌──────────────┐  ┌────────┐  │
+│  │ App Repos │  │ Theme Repos  │  │Storefront│ │
+│  │ (Workers) │  │ (CF Pages)   │  │(CF Pages)│ │
+│  └──────────┘  └──────────────┘  └────────┘  │
+└──────────────────────────────────────────────┘
+         │                │              │
+         ▼                ▼              ▼
+┌──────────────────────────────────────────────┐
+│  WebbiOS Core API (Kernel)                   │
+│  ├── /v1/admin/*  ← Dashboard gọi           │
+│  ├── /v1/client/* ← Storefront/Theme gọi    │
+│  └── /v1/apps/*   ← Apps gọi                │
+└──────────────────────────────────────────────┘
+```
+
+### 6.7. pnpm-workspace.yaml (Core repo)
 
 ```yaml
 packages:
   - 'packages/*'
-  - 'themes/*'
   - 'apps/*'
-```
-
-### 6.4. turbo.json
-
-```json
-{
-  "$schema": "https://turbo.build/schema.json",
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "lint": {},
-    "test": {
-      "dependsOn": ["build"]
-    },
-    "type-check": {
-      "dependsOn": ["^build"]
-    },
-    "deploy": {
-      "dependsOn": ["build", "test"]
-    }
-  }
-}
 ```
 
 ---
@@ -2087,48 +2101,305 @@ Mỗi App được thiết kế như một **Cloudflare Worker hoàn toàn độ
 - **Dashboard:** App đăng ký MenuItem và Widget UI trong `app.json`. Dashboard React app sẽ render widget dưới dạng Iframe hoặc dynamic import từ R2. Không cần redeploy Dashboard.
 - **Storefront:** Sử dụng Slot System (chi tiết tại mục 9).
 
-## 19. Marketplace
+## 19. Marketplace & Platform API
 
-### 19.1. Marketplace Architecture
+*(Lưu ý: Logic liên quan đến Platform, Marketplace, quản lý License và Billing đã được tách riêng sang tài liệu `Platform_PRD.md` và schema database `Platform_Database_Schema.md`)*
 
-```
-┌───────────────────────────────────────────────────┐
-│              WebbiOS Marketplace                   │
-│              (marketplace.webbi.vn)                │
-│                                                    │
-│  ┌─────────────┐  ┌─────────────┐  ┌───────────┐ │
-│  │ Theme Store  │  │ App Store   │  │ Developer │ │
-│  │             │  │             │  │ Portal    │ │
-│  │ Browse      │  │ Browse      │  │           │ │
-│  │ Preview     │  │ Reviews     │  │ Submit    │ │
-│  │ Install     │  │ Install     │  │ Manage    │ │
-│  │ Purchase    │  │ Purchase    │  │ Analytics │ │
-│  └─────────────┘  └─────────────┘  └───────────┘ │
-│                                                    │
-│  Backend: Hono.js on CF Workers                   │
-│  Storage: R2 (theme/app bundles)                  │
-│  Database: D1 (listings, reviews, purchases)      │
-└───────────────────────────────────────────────────┘
-```
-
-### 19.2. Cài đặt Theme/App từ Marketplace
+### 19.1. Cài đặt Theme/App từ Marketplace (Góc nhìn từ Core API)
 
 ```
 1. Khách browse Marketplace từ Dashboard
 2. Nhấn "Cài đặt" (hoặc "Mua" nếu trả phí)
 3. Dashboard gọi API: POST /api/themes/install hoặc POST /api/apps/install
-4. API:
-   a. Verify purchase (nếu trả phí)
-   b. Tải bundle từ Marketplace CDN (R2)
+4. Core API:
+   a. Gọi Platform API (api.webbios.dev/licenses/verify) để check license
+   b. Nếu hợp lệ, tải bundle từ Marketplace CDN (R2 của Platform)
    c. Validate package integrity (checksum)
-   d. Đăng ký theme/app vào D1
+   d. Đăng ký theme/app vào D1 của khách (`webbios_core_db`)
    e. Đăng ký event hooks (nếu là app)
    f. Trả về status
 5. Dashboard hiển thị "Cài đặt thành công"
-6. Khách có thể cấu hình theme/app
+```
+
+### 13.2. Order Number Format
+
+```
+#1001, #1002, #1003, ...
+
+Bắt đầu từ 1001 (có thể cấu hình).
+Tự động tăng dần.
+Unique trong phạm vi 1 shop.
+```
+
+### 13.3. Checkout Flow (Storefront)
+
+```
+1. Khách thêm sản phẩm vào giỏ hàng
+2. Khách nhấn "Thanh toán"
+3. Nhập thông tin giao hàng (hoặc chọn địa chỉ có sẵn)
+4. Chọn phương thức vận chuyển → Tính phí ship
+5. Nhập mã giảm giá (nếu có) → Validate + tính lại tổng
+6. Chọn phương thức thanh toán
+7. Xác nhận đơn hàng
+8. Redirect tới payment gateway (nếu không phải COD)
+9. Payment callback → cập nhật payment_status
+10. Hiển thị trang "Đặt hàng thành công"
+11. Event: order.created → gửi email/notification
+```
+
+### 13.4. Tính năng đơn hàng
+
+| Tính năng | Mô tả | Ưu tiên |
+|---|---|---|
+| Danh sách đơn hàng | Filter theo status, date, search | P0 |
+| Chi tiết đơn hàng | Thông tin đầy đủ, timeline | P0 |
+| Xử lý đơn | Xác nhận, giao hàng, hoàn thành | P0 |
+| Hủy đơn | Với lý do, hoàn stock | P0 |
+| Hoàn tiền | Full/partial refund | P1 |
+| In hóa đơn | PDF invoice | P1 |
+| Tạo đơn thủ công | Admin tạo đơn (POS-like) | P1 |
+| Timeline/Activity log | Lịch sử mọi thao tác | P0 |
+| Ghi chú nội bộ | Staff notes | P0 |
+| Export | Xuất CSV/Excel | P1 |
+
+---
+
+## 14. Quản lý khách hàng
+
+### 14.1. Tính năng
+
+| Tính năng | Mô tả | Ưu tiên |
+|---|---|---|
+| Danh sách khách hàng | Search, filter, sort | P0 |
+| Chi tiết khách hàng | Thông tin + lịch sử mua hàng | P0 |
+| Nhiều địa chỉ | Khách lưu nhiều địa chỉ giao hàng | P0 |
+| Tags | Phân loại khách (VIP, Wholesale...) | P1 |
+| Customer accounts | Khách tự đăng ký/đăng nhập trên storefront | P1 |
+| Import/Export | CSV/Excel | P1 |
+| Thống kê khách | Tổng đơn, tổng chi tiêu, đơn gần nhất | P0 |
+
+### 14.2. Customer vs User
+
+- **User** = thành viên quản trị (admin, staff) — đăng nhập Dashboard
+- **Customer** = khách hàng mua hàng — đăng nhập Storefront (optional)
+
+Hai bảng riêng biệt, auth riêng biệt.
+
+---
+
+## 15. Tích hợp thanh toán
+
+### 15.1. Các cổng thanh toán
+
+| Cổng | Loại | Ưu tiên | Ghi chú |
+|---|---|---|---|
+| **COD** | Thanh toán khi nhận hàng | P0 | Không cần tích hợp API |
+| **Bank Transfer** | Chuyển khoản ngân hàng | P0 | Hiển thị thông tin tài khoản, xác nhận thủ công |
+| **ZaloPay** | E-wallet | P0 | API: zalopay.vn |
+| **MoMo** | E-wallet | P0 | API: momo.vn |
+| **ShopeePay** | E-wallet | P0 | API: shopeepay.vn |
+
+### 15.2. Payment Flow
+
+```
+┌──────────┐     ┌──────────────┐     ┌──────────────┐
+│Storefront│────▶│ WebbiOS API  │────▶│Payment Gateway│
+│Checkout  │     │              │     │(ZaloPay/MoMo) │
+└──────────┘     │ 1.Create     │     │               │
+                 │   payment    │     │ 2.Return      │
+                 │   record     │     │   payment URL │
+                 │              │◀────│               │
+                 └──────┬───────┘     └───────┬───────┘
+                        │                     │
+                        │ 3.Redirect          │
+                        │    customer         │
+                        ▼                     │
+                 ┌──────────────┐             │
+                 │ Payment Page │             │
+                 │ (Gateway UI) │             │
+                 └──────┬───────┘             │
+                        │ 4.Customer pays     │
+                        ▼                     │
+                 ┌──────────────┐             │
+                 │ Gateway      │ 5.Callback  │
+                 │ processes    │────────────▶│
+                 └──────────────┘     ┌───────┴───────┐
+                                      │ WebbiOS API   │
+                                      │ /callback     │
+                                      │               │
+                                      │ 6.Verify sig  │
+                                      │ 7.Update order│
+                                      │ 8.Emit event  │
+                                      └───────────────┘
+```
+
+### 15.3. Payment Provider Interface
+
+Mỗi payment provider implement cùng 1 interface:
+
+```typescript
+interface PaymentProvider {
+  name: string;
+  
+  // Tạo giao dịch thanh toán
+  createPayment(params: {
+    orderId: string;
+    amount: number;
+    description: string;
+    returnUrl: string;
+    callbackUrl: string;
+  }): Promise<{ paymentUrl: string; transactionId: string }>;
+  
+  // Verify callback từ gateway
+  verifyCallback(request: Request): Promise<{
+    transactionId: string;
+    orderId: string;
+    amount: number;
+    status: 'success' | 'failed';
+    rawData: any;
+  }>;
+  
+  // Hoàn tiền
+  refund(params: {
+    transactionId: string;
+    amount: number;
+    reason: string;
+  }): Promise<{ refundId: string; status: string }>;
+  
+  // Kiểm tra trạng thái
+  queryStatus(transactionId: string): Promise<{
+    status: string;
+    amount: number;
+    paidAt?: string;
+  }>;
+}
 ```
 
 ---
+
+## 16. Tích hợp vận chuyển
+
+### 16.1. Các đơn vị vận chuyển
+
+| Đơn vị | Ưu tiên | Ghi chú |
+|---|---|---|
+| **GHN** (Giao Hàng Nhanh) | P0 | API: api.ghn.vn |
+| **GHTK** (Giao Hàng Tiết Kiệm) | P0 | API: services.giaohangtietkiem.vn |
+| **SPX** (Shopee Express) | P0 | API: spx.vn |
+| **Viettel Post** | P0 | API: partner.viettelpost.vn |
+| **Ahamove** | P0 | API: apistg.ahamove.com |
+
+### 16.2. Shipping Flow
+
+```
+1. Khách chọn địa chỉ giao hàng
+2. API gọi shipping providers để tính phí
+3. Hiển thị danh sách options (đơn vị + giá + thời gian dự kiến)
+4. Khách chọn → lưu vào order
+5. Admin xác nhận đơn → Tạo vận đơn qua API
+6. Nhận tracking number
+7. Theo dõi trạng thái qua API hoặc webhook
+```
+
+### 16.3. Shipping Provider Interface
+
+```typescript
+interface ShippingProvider {
+  name: string;
+  
+  // Tính phí vận chuyển
+  calculateFee(params: {
+    fromDistrict: string;
+    fromWard: string;
+    toDistrict: string;
+    toWard: string;
+    weight: number;       // gram
+    items: Array<{ quantity: number; price: number }>;
+  }): Promise<{
+    fee: number;
+    estimatedDays: number;
+    serviceName: string;
+  }>;
+  
+  // Tạo đơn vận chuyển
+  createOrder(params: {
+    orderId: string;
+    senderInfo: AddressInfo;
+    receiverInfo: AddressInfo;
+    items: ShippingItem[];
+    codAmount: number;       // Thu hộ COD
+    note: string;
+  }): Promise<{
+    trackingNumber: string;
+    labelUrl?: string;       // URL in phiếu gửi
+    expectedDelivery: string;
+  }>;
+  
+  // Theo dõi
+  getTracking(trackingNumber: string): Promise<TrackingInfo>;
+  
+  // Hủy
+  cancelOrder(trackingNumber: string): Promise<{ success: boolean }>;
+  
+  // Lấy danh sách tỉnh/huyện/xã
+  getProvinces(): Promise<Province[]>;
+  getDistricts(provinceId: string): Promise<District[]>;
+  getWards(districtId: string): Promise<Ward[]>;
+}
+```
+
+---
+
+## 17. Hệ thống Theme
+
+### 17.1. Cấu trúc Theme kiểu mới (CSS + JSON Config)
+
+Với Universal Storefront, Theme không còn là mã nguồn React phức tạp, mà đơn giản là:
+- **JSON Config:** Cấu trúc các Section, màu sắc (Primary, Secondary, Text), font chữ, padding, layout.
+- **CSS File:** Chứa các biến CSS (`--color-primary`, `--radius-md`) và custom styling ghi đè.
+- **Assets:** Ảnh nền, fonts, logo lưu trữ trên R2.
+
+### 17.2. Luồng cài đặt và Đổi Theme (Zero Deploy)
+
+1. Khách chọn Theme mới từ Marketplace hoặc Dashboard.
+2. Dashboard gọi API tải `theme.json` và `theme.css` về lưu vào D1 / R2 của khách.
+3. Cập nhật `active_theme` trong D1 và invalidate KV cache.
+4. Universal Storefront tự động fetch config mới, áp dụng CSS Variables mới.
+5. **Hoàn tất tức thì — Không cần Cloudflare Pages rebuild.**
+
+## 18. Hệ thống Apps (App-as-Worker)
+
+### 18.1. Vấn đề của mô hình cũ
+
+Việc bundle App chung với Core API Worker bắt buộc phải redeploy toàn bộ backend mỗi khi khách cài hoặc xóa App, gây rủi ro downtime và làm phình to file core.
+
+### 18.2. Kiến trúc App-as-Worker (Automated Service Bindings)
+
+Mỗi App được thiết kế như một **Cloudflare Worker hoàn toàn độc lập**, giao tiếp qua hệ thống mạng nội bộ CF. Để đạt được độ trễ thấp nhất (< 0.5ms) và tính bảo mật tuyệt đối mà không cần dùng Dispatch Namespace trả phí, WebbiOS sử dụng cơ chế **Automated Service Bindings**:
+
+```
+  ┌──────────────────┐      env['app_loyalty'].fetch()    ┌──────────────────┐
+  │ Core API Worker  │ ─────────────────────────────────▶ │ App #1 (Loyalty) │
+  │ (Host)           │                                    └──────────────────┘
+  │                  │      env['app_reviews'].fetch()    ┌──────────────────┐
+  │                  │ ─────────────────────────────────▶ │ App #2 (Reviews) │
+  └──────────────────┘                                    └──────────────────┘
+```
+
+- **Cài App = Tự động deploy App Worker mới** qua CF API bằng account của khách.
+- **Tự động cấu hình Bindings (Zero Downtime):** Sau khi App Worker được tạo, nền tảng WebbiOS gọi API Cloudflare để cập nhật cấu hình `bindings` của Core Worker. Quá trình này **không cần biên dịch (compile) lại mã nguồn** và hoàn thành trong ~1-2 giây mà không gây gián đoạn (zero-downtime blue-green deploy).
+- Core Worker gọi App động thông qua object `env` (VD: `env[app_slug]`).
+- Khác biệt với `fetch()` qua public URL: Không bị giới hạn routing nội bộ, bảo mật 100% (không cần expose URL ra public internet), tốc độ nhanh hơn nhiều do không có overhead HTTP.
+
+### 18.3. Mở rộng UI (Dashboard & Micro-Frontends)
+
+- **Dashboard:** Áp dụng kiến trúc Micro-Frontend với **Vite Module Federation**. Dashboard (Host) sẽ load động các React Component từ App (Remote) trực tiếp tại runtime. Lợi ích:
+  - App quản lý UI của riêng nó.
+  - Không cần redeploy Dashboard khi có tính năng mới.
+  - UI tải lên mượt mà (seamless) như một phần native của ứng dụng, vượt trội so với giải pháp iframe.
+- **Storefront:** Sử dụng Slot System (chi tiết tại mục 9).
+
+
 
 ## 20. Đa ngôn ngữ (i18n)
 
@@ -2441,27 +2712,22 @@ Thay vì: 100 products = 100 KV writes
 
 ---
 
-## 23. webbi.vn — Nền tảng SaaS Trial & Triển khai
+## 23. Nền tảng phân phối (Regional Clients)
 
-### 23.1. Luồng dùng thử (14 ngày) với Sub-account
+*(Lưu ý: Logic liên quan đến phân phối, dùng thử và thanh toán được quản lý tập trung qua `api.webbios.dev`. Các khu vực như `webbi.vn` hoặc `getwebbi.com` chỉ đóng vai trò Client gọi API.)*
 
+### 23.1. Luồng dùng thử (14 ngày)
 Khách hàng muốn thử nghiệm WebbiOS có thể mở shop trong 30 giây:
-- **Tài nguyên:** Shop trial chạy trên CF Account của `webbi.vn` (anh là owner). Dữ liệu nằm trong các prefix bảng D1 riêng biệt (multi-tenant shared worker).
-- **Tên miền:** Sử dụng subdomain `myshop.webbi.vn`.
+- **Tài nguyên:** Cấp phát ngay lập tức trên D1 và KV thông qua Platform API.
+- **Tên miền:** Sử dụng subdomain được cấp (VD: `myshop.webbi.vn`).
 - **Trải nghiệm:** Khách không cần biết Cloudflare là gì, dùng thử liền mạch.
 
-### 23.2. Luồng nâng cấp & Migration tự động (Paid Account)
-
-Khi khách quyết định mua license trả phí, hệ thống sẽ thực hiện luồng "Handoff" tự động:
-1. Hệ thống hướng dẫn khách tạo tài khoản Cloudflare riêng (nếu chưa có).
-2. Khách cung cấp **Cloudflare API Token** (hoặc thông qua OAuth).
-3. Hệ thống tự động cấu hình toàn bộ:
-   - Export SQL data (D1 dump) từ Trial → Import sang CF account khách.
-   - Sao chép R2 objects.
-   - Deploy API Worker và Dashboard Pages lên CF account khách.
-   - Xóa dữ liệu Trial trên tài khoản gốc.
-   - Hướng dẫn khách trỏ domain DNS.
-4. Mọi thứ tự động hoàn tất trong ~2-5 phút. **Khách hàng chính thức làm chủ 100% dữ liệu và source code của mình.**
+### 23.2. Luồng nâng cấp (Paid Account)
+Khi khách quyết định mua license trả phí, Platform thực hiện luồng "Handoff":
+1. Platform hướng dẫn khách cung cấp Cloudflare API Token.
+2. Platform tự động gọi CF API: tạo D1 (`webbios_core_db`), R2, Workers.
+3. Migrate dữ liệu tự động từ chế độ Trial sang CF account của khách.
+4. Mọi thứ hoàn tất trong vài phút. Khách hàng chính thức làm chủ 100% dữ liệu.
 
 ## 24. Bảo mật
 

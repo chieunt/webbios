@@ -1,0 +1,425 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "Chọn icon...",
+      "selectIconTitle": "Chọn Icon",
+      "search": "Tìm kiếm...",
+      "select": "Chọn..."
+    },
+    "actions": {
+      "settings": "Cài đặt",
+      "cancel": "Hủy",
+      "create": "Tạo"
+    },
+    "messages": {
+      "underConstruction": "Chức năng đang được phát triển."
+    },
+    "loading": "Đang tải...",
+    "systemDefault": "Mặc định"
+  },
+  "sidebar": {
+    "quickSearch": "Tìm kiếm nhanh...",
+    "accountHome": "Trang tổng quan",
+    "recents": "Gần đây",
+    "domains": "Tên miền",
+    "observe": "Quan sát",
+    "investigate": "Điều tra",
+    "logExplorer": "Khám phá Log",
+    "logSearch": "Tìm kiếm Log",
+    "trace": "Truy vết",
+    "logpush": "Logpush",
+    "analytics": "Phân tích",
+    "build": "Xây dựng",
+    "compute": "Tính toán (Workers)",
+    "ai": "AI",
+    "storage": "Lưu trữ & Cơ sở dữ liệu",
+    "media": "Đa phương tiện",
+    "protect": "Bảo vệ & Kết nối",
+    "security": "Bảo mật ứng dụng",
+    "zeroTrust": "Bảo mật Zero Trust",
+    "networking": "Mạng",
+    "delivery": "Phân phối & Hiệu suất",
+    "collapseSidebar": "Thu gọn",
+    "expandSidebar": "Mở rộng"
+  },
+  "webbios": {
+    "updates": {
+      "title": "Cập nhật hệ thống",
+      "subtitle": "Kiểm tra và nâng cấp WebbiOS lên phiên bản mới nhất.",
+      "versionStatus": "Phiên bản WebbiOS",
+      "current": "Đang sử dụng:",
+      "latest": "Mới nhất:",
+      "updateTo": "Cập nhật v{{version}}",
+      "upToDate": "Phiên bản mới nhất",
+      "updating": "Đang xử lý...",
+      "statusDownloading": "Đang tải mã nguồn từ Platform CDN...",
+      "statusChecksum": "Đang xác thực bảo mật (Checksum)...",
+      "statusDeploying": "Đang deploy phiên bản Worker mới...",
+      "statusDone": "Hoàn tất! Hệ thống sẽ tải lại sau 3 giây.",
+      "releaseNotes": "Release Notes (v{{version}})",
+      "releaseNotesIntro": "Phiên bản này mang tới các bản vá lỗi và tối ưu hiệu suất quan trọng:",
+      "releaseNote1": "Tối ưu tốc độ tải trang Storefront thêm 15%.",
+      "releaseNote2": "Hỗ trợ Webhooks cho các App bên thứ 3.",
+      "releaseNote3": "Vá lỗi bảo mật liên quan đến quyền truy cập API."
+    },
+    "licenses": {
+      "title": "Bản quyền & Gói cước",
+      "subtitle": "Quản lý thông tin cấp phép của WebbiOS trên cửa hàng này.",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "Trạng thái:",
+      "statusActive": "Kích hoạt",
+      "durationLabel": "Thời hạn:",
+      "durationPermanent": "Vĩnh viễn",
+      "shopIdLabel": "Shop ID:",
+      "proTitle": "Webbi Pro",
+      "proDesc": "Nâng cấp lên gói Pro để mở khóa 100% sức mạnh của Cloudflare Edge, không giới hạn dung lượng R2 và ưu tiên hỗ trợ.",
+      "upgradeBtn": "Nâng cấp ngay - $29/tháng"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "Bản quyền",
+      "updates": "Cập nhật"
+    }
+  },
+  "dashboard": {
+    "accountHome": "Trang tổng quan",
+    "add": "Thêm mới",
+    "analytics": "Phân tích",
+    "last24h": "24 giờ qua",
+    "security": "Bảo mật",
+    "securityInsights": "Sự cố bảo mật",
+    "encryptedRate": "Tỷ lệ mã hóa",
+    "performance": "Hiệu suất",
+    "cpuTime": "Thời gian CPU (P90)",
+    "workersErrors": "Lỗi Workers",
+    "activity": "Hoạt động",
+    "workersInvocations": "Lượt gọi Workers",
+    "buildMinutes": "Phút build",
+    "domains": "Tên miền",
+    "sitesFaster": "Web nhanh hơn và an toàn hơn",
+    "boostPerformance": "Tăng tốc, chặn tấn công và chặn bot xấu",
+    "addDomain": "Thêm tên miền",
+    "workersAndPages": "Workers và Pages",
+    "zeroTrust": "Bảo mật Zero Trust",
+    "secureAccess": "Truy cập an toàn cho nhóm của bạn",
+    "controlWho": "Kiểm soát ai truy cập ứng dụng nội bộ, không cần VPN",
+    "getStarted": "Bắt đầu ngay",
+    "welcome": "Xin chào, {{name}}",
+    "createReport": "Tạo báo cáo",
+    "ecommerceOverview": "Tổng quan E-commerce",
+    "revenue": "Doanh thu",
+    "orders": "Đơn hàng",
+    "customers": "Khách hàng",
+    "products": "Sản phẩm"
+  },
+  "products": {
+    "title": "Sản phẩm",
+    "export": "Xuất file",
+    "import": "Nhập file",
+    "add": "Thêm sản phẩm mới",
+    "tabs": {
+      "all": "Tất cả",
+      "active": "Đang bán",
+      "draft": "Bản nháp",
+      "archived": "Đã lưu trữ"
+    },
+    "search": "Tên sản phẩm, SKU...",
+    "filters": {
+      "allStatus": "Tất cả trạng thái",
+      "allTypes": "Tất cả",
+      "allVendors": "Tất cả",
+      "allTags": "Tất cả"
+    },
+    "columns": {
+      "product": "SẢN PHẨM",
+      "status": "TRẠNG THÁI",
+      "inventory": "KHO HÀNG",
+      "vendor": "NHÀ CUNG CẤP",
+      "price": "GIÁ",
+      "actions": "THAO TÁC"
+    },
+    "statusLabels": {
+      "active": "Đang bán",
+      "draft": "Bản nháp"
+    },
+    "inventoryLabels": {
+      "inStock": "có sẵn"
+    },
+    "placeholders": {
+      "name": "Tên sản phẩm",
+      "vendor": "Nhà cung cấp"
+    },
+    "empty": "Chưa có sản phẩm nào"
+  },
+  "system": {
+    "menus": {
+      "title": "Quản lý Menu",
+      "description": "Sắp xếp, thêm bớt và dịch thuật đa ngôn ngữ cho menu điều hướng bên trái.",
+      "addMenuLevel1": "Thêm Menu cấp 1",
+      "structure": "Cấu trúc Menu",
+      "loading": "Đang tải...",
+      "hidden": "Ẩn",
+      "confirmDelete": "Bạn có chắc chắn muốn xóa menu này không?",
+      "errorSaving": "Lỗi khi lưu menu",
+      "errorDeleting": "Lỗi khi xóa menu",
+      "modal": {
+        "addMenu": "Thêm Menu",
+        "editMenu": "Sửa Menu",
+        "titleFallback": "Tên mặc định",
+        "path": "Đường dẫn",
+        "translationsEn": "Bản dịch (Tiếng Anh)",
+        "translationsVi": "Bản dịch (Tiếng Việt)",
+        "icon": "Icon",
+        "permissionId": "Quyền",
+        "position": "Thứ tự",
+        "isActive": "Hiển thị trên Sidebar",
+        "noPermission": "Không yêu cầu",
+        "cancel": "Hủy",
+        "save": "Lưu thay đổi",
+        "parentMenu": "Menu cha",
+        "isCategoryLabel": "Là nhãn nhóm",
+        "rootMenu": "--- Ngoài cùng ---"
+      },
+      "placeholders": {
+        "translationsEn": "Ví dụ: Dashboard",
+        "translationsVi": "Ví dụ: Tổng quan",
+        "icon": "Ví dụ: Home",
+        "path": "Ví dụ: /orders"
+      }
+    },
+    "permissions": {
+      "title": "Quản lý Quyền hệ thống",
+      "description": "Định nghĩa các quyền có thể gán cho vai trò.",
+      "addPermission": "Thêm quyền mới",
+      "confirmDelete": "Bạn có chắc chắn muốn xóa quyền này không?",
+      "errorSaving": "Lỗi khi lưu quyền",
+      "errorDeleting": "Lỗi khi xóa quyền",
+      "columns": {
+        "slug": "Slug",
+        "description": "Mô tả",
+        "createdAt": "Ngày tạo",
+        "actions": "Thao tác"
+      },
+      "modal": {
+        "add": "Thêm quyền mới",
+        "edit": "Sửa quyền",
+        "slugLabel": "Slug (VD: users:read)",
+        "descriptionLabel": "Mô tả",
+        "slugPlaceholder": "module:action"
+      }
+    },
+    "roles": {
+      "title": "Quản lý Vai trò",
+      "description": "Quản lý các vai trò người dùng và gán quyền hạn cho từng vai trò.",
+      "addRole": "Thêm vai trò mới",
+      "confirmDelete": "Bạn có chắc chắn muốn xóa vai trò này không?",
+      "errorSaving": "Lỗi khi lưu vai trò",
+      "errorDeleting": "Lỗi khi xóa vai trò",
+      "columns": {
+        "name": "Tên vai trò",
+        "slug": "Slug",
+        "description": "Mô tả",
+        "system": "Vai trò hệ thống",
+        "actions": "Thao tác"
+      },
+      "modal": {
+        "add": "Thêm vai trò mới",
+        "edit": "Sửa vai trò",
+        "nameLabel": "Tên vai trò (VD: Quản trị viên)",
+        "slugLabel": "Slug (VD: admin)",
+        "descriptionLabel": "Mô tả",
+        "isSystemLabel": "Vai trò hệ thống (Không thể xóa hoặc sửa một số thuộc tính)",
+        "permissionsLabel": "Gán quyền hạn (Permissions)",
+        "selectAll": "Chọn tất cả",
+        "unselectAll": "Bỏ chọn tất cả",
+        "namePlaceholder": "Ví dụ: Admin",
+        "slugPlaceholder": "Ví dụ: admin"
+      }
+    }
+  },
+  "header": {
+    "askAI": "Hỏi AI",
+    "notifications": "Thông báo",
+    "support": "Hỗ trợ",
+    "account": "Tài khoản",
+    "logout": "Đăng xuất"
+  },
+  "auth": {
+    "login": {
+      "title": "Đăng nhập",
+      "subtitle": "Đăng nhập vào hệ thống quản trị",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "submit": "Đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "error": "Tài khoản hoặc mật khẩu không chính xác"
+    },
+    "forgotPassword": {
+      "title": "Khôi phục mật khẩu",
+      "subtitle": "Nhập email của bạn để nhận liên kết đặt lại mật khẩu.",
+      "email": "Email",
+      "submit": "Gửi liên kết",
+      "backToLogin": "Quay lại đăng nhập",
+      "success": "Nếu email hợp lệ, chúng tôi đã gửi hướng dẫn khôi phục mật khẩu. Vui lòng kiểm tra hộp thư.",
+      "error": "Không thể gửi yêu cầu"
+    }
+  },
+  "media": {
+    "title": "Thư viện Media",
+    "description": "Quản lý hình ảnh và tập tin",
+    "upload": "Tải lên",
+    "newFolder": "Thư mục mới",
+    "search": "Tìm kiếm tập tin...",
+    "filter": "Lọc",
+    "images": "Hình ảnh",
+    "documents": "Tài liệu",
+    "all": "Tất cả",
+    "grid": "Dạng lưới",
+    "list": "Dạng danh sách",
+    "delete": "Xóa",
+    "empty": "Không có tập tin nào"
+  },
+  "apps": {
+    "installed": {
+      "title": "Đã cài đặt",
+      "description": "Quản lý các ứng dụng đang hoạt động",
+      "search": "Tìm kiếm ứng dụng...",
+      "running": "Đang chạy",
+      "stopped": "Đã dừng",
+      "settings": "Cài đặt",
+      "uninstall": "Gỡ cài đặt",
+      "openApp": "Mở ứng dụng",
+      "restart": "Khởi động lại",
+      "stop": "Dừng"
+    },
+    "store": {
+      "title": "Cửa hàng ứng dụng",
+      "description": "Khám phá và cài đặt ứng dụng mới",
+      "search": "Tìm kiếm...",
+      "filter": "Danh mục",
+      "install": "Cài đặt",
+      "free": "Miễn phí",
+      "paid": "Trả phí",
+      "reviews": "Đánh giá",
+      "popular": "Phổ biến",
+      "new": "Mới nhất",
+      "categories": {
+        "marketing": "Marketing",
+        "sales": "Bán hàng",
+        "support": "Hỗ trợ",
+        "analytics": "Phân tích",
+        "design": "Thiết kế",
+        "inventory": "Quản lý kho"
+      },
+      "priceMonthly": "{{price}}/tháng"
+    }
+  },
+  "users": {
+    "title": "Quản lý người dùng",
+    "description": "Quản lý tài khoản và phân quyền",
+    "add": "Thêm người dùng",
+    "search": "Tìm kiếm người dùng...",
+    "filter": "Lọc",
+    "columns": {
+      "user": "Người dùng",
+      "role": "Vai trò",
+      "status": "Trạng thái",
+      "joined": "Ngày tham gia",
+      "actions": "Thao tác"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Vô hiệu hóa"
+    },
+    "actions": {
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa"
+    }
+  },
+  "audit": {
+    "title": "Nhật ký hệ thống",
+    "description": "Theo dõi các hoạt động trong hệ thống",
+    "search": "Tìm kiếm nhật ký...",
+    "filter": "Lọc",
+    "export": "Xuất file",
+    "refresh": "Làm mới",
+    "columns": {
+      "action": "Hành động",
+      "user": "Người thực hiện",
+      "resource": "Tài nguyên",
+      "date": "Thời gian",
+      "ip": "IP",
+      "details": "Chi tiết"
+    },
+    "timeFilters": {
+      "all": "Tất cả thời gian",
+      "today": "Hôm nay",
+      "last7Days": "7 ngày qua",
+      "last30Days": "30 ngày qua"
+    }
+  },
+  "settings": {
+    "title": "Cài đặt hệ thống",
+    "description": "Cấu hình các thông số hệ thống",
+    "save": "Lưu thay đổi",
+    "tabs": {
+      "general": "Cài đặt chung",
+      "security": "Bảo mật",
+      "appearance": "Giao diện",
+      "email": "Email",
+      "advanced": "Nâng cao"
+    },
+    "general": {
+      "siteName": "Tên website",
+      "siteDescription": "Mô tả website",
+      "siteUrl": "URL website",
+      "language": "Ngôn ngữ mặc định",
+      "timezone": "Múi giờ",
+      "siteInfo": "Thông tin website",
+      "regionAndLanguage": "Khu vực & Ngôn ngữ",
+      "languageVi": "Tiếng Việt (vi)",
+      "languageEn": "English (en)"
+    },
+    "security": {
+      "mfa": "Xác thực 2 yếu tố",
+      "passwordPolicy": "Chính sách mật khẩu",
+      "sessionTimeout": "Thời gian hết hạn phiên"
+    }
+  },
+  "apiKeys": {
+    "title": "API Keys",
+    "description": "Quản lý các khóa truy cập API",
+    "create": "Tạo Key mới",
+    "columns": {
+      "name": "Tên",
+      "key": "Khóa API",
+      "created": "Ngày tạo",
+      "lastUsed": "Lần cuối sử dụng",
+      "actions": "Thao tác"
+    },
+    "copy": "Sao chép",
+    "revoke": "Thu hồi"
+  },
+  "account": {
+    "title": "Tài khoản của tôi",
+    "description": "Quản lý thông tin cá nhân và bảo mật tài khoản",
+    "tabs": {
+      "profile": "Hồ sơ cá nhân",
+      "security": "Đổi mật khẩu"
+    },
+    "profile": {
+      "firstName": "Tên (First Name)",
+      "lastName": "Họ (Last Name)",
+      "email": "Email",
+      "emailNote": "Email không thể thay đổi. Vui lòng liên hệ hỗ trợ nếu cần.",
+      "role": "Vai trò:",
+      "update": "Cập nhật hồ sơ"
+    },
+    "security": {
+      "currentPassword": "Mật khẩu hiện tại",
+      "newPassword": "Mật khẩu mới",
+      "confirmPassword": "Xác nhận mật khẩu mới",
+      "update": "Đổi mật khẩu"
+    }
+  }
+}

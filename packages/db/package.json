@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "main": "./src/index.ts",
+  "scripts": {
+    "db:generate": "drizzle-kit generate"
+  },
   "types": "./src/index.ts",
   "dependencies": {
-    "drizzle-orm": "^0.30.10"
+    "drizzle-orm": "^0.30.10",
+    "ulid": "^3.0.2"
   },
   "devDependencies": {
     "drizzle-kit": "^0.21.2"

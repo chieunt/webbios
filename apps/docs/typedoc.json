@@ -1,0 +1,12 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["../../packages/sdk/src/index.ts"],
+  "out": "./src/content/docs/sdk/reference",
+  "plugin": ["typedoc-plugin-markdown"],
+  "hideGenerator": true,
+  "readme": "none",
+  "theme": "default",
+  "cleanOutputDir": true,
+  "githubPages": false,
+  "tsconfig": "../../packages/sdk/tsconfig.json"
+}

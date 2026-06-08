@@ -1,0 +1,426 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "Select icon...",
+      "selectIconTitle": "Select Icon",
+      "search": "Search...",
+      "select": "Select..."
+    },
+    "actions": {
+      "settings": "Settings",
+      "cancel": "Cancel",
+      "create": "Create"
+    },
+    "messages": {
+      "underConstruction": "Feature under construction."
+    },
+    "loading": "Loading...",
+    "systemDefault": "Default"
+  },
+  "sidebar": {
+    "quickSearch": "Quick search...",
+    "accountHome": "Account home",
+    "recents": "Recents",
+    "domains": "Domains",
+    "observe": "Observe",
+    "investigate": "Investigate",
+    "logExplorer": "Log Explorer",
+    "logSearch": "Log search",
+    "trace": "Trace",
+    "logpush": "Logpush",
+    "analytics": "Analytics",
+    "build": "Build",
+    "compute": "Compute",
+    "ai": "AI",
+    "storage": "Storage & databases",
+    "media": "Media",
+    "protect": "Protect & Connect",
+    "security": "Application security",
+    "zeroTrust": "Zero Trust",
+    "networking": "Networking",
+    "delivery": "Delivery & performance",
+    "collapseSidebar": "Collapse sidebar",
+    "expandSidebar": "Expand sidebar"
+  },
+  "webbios": {
+    "updates": {
+      "title": "System Updates",
+      "subtitle": "Check and upgrade WebbiOS to the latest version.",
+      "versionStatus": "Version Status",
+      "current": "Current:",
+      "latest": "Latest:",
+      "updateTo": "Update to v{{version}}",
+      "upToDate": "Up to date",
+      "updating": "Processing...",
+      "statusDownloading": "Downloading source code from Platform CDN...",
+      "statusChecksum": "Verifying security checksum...",
+      "statusDeploying": "Deploying new Worker version...",
+      "statusDone": "Done! System will reload in 3 seconds.",
+      "releaseNotes": "Release Notes (v{{version}})",
+      "releaseNotesIntro": "This version brings important bug fixes and performance improvements:",
+      "releaseNote1": "Optimize Storefront page load speed by 15%.",
+      "releaseNote2": "Support Webhooks for 3rd party Apps.",
+      "releaseNote3": "Fix security vulnerabilities related to API access."
+    },
+    "licenses": {
+      "title": "Licenses & Plans",
+      "subtitle": "Manage WebbiOS licensing information for this store.",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "Status:",
+      "statusActive": "Active",
+      "durationLabel": "Duration:",
+      "durationPermanent": "Lifetime",
+      "shopIdLabel": "Shop ID:",
+      "proTitle": "Webbi Pro",
+      "proDesc": "Upgrade to Pro to unlock 100% of Cloudflare Edge power, unlimited R2 storage, and priority support.",
+      "upgradeBtn": "Upgrade now - $29/month"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "Licenses",
+      "updates": "Updates"
+    }
+  },
+  "dashboard": {
+    "accountHome": "Account home",
+    "add": "Add",
+    "analytics": "Analytics",
+    "last24h": "Last 24 hours",
+    "security": "Security",
+    "securityInsights": "Security insights",
+    "encryptedRate": "Encrypted request rate",
+    "performance": "Performance",
+    "cpuTime": "CPU time (P90)",
+    "workersErrors": "Workers errors",
+    "activity": "Activity",
+    "workersInvocations": "Workers invocations",
+    "buildMinutes": "Build minutes",
+    "domains": "Domains",
+    "sitesFaster": "Your sites, faster and safer",
+    "boostPerformance": "Boost performance, block attacks, and stop bad bots",
+    "addDomain": "Add a domain",
+    "workersAndPages": "Workers and Pages",
+    "zeroTrust": "Zero Trust security",
+    "secureAccess": "Secure access for your team and tools",
+    "controlWho": "Control who reaches your internal apps and data, without a VPN",
+    "getStarted": "Get started",
+    "welcome": "Welcome, {{name}}",
+    "createReport": "Create report",
+    "ecommerceOverview": "E-commerce Overview",
+    "revenue": "Revenue",
+    "orders": "Orders",
+    "customers": "Customers",
+    "products": "Products"
+  },
+  "products": {
+    "title": "Products",
+    "export": "Export",
+    "import": "Import",
+    "add": "Add new product",
+    "tabs": {
+      "all": "All",
+      "active": "Active",
+      "draft": "Draft",
+      "archived": "Archived"
+    },
+    "search": "Search products, SKU...",
+    "filters": {
+      "allStatus": "All status",
+      "allTypes": "All types",
+      "allVendors": "All vendors",
+      "allTags": "All tags"
+    },
+    "columns": {
+      "product": "PRODUCT",
+      "status": "STATUS",
+      "inventory": "INVENTORY",
+      "vendor": "VENDOR",
+      "price": "PRICE",
+      "actions": "ACTIONS"
+    },
+    "statusLabels": {
+      "active": "Active",
+      "draft": "Draft"
+    },
+    "inventoryLabels": {
+      "inStock": "in stock"
+    },
+    "placeholders": {
+      "name": "Product name",
+      "vendor": "Vendor"
+    },
+    "empty": "No products yet"
+  },
+  "system": {
+    "menus": {
+      "title": "Menu Management",
+      "description": "Organize, add/remove and translate the left navigation menu.",
+      "addMenuLevel1": "Add Level 1 Menu",
+      "structure": "Menu Structure",
+      "loading": "Loading...",
+      "hidden": "Hidden",
+      "confirmDelete": "Are you sure you want to delete this menu item?",
+      "errorSaving": "Error saving menu",
+      "errorDeleting": "Error deleting menu",
+      "modal": {
+        "addMenu": "Add Menu",
+        "editMenu": "Edit Menu",
+        "titleFallback": "Default Name",
+        "path": "Path",
+        "translationsEn": "Translation (English)",
+        "translationsVi": "Translation (Vietnamese)",
+        "icon": "Icon",
+        "permissionId": "Permission ID",
+        "position": "Position",
+        "isActive": "Active",
+        "noPermission": "No Permission (Public)",
+        "cancel": "Cancel",
+        "save": "Save changes",
+        "parentMenu": "Parent Menu",
+        "isCategoryLabel": "Is Category Label",
+        "rootMenu": "--- Root ---",
+        "placeholders": {
+          "translationsEn": "e.g. Dashboard",
+          "translationsVi": "e.g. Tổng quan",
+          "icon": "e.g. Home",
+          "path": "e.g. /orders"
+        }
+      }
+    },
+    "permissions": {
+      "title": "System Permissions Management",
+      "description": "Define permissions that can be assigned to roles.",
+      "addPermission": "Add new permission",
+      "confirmDelete": "Are you sure you want to delete this permission?",
+      "errorSaving": "Error saving permission",
+      "errorDeleting": "Error deleting permission",
+      "columns": {
+        "slug": "Slug",
+        "description": "Description",
+        "createdAt": "Created At",
+        "actions": "Actions"
+      },
+      "modal": {
+        "add": "Add new permission",
+        "edit": "Edit permission",
+        "slugLabel": "Slug (e.g. users:read)",
+        "descriptionLabel": "Description",
+        "slugPlaceholder": "module:action",
+        "descriptionPlaceholder": "e.g. Allows user to read lists"
+      }
+    },
+    "roles": {
+      "title": "Roles Management",
+      "description": "Manage user roles and assign permissions to them.",
+      "addRole": "Add new role",
+      "confirmDelete": "Are you sure you want to delete this role?",
+      "errorSaving": "Error saving role",
+      "errorDeleting": "Error deleting role",
+      "columns": {
+        "name": "Role Name",
+        "slug": "Slug",
+        "description": "Description",
+        "system": "System Role",
+        "actions": "Actions"
+      },
+      "modal": {
+        "add": "Add new role",
+        "edit": "Edit role",
+        "nameLabel": "Role Name (e.g. Administrator)",
+        "slugLabel": "Slug (e.g. admin)",
+        "descriptionLabel": "Description",
+        "isSystemLabel": "System Role (Cannot delete or edit some properties)",
+        "permissionsLabel": "Assign Permissions",
+        "selectAll": "Select All",
+        "unselectAll": "Unselect All",
+        "namePlaceholder": "e.g. Admin",
+        "slugPlaceholder": "e.g. admin"
+      }
+    }
+  },
+  "header": {
+    "askAI": "Ask AI",
+    "notifications": "Notifications",
+    "support": "Support",
+    "account": "Account",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Sign in to the admin system",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "forgotPassword": "Forgot password?",
+      "error": "Invalid email or password"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "subtitle": "Enter your email to receive a password reset link.",
+      "email": "Email",
+      "submit": "Send reset link",
+      "backToLogin": "Back to login",
+      "success": "If the email is valid, we have sent password recovery instructions. Please check your inbox.",
+      "error": "Failed to send request"
+    }
+  },
+  "media": {
+    "title": "Media Library",
+    "description": "Manage your images and files",
+    "upload": "Upload",
+    "newFolder": "New Folder",
+    "search": "Search files...",
+    "filter": "Filter",
+    "images": "Images",
+    "documents": "Documents",
+    "all": "All",
+    "grid": "Grid view",
+    "list": "List view",
+    "delete": "Delete",
+    "empty": "No files found"
+  },
+  "apps": {
+    "installed": {
+      "title": "Installed Apps",
+      "description": "Manage your active applications",
+      "search": "Search apps...",
+      "running": "Running",
+      "stopped": "Stopped",
+      "settings": "Settings",
+      "uninstall": "Uninstall",
+      "openApp": "Open App",
+      "restart": "Restart",
+      "stop": "Stop"
+    },
+    "store": {
+      "title": "Apps Store",
+      "description": "Discover and install new applications",
+      "search": "Search...",
+      "filter": "Categories",
+      "install": "Install",
+      "free": "Free",
+      "paid": "Paid",
+      "reviews": "Reviews",
+      "popular": "Popular",
+      "new": "Newest",
+      "categories": {
+        "marketing": "Marketing",
+        "sales": "Sales",
+        "support": "Support",
+        "analytics": "Analytics",
+        "design": "Design",
+        "inventory": "Inventory"
+      },
+      "priceMonthly": "${{price}}/month"
+    }
+  },
+  "users": {
+    "title": "User Management",
+    "description": "Manage accounts and permissions",
+    "add": "Add User",
+    "search": "Search users...",
+    "filter": "Filter",
+    "columns": {
+      "user": "User",
+      "role": "Role",
+      "status": "Status",
+      "joined": "Joined Date",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "audit": {
+    "title": "Audit Logs",
+    "description": "Monitor system activities",
+    "search": "Search logs...",
+    "filter": "Filter",
+    "export": "Export",
+    "refresh": "Refresh",
+    "columns": {
+      "action": "Action",
+      "user": "User",
+      "resource": "Resource",
+      "date": "Date",
+      "ip": "IP Address",
+      "details": "Details"
+    },
+    "timeFilters": {
+      "all": "All time",
+      "today": "Today",
+      "last7Days": "Last 7 days",
+      "last30Days": "Last 30 days"
+    }
+  },
+  "settings": {
+    "title": "System Settings",
+    "description": "Configure system parameters",
+    "save": "Save Changes",
+    "tabs": {
+      "general": "General",
+      "security": "Security",
+      "appearance": "Appearance",
+      "email": "Email",
+      "advanced": "Advanced"
+    },
+    "general": {
+      "siteName": "Site Name",
+      "siteDescription": "Site Description",
+      "siteUrl": "Site URL",
+      "language": "Default Language",
+      "timezone": "Timezone",
+      "siteInfo": "Site Information",
+      "regionAndLanguage": "Region & Language",
+      "languageVi": "Vietnamese (vi)",
+      "languageEn": "English (en)"
+    },
+    "security": {
+      "mfa": "Two-Factor Authentication",
+      "passwordPolicy": "Password Policy",
+      "sessionTimeout": "Session Timeout"
+    }
+  },
+  "apiKeys": {
+    "title": "API Keys",
+    "description": "Manage API access keys",
+    "create": "Create Key",
+    "columns": {
+      "name": "Name",
+      "key": "API Key",
+      "created": "Created At",
+      "lastUsed": "Last Used",
+      "actions": "Actions"
+    },
+    "copy": "Copy",
+    "revoke": "Revoke"
+  },
+  "account": {
+    "title": "My Account",
+    "description": "Manage personal info and account security",
+    "tabs": {
+      "profile": "Profile",
+      "security": "Password"
+    },
+    "profile": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "emailNote": "Email cannot be changed. Contact support if needed.",
+      "role": "Role:",
+      "update": "Update Profile"
+    },
+    "security": {
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "update": "Update Password"
+    }
+  }
+}

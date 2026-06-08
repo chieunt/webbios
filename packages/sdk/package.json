@@ -1,0 +1,17 @@
+{
+  "name": "@webbios/sdk",
+  "version": "1.0.0",
+  "description": "The official WebbiOS JavaScript SDK",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "eslint src/"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.2",
+    "typescript": "^5.2.2"
+  }
+}

@@ -8,13 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#2563eb',
+        primary: '#0051c3', // Cloudflare Blue
         secondary: '#64748b',
-        background: '#f8fafc',
+        background: '#f3f4f6', // cf-bg
         surface: '#ffffff',
+        'cf-border': '#e5e7eb',
+        'cf-text': '#1f2937',
+        'cf-gray-text': '#6b7280',
+        'cf-hover': '#f9fafb'
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       }
     },
   },

@@ -5,12 +5,20 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "deploy:api": "turbo run deploy --filter=@webbios/api",
+    "deploy:dashboard": "turbo run build --filter=@webbios/dashboard && npx wrangler pages deploy apps/dashboard/dist --project-name webbios-dashboard --branch master",
+    "deploy:docs": "turbo run build --filter=docs && npx wrangler pages deploy apps/docs/dist --project-name webbios-docs --branch master"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
     "turbo": "^2.0.0",
     "typescript": "^5.4.5"
   },
-  "packageManager": "pnpm@9.0.0"
+  "packageManager": "pnpm@9.0.0",
+  "pnpm": {
+    "overrides": {
+      "esbuild": "^0.21.5"
+    }
+  }
 }

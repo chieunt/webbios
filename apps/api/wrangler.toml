@@ -4,12 +4,11 @@ compatibility_date = "2024-03-20"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "webbios_d1"
-database_id = "your-database-id"
-
-[[kv_namespaces]]
-binding = "KV"
-id = "your-kv-namespace-id"
+database_name = "webbios_core_db"
+database_id = "9239e198-c71e-4ef4-b2e3-abe3eaaf7411"
 
 [vars]
 ENVIRONMENT = "production"
+INSTANCE_TYPE = "platform"
+
+JWT_SECRET = "super-secret-key-for-now"

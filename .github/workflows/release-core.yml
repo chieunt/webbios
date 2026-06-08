@@ -1,0 +1,65 @@
+name: Release WebbiOS Core
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on any tag starting with v (e.g., v1.0.0, v2.1.3)
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.0.0
+          
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Build Core API & Dashboard
+        run: |
+          pnpm run build --filter=@webbios/api
+          pnpm run build --filter=@webbios/dashboard
+          
+      - name: Extract Release Notes (Changelog)
+        id: extract_notes
+        run: |
+          # Dùng Git log để lấy comment của Tag hoặc Commit cuối cùng làm changelog
+          NOTES=$(git tag -l --format='%(contents)' ${{ github.ref_name }})
+          if [ -z "$NOTES" ]; then
+            NOTES=$(git log -1 --pretty=format:"%B")
+          fi
+          # Escape for JSON payload
+          NOTES_JSON=$(echo "$NOTES" | jq -Rsa .)
+          echo "notes=$NOTES_JSON" >> $GITHUB_OUTPUT
+          
+      - name: Register New Version to Platform API
+        run: |
+          VERSION="${{ github.ref_name }}"
+          # Xoá chữ 'v' ở đầu nếu có
+          VERSION="${VERSION#v}"
+          
+          curl -X POST https://api.webbios.dev/v1/updates/core \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.PLATFORM_ADMIN_SECRET }}" \
+            -d "{
+              \"version\": \"$VERSION\",
+              \"releaseNotes\": ${{ steps.extract_notes.outputs.notes }},
+              \"isLatest\": 1,
+              \"isCritical\": 0
+            }"
+            
+      - name: Echo Success
+        run: echo "🎉 Phiên bản $VERSION đã được đăng ký thành công lên WebbiOS Platform!"

@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+.thin-scrollbar:hover {
+  scrollbar-color: #d1d5db transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(209, 213, 219, 0); /* transparent */
+  border-radius: 10px;
+}
+.thin-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(209, 213, 219, 1); /* #d1d5db */
+}
+
 @layer base {
   body {
     @apply bg-background text-slate-900 antialiased font-sans;
