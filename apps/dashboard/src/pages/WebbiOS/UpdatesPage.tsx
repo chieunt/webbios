@@ -71,6 +71,7 @@ export const UpdatesPage = () => {
   };
 
   const handleUpdate = async () => {
+    if (isUpdating) return;
     setIsUpdating(true);
     setUpdateStatus(t('webbios.updates.statusDownloading') || 'Đang khởi tạo tiến trình cập nhật...');
 
