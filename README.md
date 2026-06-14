@@ -1,11 +1,15 @@
 <div align="center">
-  <h1>WebbiOS</h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="./.github/assets/logo-light.png">
+    <img alt="WebbiOS Logo" src="./.github/assets/logo-light.png" height="80" style="margin-bottom: 20px;">
+  </picture>
   <p><strong>Next-Gen Business Growth Platform</strong></p>
   <p>Build websites, apps, and management systems on Cloudflare's edge network. Open source. Free forever. Deploy in seconds.</p>
 
   <p>
     <a href="https://webbios.dev">Website</a> •
-    <a href="https://docs.webbios.dev/docs">Documentation</a> •
+    <a href="https://docs.webbios.dev/">Documentation</a> •
     <a href="https://www.facebook.com/webbios.dev">Facebook Fanpage</a>
   </p>
 </div>
