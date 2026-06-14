@@ -37,8 +37,8 @@ app.post('/:domain', async (c) => {
   const cache = new CacheService(c.env.CACHE_KV, '', '');
   await cache.set(`theme:config:${domain}`, payload);
   
-  // Clear CDN cache
-  await cache.invalidateAll(domain);
+  // Clear CDN cache only (do not delete KV since it is primary storage)
+  // await cache.purgeCDN(`storefront:${domain}`);
 
   return c.json({
     success: true,
