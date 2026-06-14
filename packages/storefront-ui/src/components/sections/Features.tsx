@@ -6,6 +6,8 @@ export interface FeatureItem {
   icon?: React.ReactNode;
   title: string;
   description: string;
+  link?: string;
+  linkLabel?: string;
 }
 
 export interface FeaturesProps {
@@ -48,6 +50,16 @@ export function Features({ title, subtitle, features, columns = 4 }: FeaturesPro
             <p className="text-muted-foreground leading-relaxed flex-1">
               {feature.description}
             </p>
+            {feature.link && (
+              <div className="mt-4">
+                <a 
+                  href={feature.link}
+                  className="text-primary font-medium hover:underline inline-flex items-center gap-1"
+                >
+                  {feature.linkLabel || 'Read more'} &rarr;
+                </a>
+              </div>
+            )}
           </div>
         ))}
       </div>

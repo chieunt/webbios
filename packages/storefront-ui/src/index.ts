@@ -8,6 +8,7 @@ export * from './components/sections/Hero';
 export * from './components/sections/Features';
 export * from './components/sections/CTA';
 export * from './components/sections/Footer';
+export * from './components/sections/Blog';
 
 // Engine
 export * from './engine/SectionRenderer';

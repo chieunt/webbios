@@ -21,13 +21,15 @@ export function Header({
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Container className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
-          {logoImage ? (
-            <img src={logoImage} alt={logoText} className="h-8 w-auto" />
-          ) : (
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              {logoText}
-            </span>
-          )}
+          <a href="/" className="flex items-center gap-2">
+            {logoImage ? (
+              <img src={logoImage} alt={logoText} className="h-8 w-auto" />
+            ) : (
+              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+                {logoText}
+              </span>
+            )}
+          </a>
         </div>
         
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
