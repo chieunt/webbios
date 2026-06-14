@@ -4,7 +4,7 @@
     <source media="(prefers-color-scheme: light)" srcset="./.github/assets/logo-light.png">
     <img alt="WebbiOS Logo" src="./.github/assets/logo-light.png" height="80" style="margin-bottom: 20px;">
   </picture>
-  <p><strong>Next-Gen Business Growth Platform</strong></p>
+  <p><strong>WebbiOS | Next-Gen Business Growth Platform</strong></p>
   <p>Build websites, apps, and management systems on Cloudflare's edge network. Open source. Free forever. Deploy in seconds.</p>
 
   <p>
