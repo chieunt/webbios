@@ -13,10 +13,10 @@ export interface HeaderProps {
 
 const SUB_PLATFORM = [
   { label: 'Platform Overview', href: '/platform' },
-  { label: 'The Kernel API', href: '/platform/kernel' },
-  { label: 'The Universal Dashboard', href: '/platform/dashboard' },
-  { label: 'Themes Architecture', href: '/platform/themes' },
-  { label: 'Apps Ecosystem', href: '/platform/apps' },
+  { label: 'The Kernel API', href: '/platform/the-kernel-api' },
+  { label: 'The Universal Dashboard', href: '/platform/universal-dashboard' },
+  { label: 'Themes Architecture', href: '/platform/themes-architecture' },
+  { label: 'Apps Ecosystem', href: '/platform/apps-ecosystem' },
 ];
 
 const SUB_DEVELOPERS = [
@@ -33,7 +33,7 @@ const SUB_MORE = [
   { label: 'Changelog', href: '/changelog' },
   { label: 'Contact Us', href: '/contact' },
   { label: 'GitHub', href: 'https://github.com/cbcgroupteam/webbios' },
-  { label: 'Facebook', href: 'https://facebook.com/webbios' },
+  { label: 'Facebook', href: 'https://www.facebook.com/webbios.dev' },
 ];
 
 const SUB_FEATURES = [
@@ -73,17 +73,17 @@ export function Header({
             )}
           </a>
         </div>
-        
+
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           {links.map((link, idx) => {
             const isActive = currentPath === link.href || (link.href !== '/' && currentPath?.startsWith(link.href));
-            
+
             const isDropdown = ['Platform', 'Features', 'Developers', 'More'].includes(link.label);
-            
+
             if (isDropdown) {
               let items = [];
               let style = {};
-              
+
               switch (link.label) {
                 case 'Platform':
                   items = SUB_PLATFORM;
@@ -102,7 +102,7 @@ export function Header({
                   style = { width: '200px', display: 'flex', flexDirection: 'column' };
                   break;
               }
-              
+
               return (
                 <div key={idx} className="relative group">
                   <a
@@ -110,17 +110,17 @@ export function Header({
                     className={`transition-colors py-2 flex items-center gap-1 ${isActive ? 'text-primary font-semibold' : 'text-foreground/60 hover:text-foreground/80'}`}
                   >
                     {link.label}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-50 group-hover:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-50 group-hover:rotate-180 transition-transform"><path d="m6 9 6 6 6-6" /></svg>
                   </a>
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
-                    <div 
+                    <div
                       className="bg-card border border-border rounded-xl shadow-lg p-4 gap-x-6 gap-y-3"
                       style={style}
                     >
                       {items.map((feat, fIdx) => (
-                        <a 
-                          key={fIdx} 
-                          href={feat.href} 
+                        <a
+                          key={fIdx}
+                          href={feat.href}
                           className="text-sm text-muted-foreground hover:text-primary transition-colors hover:bg-muted/50 px-3 py-2 rounded-md"
                           target={feat.href.startsWith('http') ? '_blank' : undefined}
                           rel={feat.href.startsWith('http') ? 'noopener noreferrer' : undefined}
@@ -147,10 +147,10 @@ export function Header({
             );
           })}
         </nav>
-        
+
         <div className="flex items-center gap-4">
           <Button variant="default" asChild>
-            <a 
+            <a
               href={ctaHref}
               target={ctaHref.startsWith('http') ? '_blank' : undefined}
               rel={ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
