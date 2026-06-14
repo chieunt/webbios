@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import { CacheService } from '../../services/cache';
 
 // Mock types until we add them to @webbios/db
 type Bindings = {
@@ -12,16 +13,36 @@ const app = new Hono<{ Bindings: Bindings }>();
 app.get('/:domain', async (c) => {
   const domain = c.req.param('domain');
   
-  // Here we would use CacheService to try getting from KV first
-  // For now we just return a mock response
+  const cache = new CacheService(c.env.CACHE_KV, '', '');
+  const themeData = await cache.get(`theme:config:${domain}`);
   
+  if (themeData) {
+    return c.json({
+      success: true,
+      data: themeData
+    });
+  }
+
+  return c.json({
+    success: false,
+    message: 'Theme not found for this domain'
+  }, 404);
+});
+
+// Cập nhật/Publish config theme cho domain
+app.post('/:domain', async (c) => {
+  const domain = c.req.param('domain');
+  const payload = await c.req.json();
+  
+  const cache = new CacheService(c.env.CACHE_KV, '', '');
+  await cache.set(`theme:config:${domain}`, payload);
+  
+  // Clear CDN cache
+  await cache.invalidateAll(domain);
+
   return c.json({
     success: true,
-    data: {
-      name: 'Corporate01',
-      version: '1.0.0',
-      // ... mock theme json
-    }
+    message: 'Theme published successfully'
   });
 });
 

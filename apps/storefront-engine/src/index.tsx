@@ -41,11 +41,25 @@ app.get('*', async (c) => {
   const domain = url.hostname;
 
   try {
-    // Phase 1: MOCK Data for webbios.dev
-    // Later we will read from KV cache here.
+    // Phase 2: Read from KV cache based on domain
+    let themeConfig: ThemeConfig | null = null;
+    const kvData = await c.env.CACHE_KV.get(`cache:theme:config:${domain}`);
     
-    const mockTheme = themeData as ThemeConfig;
-    const page = mockTheme.pages[path === '' ? '/' : path];
+    if (kvData) {
+      try {
+        themeConfig = JSON.parse(kvData) as ThemeConfig;
+      } catch (e) {
+        console.error('Invalid theme JSON in KV for domain:', domain);
+      }
+    }
+    
+    // Fallback to local default if no KV config found
+    if (!themeConfig) {
+      console.log(`No KV config found for ${domain}. Falling back to default theme.`);
+      themeConfig = themeData as ThemeConfig;
+    }
+
+    const page = themeConfig.pages[path === '' ? '/' : path] || themeConfig.pages['/'];
     if (!page) {
       return c.text('Page Not Found', 404);
     }
