@@ -1,6 +1,7 @@
 import React from 'react';
 import { SectionWrapper } from '../shared/SectionWrapper';
 import { cn } from '../shared/Container';
+import { Button } from '../shared/Button';
 
 export interface FeatureItem {
   icon?: React.ReactNode;
@@ -15,9 +16,11 @@ export interface FeaturesProps {
   subtitle?: string;
   features: FeatureItem[];
   columns?: 2 | 3 | 4;
+  ctaText?: string;
+  ctaHref?: string;
 }
 
-export function Features({ title, subtitle, features, columns = 4 }: FeaturesProps) {
+export function Features({ title, subtitle, features, columns = 4, ctaText, ctaHref }: FeaturesProps) {
   return (
     <SectionWrapper id="features" background="muted">
       {(title || subtitle) && (
@@ -65,6 +68,18 @@ export function Features({ title, subtitle, features, columns = 4 }: FeaturesPro
           </div>
         ))}
       </div>
+      
+      {ctaText && ctaHref && (
+        <div className="mt-16 text-center flex justify-center">
+          <Button size="lg" className="rounded-full px-8" asChild>
+            <a 
+              href={ctaHref}
+              target={ctaHref.startsWith('http') ? '_blank' : undefined}
+              rel={ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >{ctaText}</a>
+          </Button>
+        </div>
+      )}
     </SectionWrapper>
   );
 }
