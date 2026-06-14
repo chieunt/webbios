@@ -63,10 +63,13 @@ export function Header({
                     {link.label}
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-50 group-hover:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
                   </a>
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
-                    <div className="bg-card border border-border rounded-xl shadow-lg p-4 w-[600px] grid grid-cols-3 gap-x-6 gap-y-3">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                    <div 
+                      className="bg-card border border-border rounded-xl shadow-lg p-4 gap-x-6 gap-y-3"
+                      style={{ width: '600px', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}
+                    >
                       {SUB_FEATURES.map((feat, fIdx) => (
-                        <a key={fIdx} href={feat.href} className="text-sm text-muted-foreground hover:text-primary transition-colors hover:bg-muted/50 px-2 py-1.5 rounded-md -mx-2">
+                        <a key={fIdx} href={feat.href} className="text-sm text-muted-foreground hover:text-primary transition-colors hover:bg-muted/50 px-3 py-2 rounded-md">
                           {feat.label}
                         </a>
                       ))}
