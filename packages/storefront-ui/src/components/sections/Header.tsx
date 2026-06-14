@@ -32,6 +32,8 @@ const SUB_MORE = [
   { label: 'Blog', href: '/blog' },
   { label: 'Changelog', href: '/changelog' },
   { label: 'Contact Us', href: '/contact' },
+  { label: 'GitHub', href: 'https://github.com/cbcgroupteam/webbios' },
+  { label: 'Facebook', href: 'https://facebook.com/webbios' },
 ];
 
 const SUB_FEATURES = [
