@@ -11,6 +11,29 @@ export interface HeaderProps {
   currentPath?: string;
 }
 
+const SUB_PLATFORM = [
+  { label: 'Platform Overview', href: '/platform' },
+  { label: 'The Kernel API', href: '/platform/kernel' },
+  { label: 'The Universal Dashboard', href: '/platform/dashboard' },
+  { label: 'Themes Architecture', href: '/platform/themes' },
+  { label: 'Apps Ecosystem', href: '/platform/apps' },
+];
+
+const SUB_DEVELOPERS = [
+  { label: 'Documentation', href: 'https://docs.webbios.dev' },
+  { label: 'WebbiSDK', href: '/developers/sdk' },
+  { label: 'WebbiCLI', href: '/developers/cli' },
+  { label: 'UI Libraries', href: '/developers/ui' },
+  { label: 'Partner Portal', href: 'https://partners.webbios.dev' },
+];
+
+const SUB_MORE = [
+  { label: 'About WebbiOS', href: '/about' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Changelog', href: '/changelog' },
+  { label: 'Contact Us', href: '/contact' },
+];
+
 const SUB_FEATURES = [
   { label: 'Open Source', href: '/features/open-source' },
   { label: 'Edge Native', href: '/features/edge-native' },
@@ -53,7 +76,31 @@ export function Header({
           {links.map((link, idx) => {
             const isActive = currentPath === link.href || (link.href !== '/' && currentPath?.startsWith(link.href));
             
-            if (link.label === 'Features') {
+            const isDropdown = ['Platform', 'Features', 'Developers', 'More'].includes(link.label);
+            
+            if (isDropdown) {
+              let items = [];
+              let style = {};
+              
+              switch (link.label) {
+                case 'Platform':
+                  items = SUB_PLATFORM;
+                  style = { width: '280px', display: 'flex', flexDirection: 'column' };
+                  break;
+                case 'Features':
+                  items = SUB_FEATURES;
+                  style = { width: '600px', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' };
+                  break;
+                case 'Developers':
+                  items = SUB_DEVELOPERS;
+                  style = { width: '240px', display: 'flex', flexDirection: 'column' };
+                  break;
+                case 'More':
+                  items = SUB_MORE;
+                  style = { width: '200px', display: 'flex', flexDirection: 'column' };
+                  break;
+              }
+              
               return (
                 <div key={idx} className="relative group">
                   <a
@@ -66,10 +113,16 @@ export function Header({
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
                     <div 
                       className="bg-card border border-border rounded-xl shadow-lg p-4 gap-x-6 gap-y-3"
-                      style={{ width: '600px', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}
+                      style={style}
                     >
-                      {SUB_FEATURES.map((feat, fIdx) => (
-                        <a key={fIdx} href={feat.href} className="text-sm text-muted-foreground hover:text-primary transition-colors hover:bg-muted/50 px-3 py-2 rounded-md">
+                      {items.map((feat, fIdx) => (
+                        <a 
+                          key={fIdx} 
+                          href={feat.href} 
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors hover:bg-muted/50 px-3 py-2 rounded-md"
+                          target={feat.href.startsWith('http') ? '_blank' : undefined}
+                          rel={feat.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        >
                           {feat.label}
                         </a>
                       ))}
