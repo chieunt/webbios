@@ -5,10 +5,11 @@ import { Button } from '../shared/Button';
 export interface CTAProps {
   title: string;
   description?: string;
-  primaryCtaText: string;
-  primaryCtaHref: string;
+  primaryCtaText?: string;
+  primaryCtaHref?: string;
   secondaryCtaText?: string;
   secondaryCtaHref?: string;
+  id?: string;
 }
 
 export function CTA({
@@ -18,9 +19,10 @@ export function CTA({
   primaryCtaHref,
   secondaryCtaText,
   secondaryCtaHref,
+  id,
 }: CTAProps) {
   return (
-    <SectionWrapper id="cta" background="transparent">
+    <SectionWrapper id={id || "cta"} background="transparent">
       <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-8 md:p-16 lg:p-24 text-center">
         {/* Glow effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 opacity-50" />
@@ -34,13 +36,15 @@ export function CTA({
           )}
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" className="h-12 px-8 text-base rounded-full" asChild>
-              <a 
-                href={primaryCtaHref}
-                target={primaryCtaHref?.startsWith('http') ? '_blank' : undefined}
-                rel={primaryCtaHref?.startsWith('http') ? 'noopener noreferrer' : undefined}
-              >{primaryCtaText}</a>
-            </Button>
+            {primaryCtaText && primaryCtaHref && (
+              <Button size="lg" className="h-12 px-8 text-base rounded-full" asChild>
+                <a 
+                  href={primaryCtaHref}
+                  target={primaryCtaHref?.startsWith('http') ? '_blank' : undefined}
+                  rel={primaryCtaHref?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                >{primaryCtaText}</a>
+              </Button>
+            )}
             {secondaryCtaText && (
               <Button size="lg" variant="outline" className="h-12 px-8 text-base rounded-full" asChild>
                 <a 

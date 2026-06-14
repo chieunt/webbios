@@ -41,7 +41,7 @@ export function SectionRenderer({ sections, currentPath }: SectionRendererProps)
 
         return (
           <Suspense key={section.id} fallback={<div className="h-24 animate-pulse bg-muted" />}>
-            <Component {...section.props} currentPath={currentPath} />
+            <Component {...section.props} id={section.id} currentPath={currentPath} />
           </Suspense>
         );
       })}

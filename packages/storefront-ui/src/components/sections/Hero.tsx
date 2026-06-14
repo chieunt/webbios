@@ -10,6 +10,7 @@ export interface HeroProps {
   secondaryCtaText?: string;
   secondaryCtaHref?: string;
   logos?: Array<{ src: string; alt: string }>;
+  id?: string;
 }
 
 export function Hero({
@@ -20,9 +21,10 @@ export function Hero({
   secondaryCtaText,
   secondaryCtaHref,
   logos,
+  id,
 }: HeroProps) {
   return (
-    <SectionWrapper className="relative overflow-hidden pt-24 pb-32" background="transparent">
+    <SectionWrapper id={id || "hero"} className="relative overflow-hidden pt-24 pb-32" background="transparent">
       {/* Background glow effects */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px] opacity-50 pointer-events-none" />
       

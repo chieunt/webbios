@@ -18,11 +18,12 @@ export interface FeaturesProps {
   columns?: 2 | 3 | 4;
   ctaText?: string;
   ctaHref?: string;
+  id?: string;
 }
 
-export function Features({ title, subtitle, features, columns = 4, ctaText, ctaHref }: FeaturesProps) {
+export function Features({ title, subtitle, features, columns = 4, ctaText, ctaHref, id }: FeaturesProps) {
   return (
-    <SectionWrapper id="features" background="muted">
+    <SectionWrapper id={id || "features"} background="muted">
       {(title || subtitle) && (
         <div className="text-center mb-16">
           {title && <h2 className="text-3xl md:text-4xl font-bold mb-4">{title}</h2>}
