@@ -26,9 +26,10 @@ export function registerSection(type: string, component: React.ComponentType<any
 
 interface SectionRendererProps {
   sections: SectionConfig[];
+  currentPath?: string;
 }
 
-export function SectionRenderer({ sections }: SectionRendererProps) {
+export function SectionRenderer({ sections, currentPath }: SectionRendererProps) {
   return (
     <>
       {sections.map((section) => {
@@ -40,7 +41,7 @@ export function SectionRenderer({ sections }: SectionRendererProps) {
 
         return (
           <Suspense key={section.id} fallback={<div className="h-24 animate-pulse bg-muted" />}>
-            <Component {...section.props} />
+            <Component {...section.props} currentPath={currentPath} />
           </Suspense>
         );
       })}

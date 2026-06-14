@@ -8,7 +8,23 @@ export interface HeaderProps {
   links?: Array<{ label: string; href: string }>;
   ctaText?: string;
   ctaHref?: string;
+  currentPath?: string;
 }
+
+const SUB_FEATURES = [
+  { label: 'Open Source', href: '/features/open-source' },
+  { label: 'Edge Native', href: '/features/edge-native' },
+  { label: 'Zero Cost', href: '/features/zero-cost' },
+  { label: 'Extend Everything', href: '/features/extend-everything' },
+  { label: 'Universal Storefront', href: '/features/universal-storefront' },
+  { label: 'Layered Architecture', href: '/features/layered-architecture' },
+  { label: '4-Tier Caching', href: '/features/4-tier-caching' },
+  { label: 'Service Bindings', href: '/features/automated-service-bindings' },
+  { label: 'Micro-Frontends', href: '/features/micro-frontends' },
+  { label: 'RBAC', href: '/features/role-based-access-control' },
+  { label: 'Global Edge Network', href: '/features/global-edge-network' },
+  { label: 'Auto-Scaling', href: '/features/auto-scaling' },
+];
 
 export function Header({
   logoText = 'WebbiOS',
@@ -16,6 +32,7 @@ export function Header({
   links = [],
   ctaText = 'Get Started',
   ctaHref = '#',
+  currentPath,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -33,17 +50,44 @@ export function Header({
         </div>
         
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          {links.map((link, idx) => (
-            <a
-              key={idx}
-              href={link.href}
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
-              target={link.href.startsWith('http') ? '_blank' : undefined}
-              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link, idx) => {
+            const isActive = currentPath === link.href || (link.href !== '/' && currentPath?.startsWith(link.href));
+            
+            if (link.label === 'Features') {
+              return (
+                <div key={idx} className="relative group">
+                  <a
+                    href={link.href}
+                    className={`transition-colors py-2 flex items-center gap-1 ${isActive ? 'text-primary font-semibold' : 'text-foreground/60 hover:text-foreground/80'}`}
+                  >
+                    {link.label}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-50 group-hover:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+                  </a>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+                    <div className="bg-card border border-border rounded-xl shadow-lg p-4 w-[600px] grid grid-cols-3 gap-x-6 gap-y-3">
+                      {SUB_FEATURES.map((feat, fIdx) => (
+                        <a key={fIdx} href={feat.href} className="text-sm text-muted-foreground hover:text-primary transition-colors hover:bg-muted/50 px-2 py-1.5 rounded-md -mx-2">
+                          {feat.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <a
+                key={idx}
+                href={link.href}
+                className={`transition-colors ${isActive ? 'text-primary font-semibold' : 'text-foreground/60 hover:text-foreground/80'}`}
+                target={link.href.startsWith('http') ? '_blank' : undefined}
+                rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
         
         <div className="flex items-center gap-4">

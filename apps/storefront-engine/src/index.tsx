@@ -66,7 +66,7 @@ app.get('*', async (c) => {
 
     const stream = await renderToReadableStream(
       <Document title={page.title}>
-        <SectionRenderer sections={page.sections} />
+        <SectionRenderer sections={page.sections} currentPath={path} />
       </Document>,
       {
         onError(error) {
