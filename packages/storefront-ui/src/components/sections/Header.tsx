@@ -64,13 +64,12 @@ export function Header({
       <Container className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <a href="/" className="flex items-center gap-2">
-            {logoImage ? (
+            {logoImage && (
               <img src={logoImage} alt={logoText} className="h-8 w-auto" />
-            ) : (
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                {logoText}
-              </span>
             )}
+            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+              {logoText}
+            </span>
           </a>
         </div>
 
@@ -81,7 +80,7 @@ export function Header({
             const isDropdown = ['Platform', 'Features', 'Developers', 'More'].includes(link.label);
 
             if (isDropdown) {
-              let items = [];
+              let items: Array<{label: string, href: string}> = [];
               let style = {};
 
               switch (link.label) {
@@ -186,8 +185,14 @@ export function Header({
               
               return (
                 <div key={idx} className="flex flex-col gap-3">
-                  <div className="font-semibold text-foreground text-lg">{link.label}</div>
-                  <div className="pl-4 flex flex-col gap-3 border-l-2 border-border/40">
+                  <button className="mobile-submenu-btn flex justify-between items-center w-full text-left font-semibold text-foreground text-lg" aria-expanded="false">
+                    {link.label}
+                    <svg className="submenu-icon transition-transform text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14"/>
+                      <path d="M12 5v14" className="plus-line"/>
+                    </svg>
+                  </button>
+                  <div className="submenu-content hidden pl-4 flex-col gap-3 border-l-2 border-border/40">
                     {items.map((feat, fIdx) => (
                       <a 
                         key={fIdx} 
@@ -237,6 +242,23 @@ export function Header({
               menu.classList.toggle('hidden');
             });
           }
+          
+          var submenuBtns = document.querySelectorAll('.mobile-submenu-btn');
+          submenuBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              var content = this.nextElementSibling;
+              var iconLine = this.querySelector('.plus-line');
+              if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('flex');
+                if (iconLine) iconLine.style.display = 'none';
+              } else {
+                content.classList.add('hidden');
+                content.classList.remove('flex');
+                if (iconLine) iconLine.style.display = 'block';
+              }
+            });
+          });
         });
       `}} />
     </header>
