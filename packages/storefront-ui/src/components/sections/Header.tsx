@@ -149,15 +149,96 @@ export function Header({
         </nav>
 
         <div className="flex items-center gap-4">
-          <Button variant="default" asChild>
-            <a
-              href={ctaHref}
+          <div className="hidden md:block">
+            <Button variant="default" asChild>
+              <a
+                href={ctaHref}
+                target={ctaHref.startsWith('http') ? '_blank' : undefined}
+                rel={ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >{ctaText}</a>
+            </Button>
+          </div>
+          
+          <button 
+            id="mobile-menu-btn" 
+            className="md:hidden p-2 -mr-2 text-foreground/80 hover:text-foreground hover:bg-muted/50 rounded-md transition-colors"
+            aria-label="Toggle Menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+        </div>
+      </Container>
+
+      {/* Mobile Menu Panel */}
+      <div id="mobile-menu" className="hidden md:hidden border-t border-border/40 bg-background/95 px-4 py-6 space-y-6 max-h-[80vh] overflow-y-auto">
+        <nav className="flex flex-col gap-4">
+          {links.map((link, idx) => {
+            const isDropdown = ['Platform', 'Features', 'Developers', 'More'].includes(link.label);
+            
+            if (isDropdown) {
+              let items: Array<{label: string, href: string}> = [];
+              switch (link.label) {
+                case 'Platform': items = SUB_PLATFORM; break;
+                case 'Features': items = SUB_FEATURES; break;
+                case 'Developers': items = SUB_DEVELOPERS; break;
+                case 'More': items = SUB_MORE; break;
+              }
+              
+              return (
+                <div key={idx} className="flex flex-col gap-3">
+                  <div className="font-semibold text-foreground text-lg">{link.label}</div>
+                  <div className="pl-4 flex flex-col gap-3 border-l-2 border-border/40">
+                    {items.map((feat, fIdx) => (
+                      <a 
+                        key={fIdx} 
+                        href={feat.href} 
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                        target={feat.href.startsWith('http') ? '_blank' : undefined}
+                        rel={feat.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      >
+                        {feat.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+            
+            return (
+              <a 
+                key={idx} 
+                href={link.href} 
+                className="font-semibold text-foreground text-lg hover:text-primary transition-colors"
+                target={link.href.startsWith('http') ? '_blank' : undefined}
+                rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                {link.label}
+              </a>
+            );
+          })}
+        </nav>
+        <div className="pt-4 border-t border-border/40">
+          <Button variant="default" className="w-full py-6 text-lg rounded-full" asChild>
+            <a 
+              href={ctaHref} 
               target={ctaHref.startsWith('http') ? '_blank' : undefined}
               rel={ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
             >{ctaText}</a>
           </Button>
         </div>
-      </Container>
+      </div>
+
+      <script dangerouslySetInnerHTML={{ __html: `
+        document.addEventListener('DOMContentLoaded', function() {
+          var btn = document.getElementById('mobile-menu-btn');
+          var menu = document.getElementById('mobile-menu');
+          if (btn && menu) {
+            btn.addEventListener('click', function() {
+              menu.classList.toggle('hidden');
+            });
+          }
+        });
+      `}} />
     </header>
   );
 }
