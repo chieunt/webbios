@@ -39,7 +39,11 @@ function Document({ children, title, description, themeCssUrl }: { children: Rea
         {themeCssUrl && <link href={themeCssUrl} rel="stylesheet" />}
       </head>
       <body>
-        <div id="root">{children}</div>
+        <div id="root">
+          <main>
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );

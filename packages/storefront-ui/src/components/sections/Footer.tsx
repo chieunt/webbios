@@ -42,7 +42,7 @@ export function Footer({
           
           {columns.map((col, idx) => (
             <div key={idx}>
-              <h4 className="font-semibold mb-6 text-foreground/90">{col.title}</h4>
+              <p className="font-semibold mb-6 text-foreground/90">{col.title}</p>
               <ul className="space-y-4">
                 {col.links.map((link, linkIdx) => (
                   <li key={linkIdx}>

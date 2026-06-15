@@ -58,7 +58,7 @@ export function Features({ title, subtitle, features, columns = 4, ctaText, ctaH
               <div className="mt-4">
                 <a 
                   href={feature.link}
-                  className="text-primary font-medium hover:underline inline-flex items-center gap-1"
+                  className="text-[#56C0F8] font-medium hover:underline inline-flex items-center gap-1"
                   target={feature.link?.startsWith('http') ? '_blank' : undefined}
                   rel={feature.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
                 >
