@@ -74,28 +74,53 @@ export function getSeedSQL(lang: 'vi' | 'en' = 'vi'): string {
   sql += `-- MENUS\n`;
   const appsMenuId = ulid();
   const systemMenuId = ulid();
+  const storefrontMenuId = ulid();
   const webbiosMenuId = ulid();
 
-  const menus = [
-    { id: ulid(), parent: null, label: dict.menus.dashboard, icon: 'Home', path: '/', perm: 'dashboard:view', sort: 1, isCat: 0 },
-    { id: ulid(), parent: null, label: dict.menus.media, icon: 'Image', path: '/media', perm: 'media:view', sort: 2, isCat: 0 },
-    
-    { id: appsMenuId, parent: null, label: dict.menus.apps_category, icon: null, path: '', perm: null, sort: 5, isCat: 1 },
-    { id: ulid(), parent: appsMenuId, label: dict.menus.installed_apps, icon: 'Package', path: '/apps', perm: 'apps:view', sort: 6, isCat: 0 },
-    { id: ulid(), parent: appsMenuId, label: dict.menus.apps_store, icon: 'Grid', path: '/apps/store', perm: 'apps:view', sort: 7, isCat: 0 },
-    
-    { id: systemMenuId, parent: null, label: dict.menus.system_category, icon: null, path: '', perm: null, sort: 10, isCat: 1 },
-    { id: ulid(), parent: systemMenuId, label: dict.menus.users, icon: 'Users', path: '/users', perm: 'users:view', sort: 11, isCat: 0 },
-    { id: ulid(), parent: systemMenuId, label: dict.menus.menus, icon: 'Menu', path: '/system/menus', perm: 'menus:view', sort: 12, isCat: 0 },
-    { id: ulid(), parent: systemMenuId, label: dict.menus.roles, icon: 'Shield', path: '/system/roles', perm: 'roles:view', sort: 13, isCat: 0 },
-    { id: ulid(), parent: systemMenuId, label: dict.menus.permissions, icon: 'Lock', path: '/system/permissions', perm: 'permissions:view', sort: 14, isCat: 0 },
-    { id: ulid(), parent: systemMenuId, label: dict.menus.audit, icon: 'FileText', path: '/audit', perm: 'audit:view', sort: 15, isCat: 0 },
-    { id: ulid(), parent: systemMenuId, label: dict.menus.settings, icon: 'Settings', path: '/settings', perm: 'settings:view', sort: 16, isCat: 0 },
-    { id: ulid(), parent: systemMenuId, label: dict.menus.api_keys, icon: 'Key', path: '/api-keys', perm: 'api_keys:view', sort: 17, isCat: 0 },
+  const securityMenuId = ulid();
+  const advancedMenuId = ulid();
+  const settingsMenuId = ulid();
 
+  const menus = [
+    // Top Level
+    { id: ulid(), parent: null, label: dict.menus.dashboard, icon: 'Home', path: '/', perm: 'dashboard:view', sort: 1, isCat: 0 },
+
+    // Storefront Category
+    { id: storefrontMenuId, parent: null, label: dict.menus.storefront_category, icon: null, path: '', perm: null, sort: 2, isCat: 1 },
+    { id: ulid(), parent: storefrontMenuId, label: dict.menus.media, icon: 'Image', path: '/media', perm: 'media:view', sort: 1, isCat: 0 },
+
+    // Apps Category
+    { id: appsMenuId, parent: null, label: dict.menus.apps_category, icon: null, path: '', perm: null, sort: 5, isCat: 1 },
+    { id: ulid(), parent: appsMenuId, label: dict.menus.installed_apps, icon: 'Package', path: '/apps', perm: 'apps:view', sort: 1, isCat: 0 },
+    { id: ulid(), parent: appsMenuId, label: dict.menus.apps_store, icon: 'Grid', path: '/apps/store', perm: 'apps:view', sort: 2, isCat: 0 },
+
+    // System Category
+    { id: systemMenuId, parent: null, label: dict.menus.system_category, icon: null, path: '', perm: null, sort: 10, isCat: 1 },
+
+    // System > Security
+    { id: securityMenuId, parent: systemMenuId, label: dict.menus.system_security, icon: 'ShieldCheck', path: '', perm: null, sort: 1, isCat: 0 },
+    { id: ulid(), parent: securityMenuId, label: dict.menus.users, icon: 'Users', path: '/users', perm: 'users:view', sort: 1, isCat: 0 },
+    { id: ulid(), parent: securityMenuId, label: dict.menus.roles, icon: 'Shield', path: '/system/roles', perm: 'roles:view', sort: 2, isCat: 0 },
+    { id: ulid(), parent: securityMenuId, label: dict.menus.permissions, icon: 'Lock', path: '/system/permissions', perm: 'permissions:view', sort: 3, isCat: 0 },
+    { id: ulid(), parent: securityMenuId, label: dict.menus.api_keys, icon: 'Key', path: '/api-keys', perm: 'api_keys:view', sort: 4, isCat: 0 },
+
+    // System > Advanced
+    { id: advancedMenuId, parent: systemMenuId, label: dict.menus.system_advanced, icon: 'TerminalSquare', path: '', perm: null, sort: 2, isCat: 0 },
+    { id: ulid(), parent: advancedMenuId, label: dict.menus.menus, icon: 'Menu', path: '/system/menus', perm: 'menus:view', sort: 1, isCat: 0 },
+    { id: ulid(), parent: advancedMenuId, label: dict.menus.audit, icon: 'FileText', path: '/audit', perm: 'audit:view', sort: 2, isCat: 0 },
+    { id: ulid(), parent: advancedMenuId, label: dict.menus.cron_jobs, icon: 'Clock', path: '/system/cron-jobs', perm: 'settings:view', sort: 3, isCat: 0 },
+
+    // System > Settings
+    { id: settingsMenuId, parent: systemMenuId, label: dict.menus.system_settings, icon: 'Settings', path: '', perm: 'settings:view', sort: 3, isCat: 0 },
+    { id: ulid(), parent: settingsMenuId, label: dict.menus.settings_system, icon: null, path: '/settings', perm: 'settings:view', sort: 1, isCat: 0 },
+    { id: ulid(), parent: settingsMenuId, label: dict.menus.settings_domains, icon: null, path: '/settings/domains', perm: 'settings:view', sort: 2, isCat: 0 },
+    { id: ulid(), parent: settingsMenuId, label: dict.menus.settings_webhooks, icon: null, path: '/settings/webhooks', perm: 'settings:view', sort: 3, isCat: 0 },
+
+    // WebbiOS Category
     { id: webbiosMenuId, parent: null, label: dict.menus.webbios_category, icon: null, path: '', perm: null, sort: 20, isCat: 1 },
-    { id: ulid(), parent: webbiosMenuId, label: dict.menus.license, icon: 'Circle', path: '/webbios/licenses', perm: null, sort: 21, isCat: 0 },
-    { id: ulid(), parent: webbiosMenuId, label: dict.menus.updates, icon: 'CloudUpload', path: '/webbios/updates', perm: null, sort: 22, isCat: 0 },
+    { id: ulid(), parent: webbiosMenuId, label: dict.menus.backup_restore, icon: 'DatabaseBackup', path: '/webbios/backup-restore', perm: null, sort: 1, isCat: 0 },
+    { id: ulid(), parent: webbiosMenuId, label: dict.menus.cloudflare_quotas, icon: 'PieChart', path: '/webbios/cloudflare-quotas', perm: null, sort: 2, isCat: 0 },
+    { id: ulid(), parent: webbiosMenuId, label: dict.menus.updates, icon: 'CloudUpload', path: '/webbios/updates', perm: null, sort: 3, isCat: 0 },
   ];
 
   sql += `INSERT INTO wb_menus (id, parent_id, label, icon, path, permission_slug, position, is_system, translations) VALUES\n`;
@@ -127,7 +152,7 @@ export function getSeedSQL(lang: 'vi' | 'en' = 'vi'): string {
   sql += `('site.locale', '"${lang}"', 'site'),\n`;
   sql += `('site.timezone', '"Asia/Ho_Chi_Minh"', 'site'),\n`;
   sql += `('site.currency', '"VND"', 'site'),\n`;
-  sql += `('system.version', '"2.0.0"', 'system');\n\n`;
+  sql += `('system.version', '"1.0.0"', 'system');\n\n`;
 
   return sql;
 }

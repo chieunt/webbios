@@ -7,6 +7,8 @@
   <p><strong>WebbiOS | Next-Gen Business Growth Platform</strong></p>
   <p>Build websites, apps, and management systems on Cloudflare's edge network. Open source. Free forever. Deploy in seconds.</p>
 
+  *Read this in other languages: [Tiếng Việt](README.vi.md).*
+
   <p>
     <a href="https://webbios.dev">Website</a> •
     <a href="https://docs.webbios.dev/">Documentation</a> •

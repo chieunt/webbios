@@ -13,6 +13,7 @@ branding/
 docs/
 scripts/
 apps/docs/
+webbios-release/
 
 # Wrangler cache
 .wrangler
