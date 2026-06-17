@@ -101,9 +101,10 @@ export function getSeedSQL(lang: 'vi' | 'en' = 'vi'): string {
   sql += `INSERT INTO wb_menus (id, parent_id, label, icon, path, permission_slug, position, is_system, translations) VALUES\n`;
   const menuValues = menus.map(m => {
     // translations json
+    const key = Object.keys(dict.menus).find(k => dict.menus[k as keyof typeof dict.menus] === m.label);
     const trans = JSON.stringify({
-      vi: m.isCat ? vi.menus[Object.keys(dict.menus).find(k => dict.menus[k as keyof typeof dict.menus] === m.label) as keyof typeof vi.menus] : undefined,
-      en: m.isCat ? en.menus[Object.keys(dict.menus).find(k => dict.menus[k as keyof typeof dict.menus] === m.label) as keyof typeof en.menus] : undefined,
+      vi: key ? vi.menus[key as keyof typeof vi.menus] : m.label,
+      en: key ? en.menus[key as keyof typeof en.menus] : m.label,
       isCategory: m.isCat === 1
     });
     return `(${esc(m.id)}, ${esc(m.parent)}, ${esc(m.label)}, ${esc(m.icon)}, ${esc(m.path)}, ${esc(m.perm)}, ${m.sort}, 1, ${esc(trans)})`;

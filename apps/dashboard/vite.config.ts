@@ -10,7 +10,7 @@ export default defineConfig({
       remotes: {
         platformSuite: process.env.NODE_ENV === 'development' ? 'http://localhost:5174/assets/remoteEntry.js' : 'https://god-platform-suite-ui-23j.pages.dev/assets/remoteEntry.js',
       },
-      shared: ['react', 'react-dom', 'react-router-dom', '@webbios/ui']
+      shared: ['react', 'react-dom', 'react-router-dom', '@webbios/ui', 'i18next', 'react-i18next']
     })
   ],
   build: {

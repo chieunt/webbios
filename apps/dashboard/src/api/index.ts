@@ -1,30 +1,30 @@
 import { WebbiSDK } from '@webbios/sdk';
 
-const resolveApiUrl = () => {
-  // 1. Ưu tiên biến môi trường nếu được set cứng (như .env.production vừa tạo)
+export const resolveApiUrl = () => {
+  // 1. Prioritize hardcoded env variables (like .env.production)
   if (import.meta.env.VITE_API_URL) {
     return import.meta.env.VITE_API_URL;
   }
 
   const hostname = window.location.hostname;
 
-  // 2. Môi trường Local
+  // 2. Local environment
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
     return 'http://127.0.0.1:8787/v1/admin';
   }
 
-  // 3. Môi trường thực tế (Domain Convention)
-  // Khách dùng trial: admin.shop1.webbi.vn -> api.shop1.webbi.vn
-  // Khách dùng domain riêng: admin.domain.com -> api.domain.com
+  // 3. Production environment (Domain Convention)
+  // Trial users: admin.shop1.webbi.vn -> api.shop1.webbi.vn
+  // Custom domain users: admin.domain.com -> api.domain.com
   if (hostname.startsWith('admin.')) {
     return `https://${hostname.replace('admin.', 'api.')}/v1/admin`;
   }
 
-  // 4. Môi trường Development trên Cloudflare (Dùng chung cho cả nhánh preview)
+  // 4. Cloudflare Development environment (Shared with preview branches)
   if (hostname.endsWith('.pages.dev')) {
-    // Trích xuất shopId từ domain: webbios-dashboard-wbshop9050.pages.dev
+    // Extract shopId from domain: webbios-dashboard-wbshop9050.pages.dev
     const parts = hostname.split('.');
-    // Nếu có dạng hash.webbios-dashboard-xxx.pages.dev thì lấy phần tử [1], nếu không thì [0]
+    // If format is hash.webbios-dashboard-xxx.pages.dev take [1], else [0]
     const projectDomain = parts.length > 3 ? parts[1] : parts[0];
     
     if (projectDomain.startsWith('webbios-dashboard-')) {
@@ -39,7 +39,7 @@ const resolveApiUrl = () => {
     return 'https://webbios-api.webbios-developers.workers.dev/v1/admin';
   }
 
-  // Fallback an toàn nếu không khớp các quy tắc trên
+  // Safe fallback if rules do not match
   return 'http://127.0.0.1:8787/v1/admin';
 };
 

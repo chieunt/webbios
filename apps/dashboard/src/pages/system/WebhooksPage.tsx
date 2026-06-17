@@ -4,11 +4,11 @@ import { Webhook, Plus, Search, Trash2, Edit2, X } from 'lucide-react';
 import { webbios } from '../../api';
 
 const AVAILABLE_EVENTS = [
-  { id: 'order.created', label: 'Tạo đơn hàng mới' },
-  { id: 'order.paid', label: 'Đơn hàng được thanh toán' },
-  { id: 'product.created', label: 'Tạo sản phẩm mới' },
-  { id: 'product.updated', label: 'Cập nhật sản phẩm' },
-  { id: 'user.registered', label: 'Khách hàng đăng ký mới' },
+  { id: 'order.created', label: 'New order created' },
+  { id: 'order.paid', label: 'Order paid' },
+  { id: 'product.created', label: 'New product created' },
+  { id: 'product.updated', label: 'Product updated' },
+  { id: 'user.registered', label: 'New customer registered' },
 ];
 
 const WebhooksPage = () => {
@@ -99,7 +99,7 @@ const WebhooksPage = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Bạn có chắc muốn xoá Webhook này?')) return;
+    if (!window.confirm(t('webhooks.confirmDelete', 'Are you sure you want to delete this Webhook?'))) return;
     try {
       await webbios.webhooks.deleteWebhook(id);
       fetchWebhooks();
@@ -113,14 +113,14 @@ const WebhooksPage = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-cf-text">Webhooks</h1>
-          <p className="text-sm text-cf-gray-text mt-1">Đồng bộ dữ liệu thời gian thực với các ứng dụng và hệ thống bên ngoài.</p>
+          <p className="text-sm text-cf-gray-text mt-1">{t('webhooks.description', 'Synchronize real-time data with external applications and systems.')}</p>
         </div>
         <button 
           onClick={() => { resetForm(); setIsModalOpen(true); }}
           className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors shadow-sm font-medium"
         >
           <Plus size={16} />
-          <span>Tạo Webhook</span>
+          <span>{t('webhooks.create', 'Create Webhook')}</span>
         </button>
       </div>
 
@@ -130,7 +130,7 @@ const WebhooksPage = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <input 
               type="text" 
-              placeholder={t('common.placeholders.search', 'Tìm kiếm...')} 
+              placeholder={t('common.placeholders.search', 'Search...')} 
               className="w-full pl-9 pr-4 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -145,9 +145,9 @@ const WebhooksPage = () => {
             <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
               <Webhook className="w-8 h-8 text-blue-500" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900">Không tìm thấy Webhook nào</h3>
+            <h3 className="text-lg font-medium text-gray-900">{t('webhooks.empty.title', 'No Webhooks found')}</h3>
             <p className="text-sm text-gray-500 max-w-md mt-2">
-              Webhook cho phép bạn nhận thông báo qua HTTP request mỗi khi có sự kiện thay đổi dữ liệu trong ERP (ví dụ: Tạo đơn hàng mới).
+              {t('webhooks.empty.description', 'Webhooks allow you to receive notifications via HTTP request whenever there is a data change event in the ERP (e.g., New order created).')}
             </p>
           </div>
         ) : (
@@ -155,11 +155,11 @@ const WebhooksPage = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-gray-50/50 text-xs uppercase text-gray-500 font-semibold border-b border-cf-border">
-                  <th className="px-6 py-3">Tên Webhook</th>
+                  <th className="px-6 py-3">{t('webhooks.table.name', 'Webhook Name')}</th>
                   <th className="px-6 py-3">Endpoint URL</th>
-                  <th className="px-6 py-3">Sự kiện (Events)</th>
-                  <th className="px-6 py-3">Trạng thái</th>
-                  <th className="px-6 py-3 text-right">Thao tác</th>
+                  <th className="px-6 py-3">{t('webhooks.table.events', 'Events')}</th>
+                  <th className="px-6 py-3">{t('webhooks.table.status', 'Status')}</th>
+                  <th className="px-6 py-3 text-right">{t('webhooks.table.actions', 'Actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -183,7 +183,7 @@ const WebhooksPage = () => {
                     </td>
                     <td className="px-6 py-4">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${wh.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
-                        {wh.status === 'active' ? 'Hoạt động' : 'Tạm dừng'}
+                        {wh.status === 'active' ? t('webhooks.status.active', 'Active') : t('webhooks.status.inactive', 'Inactive')}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -209,7 +209,7 @@ const WebhooksPage = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 animate-in fade-in">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
             <div className="p-5 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">{isEditMode ? 'Chỉnh sửa Webhook' : 'Tạo Webhook mới'}</h2>
+              <h2 className="text-lg font-semibold text-gray-900">{isEditMode ? t('webhooks.modal.editTitle', 'Edit Webhook') : t('webhooks.modal.createTitle', 'Create new Webhook')}</h2>
               <button onClick={() => { setIsModalOpen(false); resetForm(); }} className="text-gray-400 hover:text-gray-600">
                 <X size={20} />
               </button>
@@ -217,13 +217,13 @@ const WebhooksPage = () => {
             
             <div className="p-5 overflow-y-auto flex-1 space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tên Webhook</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">{t('webhooks.modal.name', 'Webhook Name')}</label>
                 <input 
                   type="text" 
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  placeholder="Ví dụ: Đẩy đơn qua KiotViet"
+                  placeholder={t('webhooks.modal.namePlaceholder', 'e.g. Sync order to ERP')}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 />
               </div>
@@ -238,23 +238,23 @@ const WebhooksPage = () => {
                   placeholder="https://api.your-system.com/webhook"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 />
-                <p className="text-xs text-gray-500 mt-1">Đảm bảo URL của bạn có thể nhận các HTTPS POST request.</p>
+                <p className="text-xs text-gray-500 mt-1">{t('webhooks.modal.urlHelp', 'Ensure your URL can receive HTTPS POST requests.')}</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Secret Key (Mã xác thực)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">{t('webhooks.modal.secret', 'Secret Key (Authentication code)')}</label>
                 <input 
                   type="text" 
                   name="secret"
                   value={formData.secret}
                   onChange={handleInputChange}
-                  placeholder="Để trống nếu không cần xác thực chữ ký"
+                  placeholder={t('webhooks.modal.secretPlaceholder', 'Leave empty if signature authentication is not required')}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Đăng ký sự kiện (Events)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('webhooks.modal.events', 'Subscribe to events')}</label>
                 <div className="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
                   {AVAILABLE_EVENTS.map(event => (
                     <label key={event.id} className="flex items-center space-x-3 cursor-pointer">
@@ -274,15 +274,15 @@ const WebhooksPage = () => {
               </div>
               {isEditMode && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('webhooks.modal.status', 'Status')}</label>
                   <select
                     name="status"
                     value={formData.status}
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                   >
-                    <option value="active">Hoạt động</option>
-                    <option value="inactive">Tạm dừng</option>
+                    <option value="active">{t('webhooks.status.active', 'Active')}</option>
+                    <option value="inactive">{t('webhooks.status.inactive', 'Inactive')}</option>
                   </select>
                 </div>
               )}
@@ -293,14 +293,14 @@ const WebhooksPage = () => {
                 onClick={() => { setIsModalOpen(false); resetForm(); }}
                 className="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
-                Hủy bỏ
+                {t('common.cancel', 'Cancel')}
               </button>
               <button 
                 onClick={handleCreateOrUpdate}
                 disabled={isSaving || !formData.name || !formData.url}
                 className="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
               >
-                {isSaving ? 'Đang lưu...' : 'Lưu Webhook'}
+                {isSaving ? t('common.saving', 'Saving...') : t('webhooks.modal.save', 'Save Webhook')}
               </button>
             </div>
           </div>

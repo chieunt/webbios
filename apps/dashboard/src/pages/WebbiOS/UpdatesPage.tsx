@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { webbios } from '../../api';
 
 export const UpdatesPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { hasUpdate, latestVersion, releaseNotes } = useUpdateChecker();
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateStatus, setUpdateStatus] = useState<string | null>(null);
@@ -38,7 +38,7 @@ export const UpdatesPage = () => {
           } else if (jobData.job.status === 'failed') {
             if (intervalRef.current) clearInterval(intervalRef.current);
             localStorage.removeItem('webbios_active_update_job');
-            setUpdateStatus('Lỗi: ' + (jobData.job.errorMessage || 'Cập nhật thất bại'));
+            setUpdateStatus(t('webbios.updates.progress.errorPrefix') + (jobData.job.errorMessage || t('webbios.updates.progress.errorFailed')));
             setUpdateProgress(0);
             setIsUpdating(false);
           } else {
@@ -54,7 +54,7 @@ export const UpdatesPage = () => {
     const savedJobId = localStorage.getItem('webbios_active_update_job');
     if (savedJobId) {
       setIsUpdating(true);
-      setUpdateStatus('Đang khôi phục tiến trình...');
+      setUpdateStatus(t('webbios.updates.progress.restoring'));
       setUpdateProgress(10);
       startPolling(savedJobId);
     }
@@ -65,21 +65,21 @@ export const UpdatesPage = () => {
 
   const mapStatusToProgress = (status: string): { label: string; progress: number } => {
     switch (status) {
-      case 'in_progress': return { label: 'Đang xếp hàng chờ xử lý...', progress: 5 };
-      case 'downloading': return { label: 'Đang tải gói cài đặt...', progress: 20 };
-      case 'extracting': return { label: 'Đang giải nén...', progress: 40 };
-      case 'installing': return { label: 'Đang cài đặt thư viện...', progress: 50 };
-      case 'deploying_api': return { label: 'Đang triển khai Core API...', progress: 70 };
-      case 'deploying_dashboard': return { label: 'Đang triển khai Dashboard...', progress: 90 };
-      case 'success': return { label: 'Cập nhật hoàn tất! Đang tải lại...', progress: 100 };
-      default: return { label: 'Đang xử lý...', progress: 10 };
+      case 'in_progress': return { label: t('webbios.updates.progress.inProgress'), progress: 5 };
+      case 'downloading': return { label: t('webbios.updates.progress.downloading'), progress: 20 };
+      case 'extracting': return { label: t('webbios.updates.progress.extracting'), progress: 40 };
+      case 'installing': return { label: t('webbios.updates.progress.installing'), progress: 50 };
+      case 'deploying_api': return { label: t('webbios.updates.progress.deployingApi'), progress: 70 };
+      case 'deploying_dashboard': return { label: t('webbios.updates.progress.deployingDashboard'), progress: 90 };
+      case 'success': return { label: t('webbios.updates.progress.success'), progress: 100 };
+      default: return { label: t('webbios.updates.progress.default'), progress: 10 };
     }
   };
 
   const handleUpdate = async () => {
     if (isUpdating) return;
     setIsUpdating(true);
-    setUpdateStatus(t('webbios.updates.statusDownloading') || 'Đang khởi tạo tiến trình cập nhật...');
+    setUpdateStatus(t('webbios.updates.progress.statusInit'));
 
     try {
       const hostname = window.location.hostname;
@@ -96,7 +96,7 @@ export const UpdatesPage = () => {
       }
 
       if (!shopId) {
-        throw new Error('Không xác định được ID của Shop. Quá trình cập nhật bị huỷ.');
+        throw new Error(t('webbios.updates.progress.errorNoShop'));
       }
 
       const res = await webbios.adminUpdates.installUpdate({
@@ -107,7 +107,7 @@ export const UpdatesPage = () => {
         previousVersion: currentVersion
       });
 
-      setUpdateStatus('Đang cập nhật...');
+      setUpdateStatus(t('webbios.updates.progress.statusUpdating'));
       setUpdateProgress(5);
 
       const jobId = (res as { jobId?: string }).jobId;
@@ -115,20 +115,20 @@ export const UpdatesPage = () => {
         localStorage.setItem('webbios_active_update_job', jobId);
         startPolling(jobId);
       } else {
-        throw new Error('Không nhận được Job ID từ máy chủ.');
+        throw new Error(t('webbios.updates.progress.errorNoJobId'));
       }
 
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setUpdateStatus('Lỗi: ' + error.message);
+        setUpdateStatus(t('webbios.updates.progress.errorPrefix') + error.message);
       } else {
-        setUpdateStatus('Lỗi: Cập nhật thất bại');
+        setUpdateStatus(t('webbios.updates.progress.errorPrefix') + t('webbios.updates.progress.errorFailed'));
       }
       setIsUpdating(false);
     }
   };
 
-  const hasError = updateStatus?.startsWith('Lỗi');
+  const hasError = updateStatus?.startsWith(t('webbios.updates.progress.errorPrefix'));
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
@@ -206,7 +206,20 @@ export const UpdatesPage = () => {
               <span>{t('webbios.updates.releaseNotes', { version: latestVersion })}</span>
             </h3>
             <div className="mt-3 text-sm text-gray-600 space-y-2 prose whitespace-pre-line">
-              {releaseNotes || t('webbios.updates.releaseNotesIntro')}
+              {(() => {
+                if (!releaseNotes) return t('webbios.updates.releaseNotesIntro');
+                try {
+                  if (releaseNotes.trim().startsWith('{')) {
+                    const parsed = JSON.parse(releaseNotes);
+                    if (typeof parsed === 'object' && parsed !== null) {
+                      return parsed[i18n.language] || parsed['en'] || Object.values(parsed)[0] || releaseNotes;
+                    }
+                  }
+                } catch (e) {
+                  // Not JSON, fall through
+                }
+                return releaseNotes;
+              })()}
             </div>
           </div>
         )}

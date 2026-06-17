@@ -1,0 +1,586 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "Sélectionnez une icône...",
+      "selectIconTitle": "Sélectionner l'icône",
+      "search": "Rechercher...",
+      "select": "Sélectionner..."
+    },
+    "actions": {
+      "settings": "Paramètres",
+      "cancel": "Annuler",
+      "create": "Créer"
+    },
+    "messages": {
+      "underConstruction": "Fonctionnalité en cours de développement."
+    },
+    "loading": "Chargement...",
+    "systemDefault": "Par défaut",
+    "appLoader": {
+      "errorTitle": "Erreur de chargement",
+      "networkError": "Impossible de se connecter à {{url}}. L'application n'est peut-être pas déployée.",
+      "moduleError": "Impossible de charger le module {{module}} de l'application {{app}}.",
+      "networkTipTitle": "💡 Conseils de dépannage :",
+      "networkTip1": "Vérifiez si l'application est déployée avec succès",
+      "networkTip2": "Vérifiez l'URL du worker :",
+      "networkTip3": "Essayez de désinstaller et de réinstaller",
+      "moduleTipTitle": "💡 Conseils de dépannage :",
+      "moduleTip1": "L'application a besoin d'une configuration Vite Module Federation",
+      "moduleTip2": "Vérifiez si remoteEntry.js existe",
+      "moduleTip3": "Le module doit exporter :",
+      "retry": "Réessayer",
+      "retrying": "Nouvelle tentative...",
+      "retriedCount": "Tenté {{count}} fois",
+      "loadingApp": "Chargement de l'application...",
+      "initializing": "Initialisation de l'interface..."
+    }
+  },
+  "sidebar": {
+    "quickSearch": "Recherche rapide...",
+    "accountHome": "Accueil du compte",
+    "recents": "Récents",
+    "domains": "Domaines",
+    "observe": "Observer",
+    "investigate": "Enquêter",
+    "logExplorer": "Explorateur de journaux",
+    "logSearch": "Recherche de journaux",
+    "trace": "Trace",
+    "logpush": "Logpush",
+    "analytics": "Analytique",
+    "build": "Construire",
+    "compute": "Calculer",
+    "ai": "IA",
+    "storage": "Stockage et bases de données",
+    "media": "Médias",
+    "protect": "Protéger et connecter",
+    "security": "Sécurité",
+    "zeroTrust": "Zero Trust",
+    "networking": "Réseau",
+    "delivery": "Livraison et performances",
+    "collapseSidebar": "Réduire la barre",
+    "expandSidebar": "Développer la barre"
+  },
+  "webbios": {
+    "updates": {
+      "title": "Mises à jour du système",
+      "subtitle": "Vérifiez et mettez à niveau WebbiOS.",
+      "versionStatus": "État de la version",
+      "current": "Actuelle :",
+      "latest": "Dernière :",
+      "updateTo": "Mettre à jour vers v{{version}}",
+      "upToDate": "À jour",
+      "updating": "Traitement...",
+      "statusDownloading": "Téléchargement du code source...",
+      "statusChecksum": "Vérification de la sécurité...",
+      "statusDeploying": "Déploiement de la nouvelle version...",
+      "statusDone": "Terminé! Le système va redémarrer dans 3 secondes.",
+      "progress": {
+        "inProgress": "Mise en file d'attente...",
+        "downloading": "Téléchargement du package...",
+        "extracting": "Extraction des fichiers...",
+        "installing": "Installation des bibliothèques...",
+        "deployingApi": "Déploiement de l'API Core...",
+        "deployingDashboard": "Déploiement du Dashboard...",
+        "success": "Mise à jour terminée! Rechargement...",
+        "default": "Traitement...",
+        "restoring": "Restauration...",
+        "errorPrefix": "Erreur : ",
+        "errorFailed": "Échec de la mise à jour",
+        "errorNoShop": "Identifiant de la boutique introuvable.",
+        "errorNoJobId": "ID de tâche non reçu.",
+        "statusUpdating": "Mise à jour...",
+        "statusInit": "Initialisation du processus..."
+      },
+      "releaseNotes": "Notes de version (v{{version}})",
+      "releaseNotesIntro": "Cette version apporte d'importantes corrections :",
+      "releaseNote1": "Optimise la vitesse de chargement de 15%.",
+      "releaseNote2": "Prise en charge des Webhooks.",
+      "releaseNote3": "Correction des vulnérabilités de sécurité."
+    },
+    "licenses": {
+      "title": "Licences et Forfaits",
+      "subtitle": "Gérez les informations de licence de WebbiOS.",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "Statut :",
+      "statusActive": "Actif",
+      "durationLabel": "Durée :",
+      "durationPermanent": "À vie",
+      "shopIdLabel": "Shop ID :",
+      "proTitle": "Webbi Pro",
+      "proDesc": "Passez à Pro pour débloquer 100% de la puissance de Cloudflare Edge.",
+      "upgradeBtn": "Mettre à niveau - $29/mois"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "Licences",
+      "updates": "Mises à jour"
+    },
+    "backupRestore": {
+      "title": "Sauvegarde et Restauration",
+      "description": "Sauvegardez et restaurez des configurations entières.",
+      "export": {
+        "title": "Exporter des données",
+        "description": "Créez une sauvegarde de toutes les configurations actuelles.",
+        "button": "Sauvegarder maintenant"
+      },
+      "restore": {
+        "title": "Restaurer des données",
+        "description": "Téléchargez un fichier de sauvegarde pour restaurer.",
+        "button": "Sélectionner le fichier"
+      }
+    },
+    "cloudflareQuotas": {
+      "title": "Quotas Cloudflare",
+      "description": "Surveillez et gérez les ressources du système.",
+      "dashboardBtn": "Ouvrir Cloudflare Dashboard",
+      "workers": {
+        "title": "Requêtes Workers",
+        "unit": "/ 100,000 (Gratuit)",
+        "desc": "Nombre d'appels à l'API"
+      },
+      "d1": {
+        "title": "Lectures D1 Database",
+        "unit": "/ 5,000,000 (Gratuit)",
+        "desc": "Nombre de requêtes de lecture"
+      },
+      "r2": {
+        "title": "Stockage R2",
+        "unit": "/ 10 Go (Gratuit)",
+        "desc": "Capacité de stockage des images"
+      },
+      "upgrade": {
+        "title": "Augmentez vos limites aujourd'hui !",
+        "desc": "Passez à Webbi Pro pour supprimer ces limites.",
+        "button": "Explorer les forfaits"
+      }
+    }
+  },
+  "dashboard": {
+    "accountHome": "Accueil du compte",
+    "add": "Ajouter",
+    "analytics": "Analytique",
+    "last24h": "Dernières 24 heures",
+    "security": "Sécurité",
+    "securityInsights": "Informations de sécurité",
+    "encryptedRate": "Taux de requêtes chiffrées",
+    "performance": "Performances",
+    "cpuTime": "Temps CPU (P90)",
+    "workersErrors": "Erreurs de Workers",
+    "activity": "Activité",
+    "workersInvocations": "Invocations de Workers",
+    "buildMinutes": "Minutes de construction",
+    "domains": "Domaines",
+    "sitesFaster": "Vos sites, plus rapides et plus sûrs",
+    "boostPerformance": "Améliorez les performances",
+    "addDomain": "Ajouter un domaine",
+    "workersAndPages": "Workers et Pages",
+    "zeroTrust": "Sécurité Zero Trust",
+    "secureAccess": "Accès sécurisé pour votre équipe",
+    "controlWho": "Contrôlez qui atteint vos applications",
+    "getStarted": "Commencer",
+    "welcome": "Bienvenue, {{name}}",
+    "createReport": "Créer un rapport",
+    "ecommerceOverview": "Aperçu de l'E-commerce",
+    "revenue": "Revenus",
+    "orders": "Commandes",
+    "customers": "Clients",
+    "products": "Produits"
+  },
+  "products": {
+    "title": "Produits",
+    "export": "Exporter",
+    "import": "Importer",
+    "add": "Nouveau produit",
+    "tabs": {
+      "all": "Tous",
+      "active": "Actif",
+      "draft": "Brouillon",
+      "archived": "Archivé"
+    },
+    "search": "Rechercher...",
+    "filters": {
+      "allStatus": "Tous les statuts",
+      "allTypes": "Tous les types",
+      "allVendors": "Tous les vendeurs",
+      "allTags": "Toutes les étiquettes"
+    },
+    "columns": {
+      "product": "PRODUIT",
+      "status": "STATUT",
+      "inventory": "INVENTAIRE",
+      "vendor": "VENDEUR",
+      "price": "PRIX",
+      "actions": "ACTIONS"
+    },
+    "statusLabels": {
+      "active": "Actif",
+      "draft": "Brouillon"
+    },
+    "inventoryLabels": {
+      "inStock": "en stock"
+    },
+    "placeholders": {
+      "name": "Nom du produit",
+      "vendor": "Vendeur"
+    },
+    "empty": "Aucun produit"
+  },
+  "system": {
+    "menus": {
+      "title": "Gestion des menus",
+      "description": "Organisez et traduisez le menu de navigation.",
+      "addMenuLevel1": "Ajouter un menu de niveau 1",
+      "structure": "Structure du menu",
+      "loading": "Chargement...",
+      "hidden": "Caché",
+      "confirmDelete": "Voulez-vous vraiment supprimer cet élément ?",
+      "errorSaving": "Erreur lors de l'enregistrement",
+      "errorDeleting": "Erreur lors de la suppression",
+      "modal": {
+        "addMenu": "Ajouter un menu",
+        "editMenu": "Modifier le menu",
+        "titleFallback": "Nom par défaut",
+        "path": "Chemin",
+        "translationsEn": "Traduction (Anglais)",
+        "translationsVi": "Traduction (Vietnamien)",
+        "icon": "Icône",
+        "permissionId": "ID d'autorisation",
+        "position": "Position",
+        "isActive": "Actif",
+        "noPermission": "Sans autorisation (Public)",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "parentMenu": "Menu parent",
+        "isCategoryLabel": "Est une étiquette de catégorie",
+        "rootMenu": "--- Racine ---",
+        "placeholders": {
+          "translationsEn": "ex. Dashboard",
+          "translationsVi": "ex. Tổng quan",
+          "icon": "ex. Home",
+          "path": "ex. /orders"
+        }
+      }
+    },
+    "permissions": {
+      "title": "Gestion des autorisations",
+      "description": "Définir les autorisations à attribuer aux rôles.",
+      "addPermission": "Ajouter une autorisation",
+      "confirmDelete": "Voulez-vous vraiment supprimer cette autorisation ?",
+      "errorSaving": "Erreur",
+      "errorDeleting": "Erreur",
+      "columns": {
+        "slug": "Slug",
+        "description": "Description",
+        "createdAt": "Créé le",
+        "actions": "Actions"
+      },
+      "modal": {
+        "add": "Ajouter",
+        "edit": "Modifier",
+        "slugLabel": "Slug (ex. users:read)",
+        "descriptionLabel": "Description",
+        "slugPlaceholder": "module:action",
+        "descriptionPlaceholder": "ex. Permet la lecture"
+      }
+    },
+    "roles": {
+      "title": "Gestion des rôles",
+      "description": "Gérer les rôles et attribuer des autorisations.",
+      "addRole": "Nouveau rôle",
+      "confirmDelete": "Voulez-vous vraiment supprimer ce rôle ?",
+      "errorSaving": "Erreur",
+      "errorDeleting": "Erreur",
+      "columns": {
+        "name": "Nom du rôle",
+        "slug": "Slug",
+        "description": "Description",
+        "system": "Rôle système",
+        "actions": "Actions"
+      },
+      "modal": {
+        "add": "Nouveau rôle",
+        "edit": "Modifier le rôle",
+        "nameLabel": "Nom (ex. Administrateur)",
+        "slugLabel": "Slug (ex. admin)",
+        "descriptionLabel": "Description",
+        "isSystemLabel": "Rôle système",
+        "permissionsLabel": "Attribuer des autorisations",
+        "selectAll": "Tout sélectionner",
+        "unselectAll": "Tout désélectionner",
+        "namePlaceholder": "ex. Admin",
+        "slugPlaceholder": "ex. admin"
+      }
+    }
+  },
+  "header": {
+    "askAI": "Demander à l'IA",
+    "notifications": "Notifications",
+    "support": "Soutien",
+    "account": "Compte",
+    "logout": "Déconnexion"
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Connectez-vous au système",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "forgotPassword": "Mot de passe oublié ?",
+      "error": "Identifiants invalides"
+    },
+    "forgotPassword": {
+      "title": "Mot de passe oublié",
+      "subtitle": "Entrez votre e-mail pour recevoir un lien.",
+      "email": "E-mail",
+      "submit": "Envoyer le lien",
+      "backToLogin": "Retour à la connexion",
+      "success": "Si l'e-mail est valide, nous avons envoyé les instructions.",
+      "error": "Échec de l'envoi"
+    }
+  },
+  "media": {
+    "title": "Médiathèque",
+    "description": "Gérez vos images et fichiers",
+    "upload": "Télécharger",
+    "newFolder": "Nouveau dossier",
+    "search": "Rechercher...",
+    "filter": "Filtre",
+    "images": "Images",
+    "documents": "Documents",
+    "all": "Tous",
+    "grid": "Grille",
+    "list": "Liste",
+    "delete": "Supprimer",
+    "empty": "Aucun fichier"
+  },
+  "apps": {
+    "installed": {
+      "title": "Applications installées",
+      "description": "Gérez vos applications",
+      "search": "Rechercher...",
+      "running": "En cours",
+      "stopped": "Arrêté",
+      "settings": "Paramètres",
+      "uninstall": "Désinstaller",
+      "openApp": "Ouvrir",
+      "restart": "Redémarrer",
+      "stop": "Arrêter",
+      "confirmUninstall": "Voulez-vous vraiment désinstaller cette application ?",
+      "updateAvailable": "Mise à jour disponible",
+      "updating": "Mise à jour...",
+      "update": "Mettre à jour",
+      "updateSent": "Demande envoyée pour",
+      "updateFailed": "Échec : ",
+      "updateError": "Erreur : ",
+      "appStore": "App Store",
+      "empty": "Aucune application."
+    },
+    "store": {
+      "title": "App Store",
+      "description": "Découvrez de nouvelles applications",
+      "search": "Rechercher...",
+      "filter": "Catégories",
+      "install": "Installer",
+      "free": "Gratuit",
+      "paid": "Payant",
+      "reviews": "Avis",
+      "popular": "Populaire",
+      "new": "Nouveau",
+      "categories": {
+        "marketing": "Marketing",
+        "sales": "Ventes",
+        "support": "Soutien",
+        "analytics": "Analytique",
+        "design": "Design",
+        "inventory": "Inventaire"
+      },
+      "priceMonthly": "{{price}} $/mois"
+    }
+  },
+  "users": {
+    "title": "Gestion des utilisateurs",
+    "description": "Gérer les comptes",
+    "add": "Ajouter",
+    "search": "Rechercher...",
+    "filter": "Filtre",
+    "columns": {
+      "user": "Utilisateur",
+      "role": "Rôle",
+      "status": "Statut",
+      "joined": "Date d'inscription",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Actif",
+      "inactive": "Inactif"
+    },
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "resetPassword": "Réinitialiser le mot de passe",
+      "lock": "Verrouiller",
+      "unlock": "Déverrouiller",
+      "archive": "Archiver"
+    },
+    "modal": {
+      "add": "Ajouter",
+      "edit": "Modifier",
+      "resetPassword": "Réinitialiser",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "role": "Rôle",
+      "permissions": "Autorisations",
+      "copyPassword": "Copier le mot de passe",
+      "sendPassword": "Envoyer par e-mail",
+      "autoGenerate": "Générer automatiquement",
+      "smtpWarning": "SMTP n'est pas configuré.",
+      "smtpLink": "Configurer",
+      "confirmArchive": "Voulez-vous vraiment archiver cet utilisateur ?"
+    }
+  },
+  "audit": {
+    "title": "Journaux d'audit",
+    "description": "Surveiller les activités",
+    "search": "Rechercher...",
+    "filter": "Filtre",
+    "export": "Exporter",
+    "refresh": "Actualiser",
+    "columns": {
+      "action": "Action",
+      "user": "Utilisateur",
+      "resource": "Ressource",
+      "date": "Date",
+      "ip": "IP",
+      "details": "Détails"
+    },
+    "timeFilters": {
+      "all": "Tout le temps",
+      "today": "Aujourd'hui",
+      "last7Days": "7 derniers jours",
+      "last30Days": "30 derniers jours"
+    }
+  },
+  "settings": {
+    "title": "Paramètres du système",
+    "description": "Configurer les paramètres",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "messages": {
+      "loadFailed": "Échec du chargement",
+      "saveSuccess": "Mise à jour réussie",
+      "saveFailed": "Échec de l'enregistrement"
+    },
+    "tabs": {
+      "general": "Général",
+      "security": "Sécurité",
+      "notifications": "Notifications",
+      "appearance": "Apparence",
+      "email": "E-mail"
+    },
+    "general": {
+      "siteInfo": "Informations sur l'entreprise",
+      "siteName": "Nom de l'entreprise",
+      "sitePhone": "Téléphone",
+      "regionAndLanguage": "Région et langue",
+      "timezone": "Fuseau horaire",
+      "language": "Langue",
+      "currency": "Devise",
+      "measurement": "Unité de mesure",
+      "formatOptions": "Formats de documents",
+      "orderPrefix": "Préfixe de commande",
+      "invoicePrefix": "Préfixe de facture",
+      "languageVi": "Vietnamien (vi)",
+      "languageEn": "Anglais (en)",
+      "systemConfig": "Configuration du Système",
+      "cdnUrl": "Domaine CDN (Pour la médiathèque)",
+      "cdnUrlDesc": "Ce domaine doit avoir un CNAME pointant vers votre bucket Cloudflare R2."
+    },
+    "security": {
+      "title": "Sécurité",
+      "require2fa": "Exiger 2FA",
+      "require2faDesc": "Forcer le personnel à utiliser 2FA.",
+      "passwordPolicy": "Politique de mot de passe",
+      "passwordPolicyDesc": "Définir les règles de complexité.",
+      "policyLow": "Faible (Min 6)",
+      "policyMedium": "Moyenne (Min 8, chiffres)",
+      "policyHigh": "Élevée (Min 8, lettres, chiffres, symboles)"
+    },
+    "notifications": {
+      "title": "Canaux de notification",
+      "description": "Configurer l'envoi des alertes.",
+      "email": "Recevoir par e-mail",
+      "inApp": "Recevoir via In-App",
+      "zalo": "Recevoir via Zalo (En dev)",
+      "events": "Événements",
+      "onNewOrder": "Nouvelle commande",
+      "onNewUser": "Nouvel utilisateur"
+    },
+    "appearance": {
+      "title": "Apparence",
+      "description": "Configurer l'identité de marque.",
+      "logo": "Logo",
+      "favicon": "Favicon",
+      "uploadBtn": "Télécharger une image",
+      "freePlanNotice": "Uniquement pour Webbi Pro",
+      "freePlanDesc": "Veuillez mettre à niveau pour modifier le logo.",
+      "upgradeBtn": "Mettre à niveau"
+    },
+    "email": {
+      "title": "Configuration E-mail",
+      "description": "Configurer le serveur de messagerie.",
+      "host": "Hôte",
+      "port": "Port",
+      "user": "Nom d'utilisateur",
+      "pass": "Mot de passe",
+      "from": "Expéditeur",
+      "upsellBanner": "Besoin d'envoyer des e-mails en masse ?",
+      "upsellDesc": "Découvrez l'application Mailer dans l'App Store.",
+      "exploreApps": "Explorer l'App Store"
+    }
+  },
+  "apiKeys": {
+    "title": "Clés API",
+    "description": "Gérer les clés d'accès",
+    "create": "Créer une clé",
+    "columns": {
+      "name": "Nom",
+      "key": "Clé API",
+      "created": "Créé le",
+      "lastUsed": "Dernière utilisation",
+      "actions": "Actions"
+    },
+    "copy": "Copier",
+    "revoke": "Révoquer",
+    "modal": {
+      "add": "Créer une clé API",
+      "name": "Nom",
+      "scopes": "Portées",
+      "secretWarning": "Veuillez copier ce code secret. Il ne s'affichera qu'une seule fois !"
+    }
+  },
+  "account": {
+    "title": "Mon compte",
+    "description": "Gérer les informations personnelles",
+    "tabs": {
+      "profile": "Profil",
+      "security": "Mot de passe"
+    },
+    "profile": {
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "E-mail",
+      "emailNote": "L'e-mail ne peut pas être modifié.",
+      "role": "Rôle :",
+      "update": "Mettre à jour"
+    },
+    "security": {
+      "currentPassword": "Mot de passe actuel",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "update": "Mettre à jour"
+    }
+  }
+}

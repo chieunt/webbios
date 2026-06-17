@@ -51,7 +51,7 @@ const SettingsPage = () => {
       setSettings(prev => ({ ...prev, ...parsedData }));
     } catch (err) {
       console.error('Failed to load settings', err);
-      showToast('error', t('settings.messages.loadFailed', 'Không thể tải cấu hình'));
+      showToast('error', t('settings.messages.loadFailed', 'Cannot load settings'));
     } finally {
       setIsLoading(false);
     }
@@ -81,10 +81,10 @@ const SettingsPage = () => {
         await i18n.changeLanguage(settings['site.language']);
       }
 
-      showToast('success', t('settings.messages.saveSuccess', 'Cập nhật cấu hình thành công'));
+      showToast('success', t('settings.messages.saveSuccess', 'Settings updated successfully'));
     } catch (err) {
       console.error('Failed to save settings', err);
-      showToast('error', t('settings.messages.saveFailed', 'Có lỗi xảy ra khi lưu'));
+      showToast('error', t('settings.messages.saveFailed', 'Error saving settings'));
     } finally {
       setIsSaving(false);
     }
@@ -96,10 +96,10 @@ const SettingsPage = () => {
   };
 
   const tabs = [
-    { id: 'general', name: t('settings.tabs.general', 'Cài đặt chung'), icon: Globe },
-    { id: 'security', name: t('settings.tabs.security', 'Bảo mật'), icon: Lock },
-    { id: 'notifications', name: t('settings.tabs.notifications', 'Thông báo'), icon: Bell },
-    { id: 'appearance', name: t('settings.tabs.appearance', 'Giao diện'), icon: Palette },
+    { id: 'general', name: t('settings.tabs.general', 'General Settings'), icon: Globe },
+    { id: 'security', name: t('settings.tabs.security', 'Security'), icon: Lock },
+    { id: 'notifications', name: t('settings.tabs.notifications', 'Notifications'), icon: Bell },
+    { id: 'appearance', name: t('settings.tabs.appearance', 'Appearance'), icon: Palette },
     { id: 'email', name: t('settings.tabs.email', 'Email'), icon: Mail },
   ];
 
@@ -116,8 +116,8 @@ const SettingsPage = () => {
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-cf-text">{t('settings.title', 'Cài đặt hệ thống')}</h1>
-          <p className="text-sm text-cf-gray-text mt-1">{t('settings.description', 'Cấu hình các thông số hệ thống và tiêu chuẩn doanh nghiệp')}</p>
+          <h1 className="text-2xl font-semibold text-cf-text">{t('settings.title', 'System Settings')}</h1>
+          <p className="text-sm text-cf-gray-text mt-1">{t('settings.description', 'Configure system parameters and business standards')}</p>
         </div>
         <button 
           onClick={handleSave}
@@ -125,7 +125,7 @@ const SettingsPage = () => {
           className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-md transition-colors shadow-sm font-medium"
         >
           <Save size={16} />
-          <span>{isSaving ? t('settings.saving', 'Đang lưu...') : t('settings.save', 'Lưu thay đổi')}</span>
+          <span>{isSaving ? t('settings.saving', 'Saving...') : t('settings.save', 'Save changes')}</span>
         </button>
       </div>
 
@@ -165,10 +165,10 @@ const SettingsPage = () => {
           ) : activeTab === 'general' ? (
             <div className="max-w-2xl space-y-8 animate-in fade-in duration-300">
               <div>
-                <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.siteInfo', 'Thông tin doanh nghiệp')}</h2>
+                <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.siteInfo', 'Business Information')}</h2>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.siteName', 'Tên doanh nghiệp')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.siteName', 'Business Name')}</label>
                     <input 
                       type="text" 
                       name="site.name"
@@ -178,7 +178,7 @@ const SettingsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.sitePhone', 'Số điện thoại liên hệ')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.sitePhone', 'Contact Phone')}</label>
                     <input 
                       type="text" 
                       name="site.phone"
@@ -191,10 +191,10 @@ const SettingsPage = () => {
               </div>
 
               <div className="pt-6 border-t border-cf-border">
-                <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.systemConfig', 'Cấu hình Hệ thống')}</h2>
+                <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.systemConfig', 'System Configuration')}</h2>
                 <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-2">
                   <div className="sm:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.cdnUrl', 'Tên miền CDN (Cho thư viện Media)')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.cdnUrl', 'CDN Domain (For Media Library)')}</label>
                     <input 
                       type="text" 
                       name="system.cdn_url"
@@ -203,16 +203,16 @@ const SettingsPage = () => {
                       placeholder="https://cdn.yourdomain.com"
                       className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
                     />
-                    <p className="text-xs text-gray-500 mt-1">{t('settings.general.cdnUrlDesc', 'Tên miền này phải được trỏ CNAME về Cloudflare R2 bucket của bạn.')}</p>
+                    <p className="text-xs text-gray-500 mt-1">{t('settings.general.cdnUrlDesc', 'This domain must have a CNAME pointing to your Cloudflare R2 bucket.')}</p>
                   </div>
                 </div>
               </div>
 
               <div className="pt-6 border-t border-cf-border">
-                <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.regionAndLanguage', 'Khu vực & Ngôn ngữ')}</h2>
+                <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.regionAndLanguage', 'Region & Language')}</h2>
                 <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.timezone', 'Múi giờ')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.timezone', 'Timezone')}</label>
                     <select 
                       name="site.timezone"
                       value={settings['site.timezone'] || 'Asia/Ho_Chi_Minh (GMT+7)'}
@@ -224,7 +224,7 @@ const SettingsPage = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.language', 'Ngôn ngữ mặc định')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.language', 'Default Language')}</label>
                     <select 
                       name="site.language"
                       value={settings['site.language'] || 'vi'}
@@ -232,11 +232,22 @@ const SettingsPage = () => {
                       className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     >
                       <option value="vi">{t('settings.general.languageVi', 'Tiếng Việt (vi)')}</option>
-                      <option value="en">{t('settings.general.languageEn', 'English (en)')}</option>
+                      <option value="en">{t('settings.general.languageEn', 'English - Int (en)')}</option>
+                      <option value="en-US">{t('settings.general.languageEnUS', 'English - US (en-US)')}</option>
+                      <option value="en-GB">{t('settings.general.languageEnGB', 'English - UK (en-GB)')}</option>
+                      <option value="es">{t('settings.general.languageEs', 'Español (es)')}</option>
+                      <option value="fr">{t('settings.general.languageFr', 'Français (fr)')}</option>
+                      <option value="de">{t('settings.general.languageDe', 'Deutsch (de)')}</option>
+                      <option value="id">{t('settings.general.languageId', 'Bahasa Indonesia (id)')}</option>
+                      <option value="th">{t('settings.general.languageTh', 'ไทย (th)')}</option>
+                      <option value="zh-CN">{t('settings.general.languageZhCN', '简体中文 (zh-CN)')}</option>
+                      <option value="zh-TW">{t('settings.general.languageZhTW', '繁體中文 (zh-TW)')}</option>
+                      <option value="ja">{t('settings.general.languageJa', '日本語 (ja)')}</option>
+                      <option value="ko">{t('settings.general.languageKo', '한국어 (ko)')}</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.currency', 'Tiền tệ mặc định')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.currency', 'Default Currency')}</label>
                     <select 
                       name="site.currency"
                       value={settings['site.currency'] || 'VND'}
@@ -248,7 +259,7 @@ const SettingsPage = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.measurement', 'Đơn vị đo lường')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.measurement', 'Measurement Unit')}</label>
                     <select 
                       name="site.measurement"
                       value={settings['site.measurement'] || 'kg'}
@@ -263,10 +274,10 @@ const SettingsPage = () => {
               </div>
 
               <div className="pt-6 border-t border-cf-border">
-                <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.formatOptions', 'Mã chứng từ (Định dạng)')}</h2>
+                <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.formatOptions', 'Document Codes (Format)')}</h2>
                 <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.orderPrefix', 'Tiền tố Đơn hàng')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.orderPrefix', 'Order Prefix')}</label>
                     <input 
                       type="text" 
                       name="format.order_prefix"
@@ -277,7 +288,7 @@ const SettingsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.invoicePrefix', 'Tiền tố Hóa đơn')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.invoicePrefix', 'Invoice Prefix')}</label>
                     <input 
                       type="text" 
                       name="format.invoice_prefix"
@@ -293,12 +304,12 @@ const SettingsPage = () => {
           ) : activeTab === 'security' ? (
             <div className="max-w-2xl space-y-8 animate-in fade-in duration-300">
               <div>
-                <h2 className="text-lg font-medium text-cf-text mb-1">{t('settings.security.title', 'Bảo mật hệ thống')}</h2>
+                <h2 className="text-lg font-medium text-cf-text mb-1">{t('settings.security.title', 'System Security')}</h2>
                 <div className="space-y-6 mt-6">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-sm font-medium text-gray-900">{t('settings.security.require2fa', 'Bắt buộc xác thực 2 yếu tố (2FA)')}</h3>
-                      <p className="text-sm text-gray-500 mt-1">{t('settings.security.require2faDesc', 'Ép buộc tất cả nhân viên phải cài đặt và sử dụng 2FA khi đăng nhập.')}</p>
+                      <h3 className="text-sm font-medium text-gray-900">{t('settings.security.require2fa', 'Require 2-Factor Authentication (2FA)')}</h3>
+                      <p className="text-sm text-gray-500 mt-1">{t('settings.security.require2faDesc', 'Force all employees to set up and use 2FA when logging in.')}</p>
                     </div>
                     <div className="ml-4">
                       <label className="relative inline-flex items-center cursor-pointer">
@@ -309,17 +320,17 @@ const SettingsPage = () => {
                   </div>
 
                   <div className="pt-6 border-t border-cf-border">
-                    <h3 className="text-sm font-medium text-gray-900">{t('settings.security.passwordPolicy', 'Chính sách mật khẩu')}</h3>
-                    <p className="text-sm text-gray-500 mt-1 mb-4">{t('settings.security.passwordPolicyDesc', 'Quy định độ phức tạp của mật khẩu cho toàn bộ tài khoản.')}</p>
+                    <h3 className="text-sm font-medium text-gray-900">{t('settings.security.passwordPolicy', 'Password Policy')}</h3>
+                    <p className="text-sm text-gray-500 mt-1 mb-4">{t('settings.security.passwordPolicyDesc', 'Define password complexity requirements for all accounts.')}</p>
                     <select 
                       name="security.password_policy"
                       value={settings['security.password_policy'] || 'medium'}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     >
-                      <option value="low">{t('settings.security.policyLow', 'Thấp (Tối thiểu 6 ký tự)')}</option>
-                      <option value="medium">{t('settings.security.policyMedium', 'Trung bình (Tối thiểu 8 ký tự, có số)')}</option>
-                      <option value="high">{t('settings.security.policyHigh', 'Cao (Tối thiểu 8 ký tự, chữ hoa, số, ký đặc biệt)')}</option>
+                      <option value="low">{t('settings.security.policyLow', 'Low (Minimum 6 characters)')}</option>
+                      <option value="medium">{t('settings.security.policyMedium', 'Medium (Minimum 8 characters, with numbers)')}</option>
+                      <option value="high">{t('settings.security.policyHigh', 'High (Min 8 chars, uppercase, number, special char)')}</option>
                     </select>
                   </div>
                 </div>
@@ -328,35 +339,35 @@ const SettingsPage = () => {
           ) : activeTab === 'notifications' ? (
             <div className="max-w-2xl space-y-8 animate-in fade-in duration-300">
               <div>
-                <h2 className="text-lg font-medium text-cf-text mb-1">{t('settings.notifications.title', 'Kênh nhận thông báo')}</h2>
-                <p className="text-sm text-gray-500 mb-6">{t('settings.notifications.description', 'Cấu hình cách hệ thống gửi thông báo cho Ban quản trị.')}</p>
+                <h2 className="text-lg font-medium text-cf-text mb-1">{t('settings.notifications.title', 'Notification Channels')}</h2>
+                <p className="text-sm text-gray-500 mb-6">{t('settings.notifications.description', 'Configure how the system sends notifications to the Admin team.')}</p>
                 
                 <div className="space-y-4">
                   <label className="flex items-center space-x-3">
                     <input type="checkbox" className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" defaultChecked />
-                    <span className="text-sm text-gray-700">{t('settings.notifications.email', 'Nhận qua Email')}</span>
+                    <span className="text-sm text-gray-700">{t('settings.notifications.email', 'Receive via Email')}</span>
                   </label>
                   <label className="flex items-center space-x-3">
                     <input type="checkbox" className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" defaultChecked />
-                    <span className="text-sm text-gray-700">{t('settings.notifications.inApp', 'Nhận qua Ứng dụng (Web Push)')}</span>
+                    <span className="text-sm text-gray-700">{t('settings.notifications.inApp', 'Receive via App (Web Push)')}</span>
                   </label>
                   <label className="flex items-center space-x-3 opacity-60">
                     <input type="checkbox" disabled className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" />
-                    <span className="text-sm text-gray-700">{t('settings.notifications.zalo', 'Nhận qua Zalo ZNS (Đang phát triển)')}</span>
+                    <span className="text-sm text-gray-700">{t('settings.notifications.zalo', 'Receive via Zalo ZNS (In development)')}</span>
                   </label>
                 </div>
               </div>
               
               <div className="pt-6 border-t border-cf-border">
-                <h3 className="text-sm font-medium text-gray-900 mb-4">{t('settings.notifications.events', 'Sự kiện kích hoạt')}</h3>
+                <h3 className="text-sm font-medium text-gray-900 mb-4">{t('settings.notifications.events', 'Trigger Events')}</h3>
                 <div className="space-y-4">
                   <label className="flex items-center space-x-3">
                     <input type="checkbox" className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" defaultChecked />
-                    <span className="text-sm text-gray-700">{t('settings.notifications.onNewOrder', 'Khi có đơn hàng mới')}</span>
+                    <span className="text-sm text-gray-700">{t('settings.notifications.onNewOrder', 'On new order')}</span>
                   </label>
                   <label className="flex items-center space-x-3">
                     <input type="checkbox" className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" defaultChecked />
-                    <span className="text-sm text-gray-700">{t('settings.notifications.onNewUser', 'Khi có người dùng mới đăng ký')}</span>
+                    <span className="text-sm text-gray-700">{t('settings.notifications.onNewUser', 'On new user registration')}</span>
                   </label>
                 </div>
               </div>
@@ -364,8 +375,8 @@ const SettingsPage = () => {
           ) : activeTab === 'appearance' ? (
             <div className="max-w-2xl space-y-8 animate-in fade-in duration-300">
               <div>
-                <h2 className="text-lg font-medium text-cf-text mb-1">{t('settings.appearance.title', 'Giao diện ERP')}</h2>
-                <p className="text-sm text-gray-500 mb-6">{t('settings.appearance.description', 'Cấu hình nhận diện thương hiệu nội bộ cho ERP.')}</p>
+                <h2 className="text-lg font-medium text-cf-text mb-1">{t('settings.appearance.title', 'ERP Appearance')}</h2>
+                <p className="text-sm text-gray-500 mb-6">{t('settings.appearance.description', 'Configure internal brand identity for the ERP.')}</p>
 
                 {isFreePlan ? (
                   <div className="bg-amber-50 border border-amber-200 rounded-lg p-5 flex items-start space-x-4">
@@ -373,23 +384,23 @@ const SettingsPage = () => {
                       <ShieldAlert className="w-6 h-6 text-amber-500" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-medium text-amber-800">{t('settings.appearance.freePlanNotice', 'Tính năng chỉ dành cho gói Webbi Pro')}</h3>
-                      <p className="text-sm text-amber-700 mt-1 mb-4">{t('settings.appearance.freePlanDesc', 'Để thay đổi Logo và Favicon, vui lòng nâng cấp lên gói Webbi Pro.')}</p>
+                      <h3 className="text-sm font-medium text-amber-800">{t('settings.appearance.freePlanNotice', 'Feature only available on Webbi Pro plan')}</h3>
+                      <p className="text-sm text-amber-700 mt-1 mb-4">{t('settings.appearance.freePlanDesc', 'To change Logo and Favicon, please upgrade to the Webbi Pro plan.')}</p>
                       <button className="text-sm bg-white border border-amber-300 text-amber-800 px-4 py-1.5 rounded font-medium hover:bg-amber-100 transition-colors">
-                        {t('settings.appearance.upgradeBtn', 'Nâng cấp ngay')}
+                        {t('settings.appearance.upgradeBtn', 'Upgrade now')}
                       </button>
                     </div>
                   </div>
                 ) : (
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">{t('settings.appearance.logo', 'Logo hệ thống')}</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t('settings.appearance.logo', 'System Logo')}</label>
                       <div className="flex items-center space-x-4">
                         <div className="w-16 h-16 bg-gray-100 rounded border border-gray-200 flex items-center justify-center overflow-hidden">
                           <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
                         </div>
                         <button className="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors">
-                          {t('settings.appearance.uploadBtn', 'Tải ảnh lên')}
+                          {t('settings.appearance.uploadBtn', 'Upload Image')}
                         </button>
                       </div>
                     </div>
@@ -400,7 +411,7 @@ const SettingsPage = () => {
                           <img src="/favicon.svg" alt="Favicon" className="w-5 h-5" />
                         </div>
                         <button className="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors">
-                          {t('settings.appearance.uploadBtn', 'Tải ảnh lên')}
+                          {t('settings.appearance.uploadBtn', 'Upload Image')}
                         </button>
                       </div>
                     </div>
@@ -411,8 +422,8 @@ const SettingsPage = () => {
           ) : activeTab === 'email' ? (
             <div className="max-w-2xl space-y-8 animate-in fade-in duration-300">
               <div>
-                <h2 className="text-lg font-medium text-cf-text mb-1">{t('settings.email.title', 'Cấu hình Email (SMTP)')}</h2>
-                <p className="text-sm text-gray-500 mb-6">{t('settings.email.description', 'Cấu hình máy chủ gửi thư để hệ thống gửi các email thông báo nội bộ.')}</p>
+                <h2 className="text-lg font-medium text-cf-text mb-1">{t('settings.email.title', 'Email Configuration (SMTP)')}</h2>
+                <p className="text-sm text-gray-500 mb-6">{t('settings.email.description', 'Configure the mail server for the system to send internal notification emails.')}</p>
 
                 <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-2 mb-6">
                   <div className="sm:col-span-2">
@@ -437,7 +448,7 @@ const SettingsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.from', 'Email người gửi (From)')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.from', 'Sender Email (From)')}</label>
                     <input 
                       type="email" 
                       name="smtp.from"
@@ -448,7 +459,7 @@ const SettingsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.user', 'Tên đăng nhập')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.user', 'Username')}</label>
                     <input 
                       type="text" 
                       name="smtp.user"
@@ -458,7 +469,7 @@ const SettingsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.pass', 'Mật khẩu')}</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.pass', 'Password')}</label>
                     <input 
                       type="password" 
                       name="smtp.pass"
@@ -475,10 +486,10 @@ const SettingsPage = () => {
                       <Mail className="w-6 h-6 text-blue-600" />
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-sm font-medium text-blue-900">{t('settings.email.upsellBanner', 'Bạn cần gửi Email Marketing hàng loạt?')}</h3>
-                      <p className="text-sm text-blue-800 mt-1 mb-4">{t('settings.email.upsellDesc', 'Khám phá Ứng dụng Mailer chuyên nghiệp trong App Store với hàng loạt template và thống kê chi tiết.')}</p>
+                      <h3 className="text-sm font-medium text-blue-900">{t('settings.email.upsellBanner', 'Need to send bulk Email Marketing?')}</h3>
+                      <p className="text-sm text-blue-800 mt-1 mb-4">{t('settings.email.upsellDesc', 'Explore the professional Mailer App in the App Store with bulk templates and detailed statistics.')}</p>
                       <button className="text-sm bg-blue-600 text-white px-4 py-1.5 rounded font-medium hover:bg-blue-700 transition-colors shadow-sm">
-                        {t('settings.email.exploreApps', 'Khám phá App Store')}
+                        {t('settings.email.exploreApps', 'Explore App Store')}
                       </button>
                     </div>
                   </div>

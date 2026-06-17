@@ -1,0 +1,578 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "아이콘 선택...",
+      "selectIconTitle": "아이콘 선택",
+      "search": "검색...",
+      "select": "선택..."
+    },
+    "actions": {
+      "settings": "설정",
+      "cancel": "취소",
+      "create": "만들기"
+    },
+    "messages": {
+      "underConstruction": "기능 개발 중입니다."
+    },
+    "loading": "로딩 중...",
+    "systemDefault": "시스템 기본값",
+    "appLoader": {
+      "errorTitle": "애플리케이션 로드 오류",
+      "networkError": "{{url}}의 앱에 연결할 수 없습니다. 배포되지 않았거나 URL이 잘못되었습니다.",
+      "moduleError": "앱 {{app}}에서 모듈 {{module}}을(를) 로드할 수 없습니다.",
+      "networkTipTitle": "💡 문제 해결 팁:",
+      "networkTip1": "앱이 Cloudflare Pages에 성공적으로 배포되었는지 확인하세요",
+      "networkTip2": "워커 URL 확인:",
+      "networkTip3": "앱을 제거하고 다시 설치해 보세요",
+      "moduleTipTitle": "💡 문제 해결 팁:",
+      "moduleTip1": "올바른 Vite Module Federation 구성이 필요합니다",
+      "moduleTip2": "remoteEntry.js가 있는지 확인하세요",
+      "moduleTip3": "모듈은 내보내야 합니다:",
+      "retry": "다시 시도",
+      "retrying": "다시 시도 중...",
+      "retriedCount": "{{count}}번 시도함",
+      "loadingApp": "앱 로드 중...",
+      "initializing": "인터페이스 초기화 중..."
+    }
+  },
+  "sidebar": {
+    "quickSearch": "빠른 검색...",
+    "accountHome": "계정 홈",
+    "recents": "최근",
+    "domains": "도메인",
+    "observe": "관찰",
+    "investigate": "조사",
+    "logExplorer": "로그 탐색기",
+    "logSearch": "로그 검색",
+    "trace": "추적",
+    "logpush": "Logpush",
+    "analytics": "분석",
+    "build": "빌드",
+    "compute": "컴퓨팅",
+    "ai": "AI",
+    "storage": "저장소 및 데이터베이스",
+    "media": "미디어",
+    "protect": "보호 및 연결",
+    "security": "애플리케이션 보안",
+    "zeroTrust": "제로 트러스트",
+    "networking": "네트워킹",
+    "delivery": "전송 및 성능",
+    "collapseSidebar": "사이드바 축소",
+    "expandSidebar": "사이드바 확장"
+  },
+  "webbios": {
+    "updates": {
+      "title": "시스템 업데이트",
+      "subtitle": "WebbiOS를 최신 버전으로 확인하고 업그레이드하세요.",
+      "versionStatus": "버전 상태",
+      "current": "현재:",
+      "latest": "최신:",
+      "updateTo": "v{{version}}(으)로 업데이트",
+      "upToDate": "최신 상태",
+      "updating": "처리 중...",
+      "statusDownloading": "플랫폼 CDN에서 소스 코드를 다운로드 중...",
+      "statusChecksum": "보안 체크섬 확인 중...",
+      "statusDeploying": "새로운 워커 버전을 배포 중...",
+      "statusDone": "완료! 3초 후 시스템이 다시 로드됩니다.",
+      "progress": {
+        "inProgress": "처리 대기 중...",
+        "downloading": "설치 패키지 다운로드 중...",
+        "extracting": "파일 추출 중...",
+        "installing": "라이브러리 설치 중...",
+        "deployingApi": "Core API 배포 중...",
+        "deployingDashboard": "대시보드 배포 중...",
+        "success": "업데이트 완료! 다시 로드 중...",
+        "default": "처리 중...",
+        "restoring": "진행률 복원 중...",
+        "errorPrefix": "오류: ",
+        "errorFailed": "업데이트 실패",
+        "errorNoShop": "상점 ID를 확인할 수 없습니다. 업데이트 취소됨.",
+        "errorNoJobId": "서버에서 작업 ID를 받지 못했습니다.",
+        "statusUpdating": "업데이트 중...",
+        "statusInit": "업데이트 프로세스 초기화 중..."
+      },
+      "releaseNotes": "릴리스 노트 (v{{version}})",
+      "releaseNotesIntro": "이 버전은 중요한 버그 수정 및 성능 향상을 제공합니다:",
+      "releaseNote1": "스토어 프론트 페이지 로드 속도를 15% 최적화합니다.",
+      "releaseNote2": "타사 앱에 대한 Webhooks를 지원합니다.",
+      "releaseNote3": "API 액세스와 관련된 보안 취약점을 수정했습니다."
+    },
+    "licenses": {
+      "title": "라이선스 및 요금제",
+      "subtitle": "라이선스 정보를 관리하세요.",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "상태:",
+      "statusActive": "활성",
+      "durationLabel": "기간:",
+      "durationPermanent": "영구",
+      "shopIdLabel": "상점 ID:",
+      "proTitle": "Webbi Pro",
+      "proDesc": "무제한 저장소를 사용하려면 Pro로 업그레이드하세요.",
+      "upgradeBtn": "지금 업그레이드 - 월 $29"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "라이선스",
+      "updates": "업데이트"
+    },
+    "backupRestore": {
+      "title": "백업 및 복원",
+      "description": "전체 시스템 구성 및 데이터를 백업하고 복원합니다.",
+      "export": {
+        "title": "데이터 내보내기",
+        "description": "모든 현재 구성의 백업을 만듭니다.",
+        "button": "지금 백업"
+      },
+      "restore": {
+        "title": "데이터 복원",
+        "description": "시스템 구성을 복원하려면 백업 파일을 업로드하세요.",
+        "button": "백업 파일 선택"
+      }
+    },
+    "cloudflareQuotas": {
+      "title": "Cloudflare 할당량",
+      "description": "시스템 리소스를 모니터링하고 관리하세요.",
+      "dashboardBtn": "Cloudflare 대시보드 열기",
+      "workers": {
+        "title": "Workers 요청",
+        "unit": "/ 100,000 (무료)",
+        "desc": "API 호출 수"
+      },
+      "d1": {
+        "title": "D1 데이터베이스 읽기",
+        "unit": "/ 5,000,000 (무료)",
+        "desc": "읽기 쿼리 수"
+      },
+      "r2": {
+        "title": "R2 저장소",
+        "unit": "/ 10 GB (무료)",
+        "desc": "이미지 및 파일의 저장 용량"
+      },
+      "upgrade": {
+        "title": "오늘 한도를 늘리세요!",
+        "desc": "한도를 제거하려면 Webbi Pro로 업그레이드하세요.",
+        "button": "업그레이드 요금제 살펴보기"
+      }
+    }
+  },
+  "dashboard": {
+    "accountHome": "계정 홈",
+    "add": "추가",
+    "analytics": "분석",
+    "last24h": "최근 24시간",
+    "security": "보안",
+    "securityInsights": "보안 인사이트",
+    "encryptedRate": "암호화된 요청 속도",
+    "performance": "성능",
+    "cpuTime": "CPU 시간 (P90)",
+    "workersErrors": "Workers 오류",
+    "activity": "활동",
+    "workersInvocations": "Workers 호출",
+    "buildMinutes": "빌드 시간",
+    "domains": "도메인",
+    "sitesFaster": "더 빠르고 안전한 사이트",
+    "boostPerformance": "성능 향상",
+    "addDomain": "도메인 추가",
+    "workersAndPages": "Workers 및 Pages",
+    "zeroTrust": "제로 트러스트 보안",
+    "secureAccess": "팀을 위한 안전한 액세스",
+    "controlWho": "내부 앱에 액세스할 사람 관리",
+    "getStarted": "시작하기",
+    "welcome": "환영합니다, {{name}}님",
+    "createReport": "보고서 생성",
+    "ecommerceOverview": "전자상거래 개요",
+    "revenue": "수익",
+    "orders": "주문",
+    "customers": "고객",
+    "products": "제품"
+  },
+  "products": {
+    "title": "제품",
+    "export": "내보내기",
+    "import": "가져오기",
+    "add": "새 제품 추가",
+    "tabs": {
+      "all": "전체",
+      "active": "활성",
+      "draft": "초안",
+      "archived": "보관됨"
+    },
+    "search": "제품 검색...",
+    "filters": {
+      "allStatus": "모든 상태",
+      "allTypes": "모든 유형",
+      "allVendors": "모든 공급업체",
+      "allTags": "모든 태그"
+    },
+    "columns": {
+      "product": "제품",
+      "status": "상태",
+      "inventory": "재고",
+      "vendor": "공급업체",
+      "price": "가격",
+      "actions": "작업"
+    },
+    "statusLabels": {
+      "active": "활성",
+      "draft": "초안"
+    },
+    "inventoryLabels": {
+      "inStock": "재고 있음"
+    },
+    "placeholders": {
+      "name": "제품 이름",
+      "vendor": "공급업체"
+    },
+    "empty": "아직 제품이 없습니다"
+  },
+  "system": {
+    "menus": {
+      "title": "메뉴 관리",
+      "description": "탐색 메뉴를 관리합니다.",
+      "addMenuLevel1": "레벨 1 메뉴 추가",
+      "structure": "메뉴 구조",
+      "loading": "로딩 중...",
+      "hidden": "숨김",
+      "confirmDelete": "이 메뉴 항목을 삭제하시겠습니까?",
+      "errorSaving": "저장 오류",
+      "errorDeleting": "삭제 오류",
+      "modal": {
+        "addMenu": "메뉴 추가",
+        "editMenu": "메뉴 편집",
+        "titleFallback": "기본 이름",
+        "path": "경로",
+        "translationsEn": "번역 (영어)",
+        "translationsVi": "번역 (베트남어)",
+        "icon": "아이콘",
+        "permissionId": "권한 ID",
+        "position": "위치",
+        "isActive": "활성",
+        "noPermission": "권한 없음 (공개)",
+        "cancel": "취소",
+        "save": "저장",
+        "parentMenu": "상위 메뉴",
+        "isCategoryLabel": "카테고리 레이블",
+        "rootMenu": "--- 최상위 ---"
+      }
+    },
+    "permissions": {
+      "title": "시스템 권한",
+      "description": "역할에 할당할 수 있는 권한을 정의합니다.",
+      "addPermission": "새 권한 추가",
+      "confirmDelete": "삭제하시겠습니까?",
+      "errorSaving": "오류",
+      "errorDeleting": "오류",
+      "columns": {
+        "slug": "Slug",
+        "description": "설명",
+        "createdAt": "작성일",
+        "actions": "작업"
+      },
+      "modal": {
+        "add": "권한 추가",
+        "edit": "권한 편집",
+        "slugLabel": "Slug (예: users:read)",
+        "descriptionLabel": "설명",
+        "slugPlaceholder": "모듈:작업"
+      }
+    },
+    "roles": {
+      "title": "역할 관리",
+      "description": "사용자 역할을 관리합니다.",
+      "addRole": "새 역할 추가",
+      "confirmDelete": "역할을 삭제하시겠습니까?",
+      "errorSaving": "오류",
+      "errorDeleting": "오류",
+      "columns": {
+        "name": "역할 이름",
+        "slug": "Slug",
+        "description": "설명",
+        "system": "시스템 역할",
+        "actions": "작업"
+      },
+      "modal": {
+        "add": "추가",
+        "edit": "편집",
+        "nameLabel": "이름",
+        "slugLabel": "Slug",
+        "descriptionLabel": "설명",
+        "isSystemLabel": "시스템 역할",
+        "permissionsLabel": "권한 할당",
+        "selectAll": "모두 선택",
+        "unselectAll": "모두 선택 취소",
+        "namePlaceholder": "예: 관리자"
+      }
+    }
+  },
+  "header": {
+    "askAI": "AI에게 질문",
+    "notifications": "알림",
+    "support": "지원",
+    "account": "계정",
+    "logout": "로그아웃"
+  },
+  "auth": {
+    "login": {
+      "title": "로그인",
+      "subtitle": "관리자 시스템에 로그인",
+      "email": "이메일",
+      "password": "비밀번호",
+      "submit": "로그인",
+      "forgotPassword": "비밀번호를 잊으셨나요?",
+      "error": "이메일 또는 비밀번호가 유효하지 않습니다"
+    },
+    "forgotPassword": {
+      "title": "비밀번호 복구",
+      "subtitle": "이메일을 입력하세요.",
+      "email": "이메일",
+      "submit": "링크 보내기",
+      "backToLogin": "로그인으로 돌아가기",
+      "success": "지침을 보냈습니다.",
+      "error": "요청 실패"
+    }
+  },
+  "media": {
+    "title": "미디어 라이브러리",
+    "description": "파일 관리",
+    "upload": "업로드",
+    "newFolder": "새 폴더",
+    "search": "검색...",
+    "filter": "필터",
+    "images": "이미지",
+    "documents": "문서",
+    "all": "전체",
+    "grid": "그리드",
+    "list": "목록",
+    "delete": "삭제",
+    "empty": "파일 없음"
+  },
+  "apps": {
+    "installed": {
+      "title": "설치된 앱",
+      "description": "앱 관리",
+      "search": "앱 검색...",
+      "running": "실행 중",
+      "stopped": "중지됨",
+      "settings": "설정",
+      "uninstall": "제거",
+      "openApp": "열기",
+      "restart": "다시 시작",
+      "stop": "중지",
+      "confirmUninstall": "정말 제거하시겠습니까?",
+      "updateAvailable": "업데이트 가능",
+      "updating": "업데이트 중...",
+      "update": "업데이트",
+      "updateSent": "업데이트 요청이 전송되었습니다",
+      "updateFailed": "실패: ",
+      "updateError": "오류: ",
+      "appStore": "App Store",
+      "empty": "앱이 없습니다."
+    },
+    "store": {
+      "title": "App Store",
+      "description": "새로운 앱 발견",
+      "search": "검색...",
+      "filter": "카테고리",
+      "install": "설치",
+      "free": "무료",
+      "paid": "유료",
+      "reviews": "리뷰",
+      "popular": "인기",
+      "new": "최신",
+      "categories": {
+        "marketing": "마케팅",
+        "sales": "판매",
+        "support": "지원",
+        "analytics": "분석",
+        "design": "디자인",
+        "inventory": "재고"
+      },
+      "priceMonthly": "월 ${{price}}"
+    }
+  },
+  "users": {
+    "title": "사용자 관리",
+    "description": "계정 관리",
+    "add": "사용자 추가",
+    "search": "검색...",
+    "filter": "필터",
+    "columns": {
+      "user": "사용자",
+      "role": "역할",
+      "status": "상태",
+      "joined": "가입일",
+      "actions": "작업"
+    },
+    "status": {
+      "active": "활성",
+      "inactive": "비활성"
+    },
+    "actions": {
+      "edit": "편집",
+      "delete": "삭제",
+      "resetPassword": "비밀번호 재설정",
+      "lock": "잠금",
+      "unlock": "잠금 해제",
+      "archive": "보관"
+    },
+    "modal": {
+      "add": "추가",
+      "edit": "편집",
+      "resetPassword": "재설정",
+      "firstName": "이름",
+      "lastName": "성",
+      "email": "이메일",
+      "password": "비밀번호",
+      "role": "역할",
+      "permissions": "권한",
+      "copyPassword": "복사",
+      "sendPassword": "이메일로 전송",
+      "autoGenerate": "자동 생성",
+      "smtpWarning": "SMTP가 구성되지 않았습니다.",
+      "smtpLink": "지금 구성",
+      "confirmArchive": "보관하시겠습니까?"
+    }
+  },
+  "audit": {
+    "title": "감사 로그",
+    "description": "시스템 활동 모니터링",
+    "search": "로그 검색...",
+    "filter": "필터",
+    "export": "내보내기",
+    "refresh": "새로 고침",
+    "columns": {
+      "action": "작업",
+      "user": "사용자",
+      "resource": "리소스",
+      "date": "날짜",
+      "ip": "IP",
+      "details": "세부 정보"
+    },
+    "timeFilters": {
+      "all": "전체 시간",
+      "today": "오늘",
+      "last7Days": "최근 7일",
+      "last30Days": "최근 30일"
+    }
+  },
+  "settings": {
+    "title": "시스템 설정",
+    "description": "시스템 매개 변수 구성",
+    "save": "변경 사항 저장",
+    "saving": "저장 중...",
+    "messages": {
+      "loadFailed": "로드 실패",
+      "saveSuccess": "저장 성공",
+      "saveFailed": "저장 실패"
+    },
+    "tabs": {
+      "general": "일반",
+      "security": "보안",
+      "notifications": "알림",
+      "appearance": "모양",
+      "email": "이메일"
+    },
+    "general": {
+      "siteInfo": "비즈니스 정보",
+      "siteName": "비즈니스 이름",
+      "sitePhone": "전화번호",
+      "regionAndLanguage": "지역 및 언어",
+      "timezone": "시간대",
+      "language": "언어",
+      "currency": "통화",
+      "measurement": "측정 단위",
+      "formatOptions": "형식",
+      "orderPrefix": "주문 접두사",
+      "invoicePrefix": "송장 접두사",
+      "languageVi": "베트남어 (vi)",
+      "languageEn": "영어 (en)",
+      "systemConfig": "시스템 구성",
+      "cdnUrl": "CDN 도메인 (미디어 라이브러리 용)",
+      "cdnUrlDesc": "이 도메인에는 Cloudflare R2 버킷을 가리키는 CNAME이 있어야 합니다."
+    },
+    "security": {
+      "title": "보안",
+      "require2fa": "2FA 요구",
+      "require2faDesc": "직원에게 2FA를 강제합니다.",
+      "passwordPolicy": "비밀번호 정책",
+      "passwordPolicyDesc": "복잡성 규칙.",
+      "policyLow": "낮음",
+      "policyMedium": "중간",
+      "policyHigh": "높음"
+    },
+    "notifications": {
+      "title": "알림",
+      "description": "경고를 구성합니다.",
+      "email": "이메일",
+      "inApp": "앱 내",
+      "zalo": "Zalo",
+      "events": "트리거",
+      "onNewOrder": "새 주문",
+      "onNewUser": "새 사용자"
+    },
+    "appearance": {
+      "title": "모양",
+      "description": "브랜드를 구성합니다.",
+      "logo": "로고",
+      "favicon": "파비콘",
+      "uploadBtn": "업로드",
+      "freePlanNotice": "Webbi Pro 전용",
+      "freePlanDesc": "업그레이드하여 로고 변경.",
+      "upgradeBtn": "업그레이드"
+    },
+    "email": {
+      "title": "이메일 구성 (SMTP)",
+      "description": "메일 서버.",
+      "host": "호스트",
+      "port": "포트",
+      "user": "사용자 이름",
+      "pass": "비밀번호",
+      "from": "발신자",
+      "upsellBanner": "대량 메일 전송이 필요하신가요?",
+      "upsellDesc": "Mailer 앱을 사용하세요.",
+      "exploreApps": "App Store"
+    }
+  },
+  "apiKeys": {
+    "title": "API 키",
+    "description": "액세스 키 관리",
+    "create": "키 만들기",
+    "columns": {
+      "name": "이름",
+      "key": "키",
+      "created": "작성일",
+      "lastUsed": "마지막 사용",
+      "actions": "작업"
+    },
+    "copy": "복사",
+    "revoke": "취소",
+    "modal": {
+      "add": "키 만들기",
+      "name": "이름",
+      "scopes": "범위",
+      "secretWarning": "비밀 코드를 복사하세요!"
+    }
+  },
+  "account": {
+    "title": "내 계정",
+    "description": "개인 정보 관리",
+    "tabs": {
+      "profile": "프로필",
+      "security": "비밀번호"
+    },
+    "profile": {
+      "firstName": "이름",
+      "lastName": "성",
+      "email": "이메일",
+      "emailNote": "변경할 수 없습니다",
+      "role": "역할:",
+      "update": "업데이트"
+    },
+    "security": {
+      "currentPassword": "현재 비밀번호",
+      "newPassword": "새 비밀번호",
+      "confirmPassword": "비밀번호 확인",
+      "update": "업데이트"
+    }
+  }
+}

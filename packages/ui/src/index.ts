@@ -4,6 +4,7 @@ export * from './components/Badge';
 export * from './components/Table';
 export * from './components/Checkbox';
 export * from './components/Tabs';
+export * from './components/Loading';
 export * from './components/Select';
 export * from './components/Combobox';
 export * from './components/IconPicker';

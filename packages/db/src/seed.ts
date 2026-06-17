@@ -120,32 +120,49 @@ export async function seed(env: { DB: D1Database }) {
     const getPermId = (slug: string) => insertedPermissions.find(p => p.slug === slug)?.id;
 
     const systemMenuId = ulid();
+    const storefrontMenuId = ulid();
     const webbiosMenuId = ulid();
+    
+    // System Sub-Categories
+    const securityMenuId = ulid();
+    const advancedMenuId = ulid();
     const settingsMenuId = ulid();
 
     const menusData = [
       // Top Level
       { id: ulid(), label: 'Tổng quan', icon: 'Home', path: '/', permissionSlug: 'dashboard:view', appSlug: null, position: 1, isSystem: true, translations: { vi: 'Tổng quan', en: 'Dashboard' } },
-      { id: ulid(), label: 'Thư viện media', icon: 'Image', path: '/media', permissionSlug: 'media:view', appSlug: null, position: 2, isSystem: true, translations: { vi: 'Thư viện media', en: 'Media Library' } },
+      
+      // Storefront Category
+      { id: storefrontMenuId, label: 'KÊNH BÁN HÀNG', icon: null, path: '', permissionSlug: null, appSlug: null, position: 2, isSystem: true, translations: { vi: 'KÊNH BÁN HÀNG', en: 'STOREFRONT', isCategory: true } },
+      { id: ulid(), parentId: storefrontMenuId, label: 'Thư viện media', icon: 'Image', path: '/media', permissionSlug: 'media:view', appSlug: null, position: 1, isSystem: true, translations: { vi: 'Thư viện media', en: 'Media Library' } },
 
       // System Menu Category
       { id: systemMenuId, label: 'Hệ thống', icon: null, path: '', permissionSlug: null, appSlug: null, position: 10, isSystem: true, translations: { vi: 'HỆ THỐNG', en: 'SYSTEM', isCategory: true } },
-      { id: ulid(), parentId: systemMenuId, label: 'Người dùng', icon: 'Users', path: '/users', permissionSlug: 'users:view', appSlug: null, position: 11, isSystem: true, translations: { vi: 'Người dùng', en: 'Users' } },
-      { id: ulid(), parentId: systemMenuId, label: 'Menu', icon: 'Menu', path: '/system/menus', permissionSlug: 'menus:view', appSlug: null, position: 12, isSystem: true, translations: { vi: 'Menu', en: 'Menus' } },
-      { id: ulid(), parentId: systemMenuId, label: 'Vai trò', icon: 'Shield', path: '/system/roles', permissionSlug: 'roles:view', appSlug: null, position: 13, isSystem: true, translations: { vi: 'Vai trò', en: 'Roles' } },
-      { id: ulid(), parentId: systemMenuId, label: 'Phân quyền', icon: 'Lock', path: '/system/permissions', permissionSlug: 'permissions:view', appSlug: null, position: 14, isSystem: true, translations: { vi: 'Phân quyền', en: 'Permissions' } },
-      { id: ulid(), parentId: systemMenuId, label: 'Nhật ký', icon: 'FileText', path: '/audit', permissionSlug: 'audit:view', appSlug: null, position: 15, isSystem: true, translations: { vi: 'Nhật ký', en: 'Audit Logs' } },
-      { id: ulid(), parentId: systemMenuId, label: 'Cron Job', icon: 'Clock', path: '/system/cron-jobs', permissionSlug: 'settings:view', appSlug: null, position: 16, isSystem: true, translations: { vi: 'Cron Job', en: 'Cron Jobs' } },
-      { id: settingsMenuId, parentId: systemMenuId, label: 'Cài đặt', icon: 'Settings', path: '', permissionSlug: 'settings:view', appSlug: null, position: 17, isSystem: true, translations: { vi: 'Cài đặt', en: 'Settings' } },
+      
+      // System > Security
+      { id: securityMenuId, parentId: systemMenuId, label: 'Bảo mật & Phân quyền', icon: 'ShieldCheck', path: '', permissionSlug: null, appSlug: null, position: 1, isSystem: true, translations: { vi: 'Bảo mật & Phân quyền', en: 'Access Control' } },
+      { id: ulid(), parentId: securityMenuId, label: 'Người dùng', icon: 'Users', path: '/users', permissionSlug: 'users:view', appSlug: null, position: 1, isSystem: true, translations: { vi: 'Người dùng', en: 'Users' } },
+      { id: ulid(), parentId: securityMenuId, label: 'Vai trò', icon: 'Shield', path: '/system/roles', permissionSlug: 'roles:view', appSlug: null, position: 2, isSystem: true, translations: { vi: 'Vai trò', en: 'Roles' } },
+      { id: ulid(), parentId: securityMenuId, label: 'Phân quyền', icon: 'Lock', path: '/system/permissions', permissionSlug: 'permissions:view', appSlug: null, position: 3, isSystem: true, translations: { vi: 'Phân quyền', en: 'Permissions' } },
+      { id: ulid(), parentId: securityMenuId, label: 'API Keys', icon: 'Key', path: '/api-keys', permissionSlug: 'api_keys:view', appSlug: null, position: 4, isSystem: true, translations: { vi: 'API Keys', en: 'API Keys' } },
+
+      // System > Advanced
+      { id: advancedMenuId, parentId: systemMenuId, label: 'Nâng cao', icon: 'TerminalSquare', path: '', permissionSlug: null, appSlug: null, position: 2, isSystem: true, translations: { vi: 'Nâng cao', en: 'Advanced' } },
+      { id: ulid(), parentId: advancedMenuId, label: 'Menu', icon: 'Menu', path: '/system/menus', permissionSlug: 'menus:view', appSlug: null, position: 1, isSystem: true, translations: { vi: 'Menu', en: 'Menus' } },
+      { id: ulid(), parentId: advancedMenuId, label: 'Nhật ký', icon: 'FileText', path: '/audit', permissionSlug: 'audit:view', appSlug: null, position: 2, isSystem: true, translations: { vi: 'Nhật ký', en: 'Audit Logs' } },
+      { id: ulid(), parentId: advancedMenuId, label: 'Cron Jobs', icon: 'Clock', path: '/system/cron-jobs', permissionSlug: 'settings:view', appSlug: null, position: 3, isSystem: true, translations: { vi: 'Cron Jobs', en: 'Cron Jobs' } },
+
+      // System > Settings
+      { id: settingsMenuId, parentId: systemMenuId, label: 'Cài đặt', icon: 'Settings', path: '', permissionSlug: 'settings:view', appSlug: null, position: 3, isSystem: true, translations: { vi: 'Cài đặt', en: 'Settings' } },
       { id: ulid(), parentId: settingsMenuId, label: 'Hệ thống', icon: null, path: '/settings', permissionSlug: 'settings:view', appSlug: null, position: 1, isSystem: true, translations: { vi: 'Hệ thống', en: 'System' } },
       { id: ulid(), parentId: settingsMenuId, label: 'Tên miền', icon: null, path: '/settings/domains', permissionSlug: 'settings:view', appSlug: null, position: 2, isSystem: true, translations: { vi: 'Tên miền', en: 'Domains' } },
       { id: ulid(), parentId: settingsMenuId, label: 'Webhooks', icon: null, path: '/settings/webhooks', permissionSlug: 'settings:view', appSlug: null, position: 3, isSystem: true, translations: { vi: 'Webhooks', en: 'Webhooks' } },
-      { id: ulid(), parentId: systemMenuId, label: 'API Keys', icon: 'Key', path: '/api-keys', permissionSlug: 'api_keys:view', appSlug: null, position: 18, isSystem: true, translations: { vi: 'API Keys', en: 'API Keys' } },
 
       // WebbiOS Category
       { id: webbiosMenuId, label: 'WebbiOS', icon: null, path: '', permissionSlug: null, appSlug: null, position: 20, isSystem: true, translations: { vi: 'WEBBIOS', en: 'WEBBIOS', isCategory: true } },
-      { id: ulid(), parentId: webbiosMenuId, label: 'Bản quyền', icon: 'Circle', path: '/webbios/licenses', permissionSlug: null, appSlug: null, position: 21, isSystem: true, translations: { vi: 'Bản quyền', en: 'License' } },
-      { id: ulid(), parentId: webbiosMenuId, label: 'Cập nhật', icon: 'CloudUpload', path: '/webbios/updates', permissionSlug: null, appSlug: null, position: 22, isSystem: true, translations: { vi: 'Cập nhật', en: 'Updates' } },
+      { id: ulid(), parentId: webbiosMenuId, label: 'Sao lưu & Khôi phục', icon: 'DatabaseBackup', path: '/webbios/backup-restore', permissionSlug: null, appSlug: null, position: 1, isSystem: true, translations: { vi: 'Sao lưu & Khôi phục', en: 'Backup & Restore' } },
+      { id: ulid(), parentId: webbiosMenuId, label: 'Hạn mức Cloudflare', icon: 'PieChart', path: '/webbios/cloudflare-quotas', permissionSlug: null, appSlug: null, position: 2, isSystem: true, translations: { vi: 'Hạn mức Cloudflare', en: 'Cloudflare Quotas' } },
+      { id: ulid(), parentId: webbiosMenuId, label: 'Cập nhật', icon: 'CloudUpload', path: '/webbios/updates', permissionSlug: null, appSlug: null, position: 3, isSystem: true, translations: { vi: 'Cập nhật', en: 'Updates' } },
     ];
 
     for (const menu of menusData) {

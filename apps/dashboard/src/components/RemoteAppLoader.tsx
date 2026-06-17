@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 // @ts-ignore
 import { __federation_method_setRemote, __federation_method_getRemote } from '__federation__';
 import { RefreshCw, AlertTriangle } from 'lucide-react';
@@ -10,6 +11,7 @@ interface RemoteAppLoaderProps {
 }
 
 export default function RemoteAppLoader({ appSlug, workerUrl, moduleName }: RemoteAppLoaderProps) {
+  const { t } = useTranslation();
   const [Component, setComponent] = useState<React.LazyExoticComponent<any> | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [errorType, setErrorType] = useState<'network' | 'module' | 'unknown'>('unknown');
@@ -30,10 +32,7 @@ export default function RemoteAppLoader({ appSlug, workerUrl, moduleName }: Remo
         // no-cors mode won't give us status, but if it throws, the URL is unreachable
       } catch (fetchErr) {
         setErrorType('network');
-        throw new Error(
-          `Không thể kết nối đến ứng dụng tại ${workerUrl}. ` +
-          `Ứng dụng có thể chưa được deploy hoặc URL không chính xác.`
-        );
+        throw new Error(t('common.appLoader.networkError', { url: workerUrl }));
       }
       
       // Step 2: Register the dynamic remote
@@ -48,10 +47,7 @@ export default function RemoteAppLoader({ appSlug, workerUrl, moduleName }: Remo
       
       if (!factory) {
         setErrorType('module');
-        throw new Error(
-          `Không thể nạp module ${moduleName} từ ứng dụng ${appSlug}. ` +
-          `Module có thể chưa được export đúng cách trong cấu hình federation.`
-        );
+        throw new Error(t('common.appLoader.moduleError', { module: moduleName, app: appSlug }));
       }
 
       setComponent(() => lazy(() => Promise.resolve({ default: factory })));
@@ -101,7 +97,7 @@ export default function RemoteAppLoader({ appSlug, workerUrl, moduleName }: Remo
           <div className="px-5 py-4 border-b border-red-200 bg-red-100/50 flex items-center gap-3">
             <AlertTriangle size={20} className="text-red-600 flex-shrink-0" />
             <h3 className="text-base font-semibold text-red-800">
-              Lỗi nạp ứng dụng
+              {t('common.appLoader.errorTitle')}
             </h3>
           </div>
           
@@ -112,22 +108,22 @@ export default function RemoteAppLoader({ appSlug, workerUrl, moduleName }: Remo
             
             {errorType === 'network' && (
               <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                <p className="text-xs text-amber-800 font-medium mb-1">💡 Gợi ý khắc phục:</p>
+                <p className="text-xs text-amber-800 font-medium mb-1">{t('common.appLoader.networkTipTitle')}</p>
                 <ul className="text-xs text-amber-700 space-y-1 list-disc list-inside">
-                  <li>Kiểm tra ứng dụng đã được deploy thành công trên Cloudflare Pages</li>
-                  <li>Kiểm tra URL worker: <code className="bg-amber-100 px-1 rounded text-[11px]">{workerUrl}</code></li>
-                  <li>Thử gỡ cài đặt và cài đặt lại ứng dụng</li>
+                  <li>{t('common.appLoader.networkTip1')}</li>
+                  <li>{t('common.appLoader.networkTip2')} <code className="bg-amber-100 px-1 rounded text-[11px]">{workerUrl}</code></li>
+                  <li>{t('common.appLoader.networkTip3')}</li>
                 </ul>
               </div>
             )}
             
             {errorType === 'module' && (
               <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                <p className="text-xs text-amber-800 font-medium mb-1">💡 Gợi ý khắc phục:</p>
+                <p className="text-xs text-amber-800 font-medium mb-1">{t('common.appLoader.moduleTipTitle')}</p>
                 <ul className="text-xs text-amber-700 space-y-1 list-disc list-inside">
-                  <li>Ứng dụng cần cấu hình Vite Module Federation đúng cách</li>
-                  <li>Kiểm tra file <code className="bg-amber-100 px-1 rounded text-[11px]">remoteEntry.js</code> đã tồn tại</li>
-                  <li>Module cần export: <code className="bg-amber-100 px-1 rounded text-[11px]">{moduleName}</code></li>
+                  <li>{t('common.appLoader.moduleTip1')}</li>
+                  <li>{t('common.appLoader.moduleTip2')}</li>
+                  <li>{t('common.appLoader.moduleTip3')} <code className="bg-amber-100 px-1 rounded text-[11px]">{moduleName}</code></li>
                 </ul>
               </div>
             )}
@@ -143,10 +139,10 @@ export default function RemoteAppLoader({ appSlug, workerUrl, moduleName }: Remo
                 }`}
               >
                 <RefreshCw size={14} className={retrying ? 'animate-spin' : ''} />
-                {retrying ? 'Đang thử lại...' : 'Thử lại'}
+                {retrying ? t('common.appLoader.retrying') : t('common.appLoader.retry')}
               </button>
               {retryCount > 0 && (
-                <span className="text-xs text-gray-500">Đã thử {retryCount} lần</span>
+                <span className="text-xs text-gray-500">{t('common.appLoader.retriedCount', { count: retryCount })}</span>
               )}
             </div>
           </div>
@@ -160,7 +156,7 @@ export default function RemoteAppLoader({ appSlug, workerUrl, moduleName }: Remo
       <div className="flex items-center justify-center p-8 text-gray-500">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-          <p className="text-sm">Đang nạp ứng dụng...</p>
+          <p className="text-sm">{t('common.appLoader.loadingApp')}</p>
         </div>
       </div>
     );
@@ -171,7 +167,7 @@ export default function RemoteAppLoader({ appSlug, workerUrl, moduleName }: Remo
       <div className="flex items-center justify-center p-8 text-gray-500">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-          <p className="text-sm">Đang khởi tạo giao diện ứng dụng...</p>
+          <p className="text-sm">{t('common.appLoader.initializing')}</p>
         </div>
       </div>
     }>

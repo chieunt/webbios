@@ -1,0 +1,578 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "Pilih ikon...",
+      "selectIconTitle": "Pilih Ikon",
+      "search": "Mencari...",
+      "select": "Pilih..."
+    },
+    "actions": {
+      "settings": "Pengaturan",
+      "cancel": "Batal",
+      "create": "Buat"
+    },
+    "messages": {
+      "underConstruction": "Fitur dalam pengembangan."
+    },
+    "loading": "Memuat...",
+    "systemDefault": "Bawaan",
+    "appLoader": {
+      "errorTitle": "Kesalahan Pemuatan Aplikasi",
+      "networkError": "Tidak dapat terhubung ke aplikasi di {{url}}. Aplikasi mungkin tidak disebarkan atau URL salah.",
+      "moduleError": "Tidak dapat memuat modul {{module}} dari aplikasi {{app}}.",
+      "networkTipTitle": "💡 Tips pemecahan masalah:",
+      "networkTip1": "Periksa apakah aplikasi berhasil diterapkan di Cloudflare Pages",
+      "networkTip2": "Periksa URL worker:",
+      "networkTip3": "Coba copot pemasangan dan instal ulang aplikasi",
+      "moduleTipTitle": "💡 Tips pemecahan masalah:",
+      "moduleTip1": "Aplikasi membutuhkan konfigurasi Vite Module Federation",
+      "moduleTip2": "Periksa apakah remoteEntry.js ada",
+      "moduleTip3": "Modul perlu mengekspor:",
+      "retry": "Coba lagi",
+      "retrying": "Mencoba lagi...",
+      "retriedCount": "Mencoba {{count}} kali",
+      "loadingApp": "Memuat aplikasi...",
+      "initializing": "Menginisialisasi antarmuka..."
+    }
+  },
+  "sidebar": {
+    "quickSearch": "Pencarian cepat...",
+    "accountHome": "Beranda akun",
+    "recents": "Terbaru",
+    "domains": "Domain",
+    "observe": "Amati",
+    "investigate": "Selidiki",
+    "logExplorer": "Penjelajah Log",
+    "logSearch": "Pencarian Log",
+    "trace": "Jejak",
+    "logpush": "Logpush",
+    "analytics": "Analitik",
+    "build": "Bangun",
+    "compute": "Komputasi",
+    "ai": "AI",
+    "storage": "Penyimpanan & database",
+    "media": "Media",
+    "protect": "Lindungi & Hubungkan",
+    "security": "Keamanan",
+    "zeroTrust": "Zero Trust",
+    "networking": "Jaringan",
+    "delivery": "Pengiriman & performa",
+    "collapseSidebar": "Tutup bilah sisi",
+    "expandSidebar": "Perluas bilah sisi"
+  },
+  "webbios": {
+    "updates": {
+      "title": "Pembaruan Sistem",
+      "subtitle": "Periksa dan tingkatkan WebbiOS ke versi terbaru.",
+      "versionStatus": "Status Versi",
+      "current": "Saat ini:",
+      "latest": "Terbaru:",
+      "updateTo": "Perbarui ke v{{version}}",
+      "upToDate": "Sudah yang terbaru",
+      "updating": "Memproses...",
+      "statusDownloading": "Mengunduh kode sumber...",
+      "statusChecksum": "Memverifikasi checksum keamanan...",
+      "statusDeploying": "Menyebarkan versi Worker baru...",
+      "statusDone": "Selesai! Sistem akan dimuat ulang dalam 3 detik.",
+      "progress": {
+        "inProgress": "Mengantri untuk diproses...",
+        "downloading": "Mengunduh paket instalasi...",
+        "extracting": "Mengekstrak file...",
+        "installing": "Menginstal perpustakaan...",
+        "deployingApi": "Menyebarkan Core API...",
+        "deployingDashboard": "Menyebarkan Dashboard...",
+        "success": "Pembaruan selesai! Memuat ulang...",
+        "default": "Memproses...",
+        "restoring": "Memulihkan kemajuan...",
+        "errorPrefix": "Kesalahan: ",
+        "errorFailed": "Pembaruan gagal",
+        "errorNoShop": "Tidak dapat menentukan ID Toko. Pembaruan dibatalkan.",
+        "errorNoJobId": "Tidak menerima Job ID dari server.",
+        "statusUpdating": "Memperbarui...",
+        "statusInit": "Menginisialisasi proses pembaruan..."
+      },
+      "releaseNotes": "Catatan Rilis (v{{version}})",
+      "releaseNotesIntro": "Versi ini menghadirkan perbaikan bug penting:",
+      "releaseNote1": "Mengoptimalkan kecepatan memuat halaman sebesar 15%.",
+      "releaseNote2": "Mendukung Webhooks.",
+      "releaseNote3": "Memperbaiki kerentanan keamanan."
+    },
+    "licenses": {
+      "title": "Lisensi & Paket",
+      "subtitle": "Kelola informasi lisensi WebbiOS.",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "Status:",
+      "statusActive": "Aktif",
+      "durationLabel": "Durasi:",
+      "durationPermanent": "Seumur Hidup",
+      "shopIdLabel": "ID Toko:",
+      "proTitle": "Webbi Pro",
+      "proDesc": "Tingkatkan ke Pro untuk penyimpanan tidak terbatas.",
+      "upgradeBtn": "Tingkatkan sekarang - $29/bulan"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "Lisensi",
+      "updates": "Pembaruan"
+    },
+    "backupRestore": {
+      "title": "Pencadangan & Pemulihan",
+      "description": "Cadangkan dan pulihkan konfigurasi sistem.",
+      "export": {
+        "title": "Ekspor Data",
+        "description": "Buat cadangan konfigurasi dan data saat ini.",
+        "button": "Cadangkan Sekarang"
+      },
+      "restore": {
+        "title": "Pulihkan Data",
+        "description": "Unggah file cadangan untuk memulihkan.",
+        "button": "Pilih File Cadangan"
+      }
+    },
+    "cloudflareQuotas": {
+      "title": "Kuota Cloudflare",
+      "description": "Pantau dan kelola sumber daya sistem.",
+      "dashboardBtn": "Buka Dashboard Cloudflare",
+      "workers": {
+        "title": "Permintaan Workers",
+        "unit": "/ 100.000 (Gratis)",
+        "desc": "Jumlah panggilan API"
+      },
+      "d1": {
+        "title": "Pembacaan Database D1",
+        "unit": "/ 5.000.000 (Gratis)",
+        "desc": "Jumlah kueri pembacaan"
+      },
+      "r2": {
+        "title": "Penyimpanan R2",
+        "unit": "/ 10 GB (Gratis)",
+        "desc": "Kapasitas penyimpanan media"
+      },
+      "upgrade": {
+        "title": "Tingkatkan batas Anda hari ini!",
+        "desc": "Tingkatkan ke Webbi Pro untuk menghapus batas.",
+        "button": "Jelajahi paket"
+      }
+    }
+  },
+  "dashboard": {
+    "accountHome": "Beranda akun",
+    "add": "Tambah",
+    "analytics": "Analitik",
+    "last24h": "24 jam terakhir",
+    "security": "Keamanan",
+    "securityInsights": "Wawasan keamanan",
+    "encryptedRate": "Tingkat enkripsi",
+    "performance": "Performa",
+    "cpuTime": "Waktu CPU (P90)",
+    "workersErrors": "Kesalahan Workers",
+    "activity": "Aktivitas",
+    "workersInvocations": "Pemanggilan Workers",
+    "buildMinutes": "Menit build",
+    "domains": "Domain",
+    "sitesFaster": "Situs Anda, lebih cepat dan aman",
+    "boostPerformance": "Tingkatkan performa",
+    "addDomain": "Tambahkan domain",
+    "workersAndPages": "Workers dan Pages",
+    "zeroTrust": "Keamanan Zero Trust",
+    "secureAccess": "Akses aman untuk tim Anda",
+    "controlWho": "Kontrol siapa yang mengakses aplikasi",
+    "getStarted": "Mulai",
+    "welcome": "Selamat datang, {{name}}",
+    "createReport": "Buat laporan",
+    "ecommerceOverview": "Ringkasan E-commerce",
+    "revenue": "Pendapatan",
+    "orders": "Pesanan",
+    "customers": "Pelanggan",
+    "products": "Produk"
+  },
+  "products": {
+    "title": "Produk",
+    "export": "Ekspor",
+    "import": "Impor",
+    "add": "Tambah produk",
+    "tabs": {
+      "all": "Semua",
+      "active": "Aktif",
+      "draft": "Draf",
+      "archived": "Diarsipkan"
+    },
+    "search": "Cari produk...",
+    "filters": {
+      "allStatus": "Semua status",
+      "allTypes": "Semua jenis",
+      "allVendors": "Semua vendor",
+      "allTags": "Semua tag"
+    },
+    "columns": {
+      "product": "PRODUK",
+      "status": "STATUS",
+      "inventory": "INVENTARIS",
+      "vendor": "VENDOR",
+      "price": "HARGA",
+      "actions": "AKSI"
+    },
+    "statusLabels": {
+      "active": "Aktif",
+      "draft": "Draf"
+    },
+    "inventoryLabels": {
+      "inStock": "tersedia"
+    },
+    "placeholders": {
+      "name": "Nama produk",
+      "vendor": "Vendor"
+    },
+    "empty": "Belum ada produk"
+  },
+  "system": {
+    "menus": {
+      "title": "Manajemen Menu",
+      "description": "Atur dan terjemahkan menu navigasi.",
+      "addMenuLevel1": "Tambah Menu Level 1",
+      "structure": "Struktur Menu",
+      "loading": "Memuat...",
+      "hidden": "Tersembunyi",
+      "confirmDelete": "Anda yakin ingin menghapus menu ini?",
+      "errorSaving": "Gagal menyimpan",
+      "errorDeleting": "Gagal menghapus",
+      "modal": {
+        "addMenu": "Tambah Menu",
+        "editMenu": "Edit Menu",
+        "titleFallback": "Nama Default",
+        "path": "Jalur (Path)",
+        "translationsEn": "Terjemahan (Inggris)",
+        "translationsVi": "Terjemahan (Vietnam)",
+        "icon": "Ikon",
+        "permissionId": "ID Izin",
+        "position": "Posisi",
+        "isActive": "Aktif",
+        "noPermission": "Tanpa Izin (Publik)",
+        "cancel": "Batal",
+        "save": "Simpan",
+        "parentMenu": "Menu Induk",
+        "isCategoryLabel": "Hanya Label",
+        "rootMenu": "--- Akar ---"
+      }
+    },
+    "permissions": {
+      "title": "Manajemen Izin Sistem",
+      "description": "Tentukan izin untuk peran.",
+      "addPermission": "Tambah izin baru",
+      "confirmDelete": "Yakin ingin menghapus ini?",
+      "errorSaving": "Gagal menyimpan",
+      "errorDeleting": "Gagal menghapus",
+      "columns": {
+        "slug": "Slug",
+        "description": "Deskripsi",
+        "createdAt": "Dibuat Pada",
+        "actions": "Aksi"
+      },
+      "modal": {
+        "add": "Tambah",
+        "edit": "Edit",
+        "slugLabel": "Slug (mis. users:read)",
+        "descriptionLabel": "Deskripsi",
+        "slugPlaceholder": "modul:aksi"
+      }
+    },
+    "roles": {
+      "title": "Manajemen Peran",
+      "description": "Kelola peran pengguna.",
+      "addRole": "Tambah peran baru",
+      "confirmDelete": "Yakin ingin menghapus?",
+      "errorSaving": "Gagal menyimpan",
+      "errorDeleting": "Gagal menghapus",
+      "columns": {
+        "name": "Nama Peran",
+        "slug": "Slug",
+        "description": "Deskripsi",
+        "system": "Sistem",
+        "actions": "Aksi"
+      },
+      "modal": {
+        "add": "Tambah",
+        "edit": "Edit",
+        "nameLabel": "Nama",
+        "slugLabel": "Slug",
+        "descriptionLabel": "Deskripsi",
+        "isSystemLabel": "Peran Sistem",
+        "permissionsLabel": "Tetapkan Izin",
+        "selectAll": "Pilih Semua",
+        "unselectAll": "Batal Pilih",
+        "namePlaceholder": "mis. Admin"
+      }
+    }
+  },
+  "header": {
+    "askAI": "Tanya AI",
+    "notifications": "Notifikasi",
+    "support": "Dukungan",
+    "account": "Akun",
+    "logout": "Keluar"
+  },
+  "auth": {
+    "login": {
+      "title": "Masuk",
+      "subtitle": "Masuk ke sistem admin",
+      "email": "Email",
+      "password": "Kata Sandi",
+      "submit": "Masuk",
+      "forgotPassword": "Lupa kata sandi?",
+      "error": "Email atau kata sandi tidak valid"
+    },
+    "forgotPassword": {
+      "title": "Lupa Kata Sandi",
+      "subtitle": "Masukkan email Anda.",
+      "email": "Email",
+      "submit": "Kirim Tautan",
+      "backToLogin": "Kembali ke login",
+      "success": "Instruksi telah dikirim.",
+      "error": "Gagal mengirim permintaan"
+    }
+  },
+  "media": {
+    "title": "Pustaka Media",
+    "description": "Kelola file Anda",
+    "upload": "Unggah",
+    "newFolder": "Folder Baru",
+    "search": "Cari file...",
+    "filter": "Filter",
+    "images": "Gambar",
+    "documents": "Dokumen",
+    "all": "Semua",
+    "grid": "Kisi",
+    "list": "Daftar",
+    "delete": "Hapus",
+    "empty": "Tidak ada file"
+  },
+  "apps": {
+    "installed": {
+      "title": "Aplikasi Terinstal",
+      "description": "Kelola aplikasi Anda",
+      "search": "Cari aplikasi...",
+      "running": "Berjalan",
+      "stopped": "Berhenti",
+      "settings": "Pengaturan",
+      "uninstall": "Copot Pemasangan",
+      "openApp": "Buka Aplikasi",
+      "restart": "Mulai Ulang",
+      "stop": "Berhenti",
+      "confirmUninstall": "Yakin ingin mencopot aplikasi ini?",
+      "updateAvailable": "Pembaruan tersedia",
+      "updating": "Memperbarui...",
+      "update": "Perbarui",
+      "updateSent": "Permintaan pembaruan dikirim",
+      "updateFailed": "Gagal: ",
+      "updateError": "Kesalahan: ",
+      "appStore": "App Store",
+      "empty": "Belum ada aplikasi."
+    },
+    "store": {
+      "title": "App Store",
+      "description": "Temukan aplikasi baru",
+      "search": "Cari...",
+      "filter": "Kategori",
+      "install": "Instal",
+      "free": "Gratis",
+      "paid": "Berbayar",
+      "reviews": "Ulasan",
+      "popular": "Populer",
+      "new": "Baru",
+      "categories": {
+        "marketing": "Pemasaran",
+        "sales": "Penjualan",
+        "support": "Dukungan",
+        "analytics": "Analitik",
+        "design": "Desain",
+        "inventory": "Inventaris"
+      },
+      "priceMonthly": "${{price}}/bulan"
+    }
+  },
+  "users": {
+    "title": "Manajemen Pengguna",
+    "description": "Kelola akun",
+    "add": "Tambah Pengguna",
+    "search": "Cari...",
+    "filter": "Filter",
+    "columns": {
+      "user": "Pengguna",
+      "role": "Peran",
+      "status": "Status",
+      "joined": "Tanggal Bergabung",
+      "actions": "Aksi"
+    },
+    "status": {
+      "active": "Aktif",
+      "inactive": "Tidak Aktif"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Hapus",
+      "resetPassword": "Setel Ulang Kata Sandi",
+      "lock": "Kunci",
+      "unlock": "Buka Kunci",
+      "archive": "Arsipkan"
+    },
+    "modal": {
+      "add": "Tambah",
+      "edit": "Edit",
+      "resetPassword": "Setel Ulang",
+      "firstName": "Nama Depan",
+      "lastName": "Nama Belakang",
+      "email": "Email",
+      "password": "Kata Sandi",
+      "role": "Peran",
+      "permissions": "Izin",
+      "copyPassword": "Salin Kata Sandi",
+      "sendPassword": "Kirim via Email",
+      "autoGenerate": "Otomatis",
+      "smtpWarning": "SMTP belum dikonfigurasi.",
+      "smtpLink": "Konfigurasi",
+      "confirmArchive": "Yakin ingin mengarsipkan?"
+    }
+  },
+  "audit": {
+    "title": "Log Audit",
+    "description": "Pantau aktivitas sistem",
+    "search": "Cari log...",
+    "filter": "Filter",
+    "export": "Ekspor",
+    "refresh": "Segarkan",
+    "columns": {
+      "action": "Aksi",
+      "user": "Pengguna",
+      "resource": "Sumber Daya",
+      "date": "Tanggal",
+      "ip": "IP",
+      "details": "Detail"
+    },
+    "timeFilters": {
+      "all": "Semua Waktu",
+      "today": "Hari Ini",
+      "last7Days": "7 Hari Terakhir",
+      "last30Days": "30 Hari Terakhir"
+    }
+  },
+  "settings": {
+    "title": "Pengaturan Sistem",
+    "description": "Konfigurasi parameter sistem",
+    "save": "Simpan Perubahan",
+    "saving": "Menyimpan...",
+    "messages": {
+      "loadFailed": "Gagal memuat",
+      "saveSuccess": "Berhasil disimpan",
+      "saveFailed": "Gagal menyimpan"
+    },
+    "tabs": {
+      "general": "Umum",
+      "security": "Keamanan",
+      "notifications": "Notifikasi",
+      "appearance": "Tampilan",
+      "email": "Email"
+    },
+    "general": {
+      "siteInfo": "Informasi Bisnis",
+      "siteName": "Nama Bisnis",
+      "sitePhone": "Telepon",
+      "regionAndLanguage": "Wilayah & Bahasa",
+      "timezone": "Zona Waktu",
+      "language": "Bahasa Default",
+      "currency": "Mata Uang Default",
+      "measurement": "Satuan Ukur",
+      "formatOptions": "Format",
+      "orderPrefix": "Awalan Pesanan",
+      "invoicePrefix": "Awalan Faktur",
+      "languageVi": "Vietnam (vi)",
+      "languageEn": "Inggris (en)",
+      "systemConfig": "Konfigurasi Sistem",
+      "cdnUrl": "Domain CDN (Untuk Pustaka Media)",
+      "cdnUrlDesc": "Domain ini harus memiliki CNAME yang mengarah ke bucket Cloudflare R2 Anda."
+    },
+    "security": {
+      "title": "Keamanan",
+      "require2fa": "Wajibkan 2FA",
+      "require2faDesc": "Paksa staf untuk menggunakan 2FA.",
+      "passwordPolicy": "Kebijakan Kata Sandi",
+      "passwordPolicyDesc": "Aturan kompleksitas kata sandi.",
+      "policyLow": "Rendah",
+      "policyMedium": "Sedang",
+      "policyHigh": "Tinggi"
+    },
+    "notifications": {
+      "title": "Saluran Notifikasi",
+      "description": "Peringatan sistem.",
+      "email": "Melalui Email",
+      "inApp": "Melalui In-App",
+      "zalo": "Melalui Zalo",
+      "events": "Pemicu",
+      "onNewOrder": "Pesanan baru",
+      "onNewUser": "Pengguna baru"
+    },
+    "appearance": {
+      "title": "Tampilan",
+      "description": "Identitas merek.",
+      "logo": "Logo",
+      "favicon": "Favicon",
+      "uploadBtn": "Unggah Gambar",
+      "freePlanNotice": "Khusus Webbi Pro",
+      "freePlanDesc": "Tingkatkan untuk mengubah logo.",
+      "upgradeBtn": "Tingkatkan"
+    },
+    "email": {
+      "title": "Konfigurasi Email (SMTP)",
+      "description": "Server email.",
+      "host": "Host",
+      "port": "Port",
+      "user": "Pengguna",
+      "pass": "Kata Sandi",
+      "from": "Pengirim",
+      "upsellBanner": "Kirim email massal?",
+      "upsellDesc": "Gunakan aplikasi Mailer.",
+      "exploreApps": "Jelajahi App Store"
+    }
+  },
+  "apiKeys": {
+    "title": "API Keys",
+    "description": "Kelola kunci akses",
+    "create": "Buat Kunci",
+    "columns": {
+      "name": "Nama",
+      "key": "Kunci",
+      "created": "Dibuat",
+      "lastUsed": "Terakhir Digunakan",
+      "actions": "Aksi"
+    },
+    "copy": "Salin",
+    "revoke": "Cabut",
+    "modal": {
+      "add": "Buat Kunci",
+      "name": "Nama",
+      "scopes": "Cakupan",
+      "secretWarning": "Salin Kode Rahasia ini!"
+    }
+  },
+  "account": {
+    "title": "Akun Saya",
+    "description": "Info pribadi",
+    "tabs": {
+      "profile": "Profil",
+      "security": "Kata Sandi"
+    },
+    "profile": {
+      "firstName": "Nama Depan",
+      "lastName": "Nama Belakang",
+      "email": "Email",
+      "emailNote": "Email tidak dapat diubah.",
+      "role": "Peran:",
+      "update": "Perbarui Profil"
+    },
+    "security": {
+      "currentPassword": "Kata Sandi Saat Ini",
+      "newPassword": "Kata Sandi Baru",
+      "confirmPassword": "Konfirmasi Kata Sandi",
+      "update": "Perbarui"
+    }
+  }
+}

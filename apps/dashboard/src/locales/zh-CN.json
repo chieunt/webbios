@@ -1,0 +1,578 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "选择图标...",
+      "selectIconTitle": "选择图标",
+      "search": "搜索...",
+      "select": "选择..."
+    },
+    "actions": {
+      "settings": "设置",
+      "cancel": "取消",
+      "create": "创建"
+    },
+    "messages": {
+      "underConstruction": "功能正在开发中。"
+    },
+    "loading": "加载中...",
+    "systemDefault": "系统默认",
+    "appLoader": {
+      "errorTitle": "应用程序加载错误",
+      "networkError": "无法连接到位于 {{url}} 的应用。应用可能未部署或URL不正确。",
+      "moduleError": "无法从应用 {{app}} 加载模块 {{module}}。",
+      "networkTipTitle": "💡 故障排除提示：",
+      "networkTip1": "检查应用是否在 Cloudflare Pages 上成功部署",
+      "networkTip2": "检查 Worker URL：",
+      "networkTip3": "尝试卸载并重新安装应用",
+      "moduleTipTitle": "💡 故障排除提示：",
+      "moduleTip1": "应用需要正确的 Vite Module Federation 配置",
+      "moduleTip2": "检查 remoteEntry.js 是否存在",
+      "moduleTip3": "模块需要导出：",
+      "retry": "重试",
+      "retrying": "重试中...",
+      "retriedCount": "已尝试 {{count}} 次",
+      "loadingApp": "正在加载应用...",
+      "initializing": "正在初始化应用界面..."
+    }
+  },
+  "sidebar": {
+    "quickSearch": "快速搜索...",
+    "accountHome": "账户首页",
+    "recents": "最近",
+    "domains": "域名",
+    "observe": "观察",
+    "investigate": "调查",
+    "logExplorer": "日志浏览器",
+    "logSearch": "日志搜索",
+    "trace": "追踪",
+    "logpush": "Logpush",
+    "analytics": "分析",
+    "build": "构建",
+    "compute": "计算",
+    "ai": "AI",
+    "storage": "存储与数据库",
+    "media": "媒体",
+    "protect": "保护与连接",
+    "security": "应用安全",
+    "zeroTrust": "零信任 (Zero Trust)",
+    "networking": "网络",
+    "delivery": "交付与性能",
+    "collapseSidebar": "收起侧边栏",
+    "expandSidebar": "展开侧边栏"
+  },
+  "webbios": {
+    "updates": {
+      "title": "系统更新",
+      "subtitle": "检查并将 WebbiOS 升级到最新版本。",
+      "versionStatus": "版本状态",
+      "current": "当前：",
+      "latest": "最新：",
+      "updateTo": "更新到 v{{version}}",
+      "upToDate": "已是最新",
+      "updating": "处理中...",
+      "statusDownloading": "正在从平台CDN下载源码...",
+      "statusChecksum": "正在验证安全校验和...",
+      "statusDeploying": "正在部署新的 Worker 版本...",
+      "statusDone": "完成！系统将在3秒后重新加载。",
+      "progress": {
+        "inProgress": "正在排队处理...",
+        "downloading": "正在下载安装包...",
+        "extracting": "正在提取文件...",
+        "installing": "正在安装库...",
+        "deployingApi": "正在部署 Core API...",
+        "deployingDashboard": "正在部署仪表板...",
+        "success": "更新完成！正在重新加载...",
+        "default": "处理中...",
+        "restoring": "正在恢复进度...",
+        "errorPrefix": "错误：",
+        "errorFailed": "更新失败",
+        "errorNoShop": "无法确定商店 ID。更新取消。",
+        "errorNoJobId": "未从服务器接收到任务 ID。",
+        "statusUpdating": "正在更新...",
+        "statusInit": "正在初始化更新过程..."
+      },
+      "releaseNotes": "发行说明 (v{{version}})",
+      "releaseNotesIntro": "此版本带来了重要的错误修复和性能改进：",
+      "releaseNote1": "优化店面页面加载速度 15%。",
+      "releaseNote2": "支持第三方应用的 Webhooks。",
+      "releaseNote3": "修复与 API 访问相关的安全漏洞。"
+    },
+    "licenses": {
+      "title": "许可证与计划",
+      "subtitle": "管理此商店的 WebbiOS 许可信息。",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "状态：",
+      "statusActive": "活跃",
+      "durationLabel": "时长：",
+      "durationPermanent": "终身",
+      "shopIdLabel": "商店 ID：",
+      "proTitle": "Webbi Pro",
+      "proDesc": "升级到 Pro 以解锁 Cloudflare Edge 的 100% 性能，享受无限 R2 存储和优先支持。",
+      "upgradeBtn": "立即升级 - $29/月"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "许可证",
+      "updates": "更新"
+    },
+    "backupRestore": {
+      "title": "备份与恢复",
+      "description": "备份并恢复整个系统配置和数据。",
+      "export": {
+        "title": "导出数据",
+        "description": "创建所有系统配置的备份以供下载。",
+        "button": "立即备份"
+      },
+      "restore": {
+        "title": "恢复数据",
+        "description": "上传之前的备份文件以恢复系统。",
+        "button": "选择备份文件"
+      }
+    },
+    "cloudflareQuotas": {
+      "title": "Cloudflare 配额",
+      "description": "监控和管理 Cloudflare 系统资源。",
+      "dashboardBtn": "打开 Cloudflare 仪表板",
+      "workers": {
+        "title": "Workers 请求",
+        "unit": "/ 100,000 (免费额度)",
+        "desc": "API 调用和逻辑处理数量"
+      },
+      "d1": {
+        "title": "D1 数据库读取",
+        "unit": "/ 5,000,000 (免费额度)",
+        "desc": "数据库读取查询次数"
+      },
+      "r2": {
+        "title": "R2 存储",
+        "unit": "/ 10 GB (免费额度)",
+        "desc": "图片和文件的存储容量"
+      },
+      "upgrade": {
+        "title": "立即提高您的限额！",
+        "desc": "升级到 Webbi Pro 消除这些限制。",
+        "button": "探索升级计划"
+      }
+    }
+  },
+  "dashboard": {
+    "accountHome": "账户首页",
+    "add": "添加",
+    "analytics": "分析",
+    "last24h": "过去24小时",
+    "security": "安全",
+    "securityInsights": "安全见解",
+    "encryptedRate": "加密请求率",
+    "performance": "性能",
+    "cpuTime": "CPU时间 (P90)",
+    "workersErrors": "Workers 错误",
+    "activity": "活动",
+    "workersInvocations": "Workers 调用",
+    "buildMinutes": "构建时间",
+    "domains": "域名",
+    "sitesFaster": "您的网站，更快更安全",
+    "boostPerformance": "提升性能、阻止攻击",
+    "addDomain": "添加域名",
+    "workersAndPages": "Workers 和 Pages",
+    "zeroTrust": "零信任安全",
+    "secureAccess": "为团队提供安全访问",
+    "controlWho": "控制谁能访问内部应用",
+    "getStarted": "开始使用",
+    "welcome": "欢迎，{{name}}",
+    "createReport": "创建报告",
+    "ecommerceOverview": "电商概览",
+    "revenue": "收入",
+    "orders": "订单",
+    "customers": "客户",
+    "products": "产品"
+  },
+  "products": {
+    "title": "产品",
+    "export": "导出",
+    "import": "导入",
+    "add": "添加产品",
+    "tabs": {
+      "all": "全部",
+      "active": "上架",
+      "draft": "草稿",
+      "archived": "已归档"
+    },
+    "search": "搜索产品、SKU...",
+    "filters": {
+      "allStatus": "所有状态",
+      "allTypes": "所有类型",
+      "allVendors": "所有供应商",
+      "allTags": "所有标签"
+    },
+    "columns": {
+      "product": "产品",
+      "status": "状态",
+      "inventory": "库存",
+      "vendor": "供应商",
+      "price": "价格",
+      "actions": "操作"
+    },
+    "statusLabels": {
+      "active": "上架",
+      "draft": "草稿"
+    },
+    "inventoryLabels": {
+      "inStock": "有货"
+    },
+    "placeholders": {
+      "name": "产品名称",
+      "vendor": "供应商"
+    },
+    "empty": "暂无产品"
+  },
+  "system": {
+    "menus": {
+      "title": "菜单管理",
+      "description": "组织、添加/删除和翻译左侧导航菜单。",
+      "addMenuLevel1": "添加一级菜单",
+      "structure": "菜单结构",
+      "loading": "加载中...",
+      "hidden": "隐藏",
+      "confirmDelete": "您确定要删除此菜单项吗？",
+      "errorSaving": "保存菜单时出错",
+      "errorDeleting": "删除菜单时出错",
+      "modal": {
+        "addMenu": "添加菜单",
+        "editMenu": "编辑菜单",
+        "titleFallback": "默认名称",
+        "path": "路径",
+        "translationsEn": "翻译 (英语)",
+        "translationsVi": "翻译 (越南语)",
+        "icon": "图标",
+        "permissionId": "权限 ID",
+        "position": "位置",
+        "isActive": "是否激活",
+        "noPermission": "无需权限 (公开)",
+        "cancel": "取消",
+        "save": "保存",
+        "parentMenu": "父菜单",
+        "isCategoryLabel": "分类标签",
+        "rootMenu": "--- 根 ---"
+      }
+    },
+    "permissions": {
+      "title": "系统权限管理",
+      "description": "定义可分配给角色的权限。",
+      "addPermission": "添加权限",
+      "confirmDelete": "您确定要删除此权限吗？",
+      "errorSaving": "出错",
+      "errorDeleting": "出错",
+      "columns": {
+        "slug": "标识 (Slug)",
+        "description": "描述",
+        "createdAt": "创建时间",
+        "actions": "操作"
+      },
+      "modal": {
+        "add": "添加权限",
+        "edit": "编辑权限",
+        "slugLabel": "Slug (例如 users:read)",
+        "descriptionLabel": "描述",
+        "slugPlaceholder": "模块:操作"
+      }
+    },
+    "roles": {
+      "title": "角色管理",
+      "description": "管理用户角色并分配权限。",
+      "addRole": "添加新角色",
+      "confirmDelete": "确定要删除此角色吗？",
+      "errorSaving": "出错",
+      "errorDeleting": "出错",
+      "columns": {
+        "name": "角色名称",
+        "slug": "Slug",
+        "description": "描述",
+        "system": "系统角色",
+        "actions": "操作"
+      },
+      "modal": {
+        "add": "添加角色",
+        "edit": "编辑角色",
+        "nameLabel": "角色名称",
+        "slugLabel": "Slug",
+        "descriptionLabel": "描述",
+        "isSystemLabel": "系统角色 (无法删除)",
+        "permissionsLabel": "分配权限",
+        "selectAll": "全选",
+        "unselectAll": "取消全选",
+        "namePlaceholder": "例如 管理员"
+      }
+    }
+  },
+  "header": {
+    "askAI": "询问 AI",
+    "notifications": "通知",
+    "support": "支持",
+    "account": "账户",
+    "logout": "退出登录"
+  },
+  "auth": {
+    "login": {
+      "title": "登录",
+      "subtitle": "登录到管理系统",
+      "email": "邮箱",
+      "password": "密码",
+      "submit": "登录",
+      "forgotPassword": "忘记密码？",
+      "error": "邮箱或密码无效"
+    },
+    "forgotPassword": {
+      "title": "找回密码",
+      "subtitle": "输入邮箱接收重置链接。",
+      "email": "邮箱",
+      "submit": "发送链接",
+      "backToLogin": "返回登录",
+      "success": "已发送说明。",
+      "error": "请求失败"
+    }
+  },
+  "media": {
+    "title": "媒体库",
+    "description": "管理图像和文件",
+    "upload": "上传",
+    "newFolder": "新建文件夹",
+    "search": "搜索文件...",
+    "filter": "过滤",
+    "images": "图像",
+    "documents": "文档",
+    "all": "全部",
+    "grid": "网格视图",
+    "list": "列表视图",
+    "delete": "删除",
+    "empty": "找不到文件"
+  },
+  "apps": {
+    "installed": {
+      "title": "已安装应用",
+      "description": "管理已安装的应用",
+      "search": "搜索...",
+      "running": "运行中",
+      "stopped": "已停止",
+      "settings": "设置",
+      "uninstall": "卸载",
+      "openApp": "打开",
+      "restart": "重启",
+      "stop": "停止",
+      "confirmUninstall": "您确定要卸载此应用吗？",
+      "updateAvailable": "有可用更新",
+      "updating": "正在更新...",
+      "update": "更新",
+      "updateSent": "已发送更新请求",
+      "updateFailed": "失败：",
+      "updateError": "错误：",
+      "appStore": "应用商店",
+      "empty": "暂无应用。"
+    },
+    "store": {
+      "title": "应用商店",
+      "description": "发现新应用",
+      "search": "搜索...",
+      "filter": "类别",
+      "install": "安装",
+      "free": "免费",
+      "paid": "付费",
+      "reviews": "评论",
+      "popular": "热门",
+      "new": "最新",
+      "categories": {
+        "marketing": "营销",
+        "sales": "销售",
+        "support": "支持",
+        "analytics": "分析",
+        "design": "设计",
+        "inventory": "库存"
+      },
+      "priceMonthly": "${{price}}/月"
+    }
+  },
+  "users": {
+    "title": "用户管理",
+    "description": "管理账户和权限",
+    "add": "添加用户",
+    "search": "搜索用户...",
+    "filter": "过滤",
+    "columns": {
+      "user": "用户",
+      "role": "角色",
+      "status": "状态",
+      "joined": "加入时间",
+      "actions": "操作"
+    },
+    "status": {
+      "active": "活跃",
+      "inactive": "非活跃"
+    },
+    "actions": {
+      "edit": "编辑",
+      "delete": "删除",
+      "resetPassword": "重置密码",
+      "lock": "锁定",
+      "unlock": "解锁",
+      "archive": "归档"
+    },
+    "modal": {
+      "add": "添加",
+      "edit": "编辑",
+      "resetPassword": "重置密码",
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "邮箱",
+      "password": "密码",
+      "role": "角色",
+      "permissions": "权限",
+      "copyPassword": "复制密码",
+      "sendPassword": "发送邮件",
+      "autoGenerate": "自动生成",
+      "smtpWarning": "SMTP 未配置。",
+      "smtpLink": "立即配置",
+      "confirmArchive": "确定要归档此用户吗？"
+    }
+  },
+  "audit": {
+    "title": "审计日志",
+    "description": "监控系统活动",
+    "search": "搜索日志...",
+    "filter": "过滤",
+    "export": "导出",
+    "refresh": "刷新",
+    "columns": {
+      "action": "操作",
+      "user": "用户",
+      "resource": "资源",
+      "date": "日期",
+      "ip": "IP 地址",
+      "details": "详细信息"
+    },
+    "timeFilters": {
+      "all": "所有时间",
+      "today": "今天",
+      "last7Days": "过去7天",
+      "last30Days": "过去30天"
+    }
+  },
+  "settings": {
+    "title": "系统设置",
+    "description": "配置系统参数",
+    "save": "保存更改",
+    "saving": "保存中...",
+    "messages": {
+      "loadFailed": "加载失败",
+      "saveSuccess": "保存成功",
+      "saveFailed": "保存失败"
+    },
+    "tabs": {
+      "general": "常规",
+      "security": "安全",
+      "notifications": "通知",
+      "appearance": "外观",
+      "email": "邮箱"
+    },
+    "general": {
+      "siteInfo": "业务信息",
+      "siteName": "业务名称",
+      "sitePhone": "联系电话",
+      "regionAndLanguage": "地区和语言",
+      "timezone": "时区",
+      "language": "默认语言",
+      "currency": "默认货币",
+      "measurement": "测量单位",
+      "formatOptions": "格式",
+      "orderPrefix": "订单前缀",
+      "invoicePrefix": "发票前缀",
+      "languageVi": "越南语 (vi)",
+      "languageEn": "英语 (en)",
+      "systemConfig": "系统配置",
+      "cdnUrl": "CDN 域名（用于媒体库）",
+      "cdnUrlDesc": "此域名必须有一个指向您的 Cloudflare R2 存储桶的 CNAME。"
+    },
+    "security": {
+      "title": "系统安全",
+      "require2fa": "强制两步验证 (2FA)",
+      "require2faDesc": "强制员工使用 2FA。",
+      "passwordPolicy": "密码策略",
+      "passwordPolicyDesc": "密码复杂性。",
+      "policyLow": "低",
+      "policyMedium": "中",
+      "policyHigh": "高"
+    },
+    "notifications": {
+      "title": "通知渠道",
+      "description": "配置提醒。",
+      "email": "邮件接收",
+      "inApp": "应用内接收",
+      "zalo": "Zalo 接收",
+      "events": "触发事件",
+      "onNewOrder": "新订单",
+      "onNewUser": "新用户"
+    },
+    "appearance": {
+      "title": "ERP 外观",
+      "description": "配置内部品牌。",
+      "logo": "标志",
+      "favicon": "网站图标",
+      "uploadBtn": "上传图像",
+      "freePlanNotice": "仅 Webbi Pro 可用",
+      "freePlanDesc": "升级以更改图标。",
+      "upgradeBtn": "立即升级"
+    },
+    "email": {
+      "title": "邮箱配置 (SMTP)",
+      "description": "内部通知服务器。",
+      "host": "主机",
+      "port": "端口",
+      "user": "用户名",
+      "pass": "密码",
+      "from": "发件人邮箱",
+      "upsellBanner": "需要群发邮件？",
+      "upsellDesc": "探索应用商店的 Mailer。",
+      "exploreApps": "应用商店"
+    }
+  },
+  "apiKeys": {
+    "title": "API 密钥",
+    "description": "管理 API 访问密钥",
+    "create": "创建密钥",
+    "columns": {
+      "name": "名称",
+      "key": "密钥",
+      "created": "创建时间",
+      "lastUsed": "最后使用",
+      "actions": "操作"
+    },
+    "copy": "复制",
+    "revoke": "撤销",
+    "modal": {
+      "add": "创建 API 密钥",
+      "name": "名称",
+      "scopes": "权限",
+      "secretWarning": "请复制此安全码。仅显示一次！"
+    }
+  },
+  "account": {
+    "title": "我的账户",
+    "description": "管理个人信息",
+    "tabs": {
+      "profile": "个人资料",
+      "security": "密码"
+    },
+    "profile": {
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "邮箱",
+      "emailNote": "无法更改",
+      "role": "角色：",
+      "update": "更新资料"
+    },
+    "security": {
+      "currentPassword": "当前密码",
+      "newPassword": "新密码",
+      "confirmPassword": "确认密码",
+      "update": "更新密码"
+    }
+  }
+}

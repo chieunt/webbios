@@ -70,7 +70,7 @@ const MediaPage = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm(t('media.confirmDelete', 'Bạn có chắc chắn muốn xoá file này?'))) return;
+    if (!confirm(t('media.confirmDelete', 'Are you sure you want to delete this file?'))) return;
     try {
       const res = await webbios.media.delete(id);
       if (res.success) {
@@ -102,8 +102,8 @@ const MediaPage = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-cf-text">{t('media.title', 'Thư viện Media')}</h1>
-          <p className="text-sm text-cf-gray-text mt-1">{t('media.description', 'Quản lý hình ảnh và tập tin')}</p>
+          <h1 className="text-2xl font-semibold text-cf-text">{t('media.title', 'Media Library')}</h1>
+          <p className="text-sm text-cf-gray-text mt-1">{t('media.description', 'Manage images and files')}</p>
         </div>
         <button 
           onClick={() => fileInputRef.current?.click()}
@@ -111,7 +111,7 @@ const MediaPage = () => {
           className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-4 py-2 rounded-md transition-colors shadow-sm"
         >
           {isUploading ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div> : <Upload size={16} />}
-          <span>{isUploading ? t('media.uploading', 'Đang tải...') : t('media.upload', 'Tải lên')}</span>
+          <span>{isUploading ? t('media.uploading', 'Uploading...') : t('media.upload', 'Upload')}</span>
         </button>
         <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" />
       </div>
@@ -126,7 +126,7 @@ const MediaPage = () => {
                 value={search}
                 onChange={handleSearch}
                 onKeyDown={handleSearchKeyDown}
-                placeholder={t('media.search', 'Tìm kiếm tập tin...')} 
+                placeholder={t('media.search', 'Search files...')} 
                 className="w-full pl-9 pr-4 py-2 bg-background border border-cf-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
               />
             </div>
@@ -152,7 +152,7 @@ const MediaPage = () => {
           ) : mediaList.length === 0 ? (
             <div className="text-center py-20 text-gray-500">
               <Folder size={48} className="mx-auto text-gray-300 mb-4" />
-              <p>{t('media.empty', 'Chưa có tập tin nào. Hãy tải lên file đầu tiên của bạn!')}</p>
+              <p>{t('media.empty', 'No files yet. Upload your first file!')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
@@ -192,7 +192,7 @@ const MediaPage = () => {
             <button onClick={() => setSelectedMedia(null)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-900">
               <X size={20} />
             </button>
-            <h2 className="text-lg font-semibold mb-4 text-gray-900">{t('media.details', 'Chi tiết tập tin')}</h2>
+            <h2 className="text-lg font-semibold mb-4 text-gray-900">{t('media.details', 'File details')}</h2>
             
             <div className="space-y-4">
               <div className="aspect-video bg-gray-100 rounded-md overflow-hidden flex items-center justify-center">
@@ -204,7 +204,7 @@ const MediaPage = () => {
               </div>
               
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Tên file</label>
+                <label className="block text-xs font-medium text-gray-700 mb-1">{t('media.filename', 'Filename')}</label>
                 <input 
                   type="text" 
                   defaultValue={selectedMedia.filename}
@@ -213,7 +213,7 @@ const MediaPage = () => {
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Thẻ Alt (Cho SEO)</label>
+                <label className="block text-xs font-medium text-gray-700 mb-1">{t('media.altTag', 'Alt Tag (For SEO)')}</label>
                 <input 
                   type="text" 
                   defaultValue={selectedMedia.alt || ''}
@@ -232,7 +232,7 @@ const MediaPage = () => {
             <div className="mt-6 flex items-center justify-between pt-4 border-t border-gray-100">
               <button onClick={() => handleDelete(selectedMedia.id)} className="text-red-600 hover:text-red-700 text-sm font-medium flex items-center">
                 <Trash2 size={14} className="mr-1" />
-                {t('common.delete', 'Xoá')}
+                {t('common.delete', 'Delete')}
               </button>
               <div className="flex items-center space-x-2">
                 <a 
@@ -241,7 +241,7 @@ const MediaPage = () => {
                   rel="noreferrer"
                   className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm font-medium transition-colors"
                 >
-                  Xem file
+                  {t('media.viewFile', 'View file')}
                 </a>
                 <button 
                 onClick={() => {
@@ -251,7 +251,7 @@ const MediaPage = () => {
                 }} 
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
               >
-                {t('common.save', 'Lưu thay đổi')}
+                {t('common.save', 'Save changes')}
               </button>
               </div>
             </div>

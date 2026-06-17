@@ -1,0 +1,577 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "選擇圖示...",
+      "selectIconTitle": "選擇圖示",
+      "search": "搜尋...",
+      "select": "選擇..."
+    },
+    "actions": {
+      "settings": "設定",
+      "cancel": "取消",
+      "create": "建立"
+    },
+    "messages": {
+      "underConstruction": "功能正在開發中。"
+    },
+    "loading": "載入中...",
+    "systemDefault": "系統預設",
+    "appLoader": {
+      "errorTitle": "應用程式載入錯誤",
+      "networkError": "無法連接到位於 {{url}} 的應用。應用可能未部署或URL不正確。",
+      "moduleError": "無法從應用 {{app}} 載入模組 {{module}}。",
+      "networkTipTitle": "💡 疑難排解提示：",
+      "networkTip1": "檢查應用是否在 Cloudflare Pages 上成功部署",
+      "networkTip2": "檢查 Worker URL：",
+      "networkTip3": "嘗試解除安裝並重新安裝應用",
+      "moduleTipTitle": "💡 疑難排解提示：",
+      "moduleTip1": "應用需要正確的 Vite Module Federation 設定",
+      "moduleTip2": "檢查 remoteEntry.js 是否存在",
+      "moduleTip3": "模組需要匯出：",
+      "retry": "重試",
+      "retrying": "重試中...",
+      "retriedCount": "已嘗試 {{count}} 次",
+      "loadingApp": "正在載入應用...",
+      "initializing": "正在初始化應用介面..."
+    }
+  },
+  "sidebar": {
+    "quickSearch": "快速搜尋...",
+    "accountHome": "帳戶首頁",
+    "recents": "最近",
+    "domains": "網域",
+    "observe": "觀察",
+    "investigate": "調查",
+    "logExplorer": "日誌瀏覽器",
+    "logSearch": "日誌搜尋",
+    "trace": "追蹤",
+    "logpush": "Logpush",
+    "analytics": "分析",
+    "build": "建置",
+    "compute": "計算",
+    "ai": "AI",
+    "storage": "儲存與資料庫",
+    "media": "媒體",
+    "protect": "保護與連接",
+    "security": "應用安全",
+    "zeroTrust": "零信任 (Zero Trust)",
+    "networking": "網路",
+    "delivery": "交付與效能",
+    "collapseSidebar": "收起側邊欄",
+    "expandSidebar": "展開側邊欄"
+  },
+  "webbios": {
+    "updates": {
+      "title": "系統更新",
+      "subtitle": "檢查並將 WebbiOS 升級到最新版本。",
+      "versionStatus": "版本狀態",
+      "current": "目前：",
+      "latest": "最新：",
+      "updateTo": "更新到 v{{version}}",
+      "upToDate": "已是最新",
+      "updating": "處理中...",
+      "statusDownloading": "正在從平台CDN下載原始碼...",
+      "statusChecksum": "正在驗證安全檢查碼...",
+      "statusDeploying": "正在部署新的 Worker 版本...",
+      "statusDone": "完成！系統將在3秒後重新載入。",
+      "progress": {
+        "inProgress": "正在排隊處理...",
+        "downloading": "正在下載安裝包...",
+        "extracting": "正在提取檔案...",
+        "installing": "正在安裝函式庫...",
+        "deployingApi": "正在部署 Core API...",
+        "deployingDashboard": "正在部署儀表板...",
+        "success": "更新完成！正在重新載入...",
+        "default": "處理中...",
+        "restoring": "正在恢復進度...",
+        "errorPrefix": "錯誤：",
+        "errorFailed": "更新失敗",
+        "errorNoShop": "無法確定商店 ID。更新取消。",
+        "errorNoJobId": "未從伺服器接收到任務 ID。",
+        "statusUpdating": "正在更新...",
+        "statusInit": "正在初始化更新過程..."
+      },
+      "releaseNotes": "發行說明 (v{{version}})",
+      "releaseNotesIntro": "此版本帶來了重要的錯誤修復和效能改進：",
+      "releaseNote1": "優化店面頁面載入速度 15%。",
+      "releaseNote2": "支援第三方應用的 Webhooks。",
+      "releaseNote3": "修復與 API 存取相關的安全漏洞。"
+    },
+    "licenses": {
+      "title": "授權與方案",
+      "subtitle": "管理此商店的 WebbiOS 授權資訊。",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "狀態：",
+      "statusActive": "活躍",
+      "durationLabel": "時長：",
+      "durationPermanent": "終身",
+      "shopIdLabel": "商店 ID：",
+      "proTitle": "Webbi Pro",
+      "proDesc": "升級到 Pro 以解鎖 Cloudflare Edge 的 100% 效能，享受無限 R2 儲存和優先支援。",
+      "upgradeBtn": "立即升級 - $29/月"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "授權",
+      "updates": "更新"
+    },
+    "backupRestore": {
+      "title": "備份與還原",
+      "description": "備份並還原整個系統設定和資料。",
+      "export": {
+        "title": "匯出資料",
+        "description": "建立所有系統設定的備份以供下載。",
+        "button": "立即備份"
+      },
+      "restore": {
+        "title": "還原資料",
+        "description": "上傳之前的備份檔案以還原系統。",
+        "button": "選擇備份檔案"
+      }
+    },
+    "cloudflareQuotas": {
+      "title": "Cloudflare 配額",
+      "description": "監控和管理 Cloudflare 系統資源。",
+      "dashboardBtn": "開啟 Cloudflare 儀表板",
+      "workers": {
+        "title": "Workers 請求",
+        "unit": "/ 100,000 (免費額度)",
+        "desc": "API 呼叫和邏輯處理數量"
+      },
+      "d1": {
+        "title": "D1 資料庫讀取",
+        "unit": "/ 5,000,000 (免費額度)",
+        "desc": "資料庫讀取查詢次數"
+      },
+      "r2": {
+        "title": "R2 儲存",
+        "unit": "/ 10 GB (免費額度)",
+        "desc": "圖片和檔案的儲存容量"
+      },
+      "upgrade": {
+        "title": "立即提高您的限額！",
+        "desc": "升級到 Webbi Pro 消除這些限制。",
+        "button": "探索升級方案"
+      }
+    }
+  },
+  "dashboard": {
+    "accountHome": "帳戶首頁",
+    "add": "新增",
+    "analytics": "分析",
+    "last24h": "過去24小時",
+    "security": "安全",
+    "securityInsights": "安全見解",
+    "encryptedRate": "加密請求率",
+    "performance": "效能",
+    "cpuTime": "CPU時間 (P90)",
+    "workersErrors": "Workers 錯誤",
+    "activity": "活動",
+    "workersInvocations": "Workers 呼叫",
+    "buildMinutes": "建置時間",
+    "domains": "網域",
+    "sitesFaster": "您的網站，更快更安全",
+    "boostPerformance": "提升效能、阻止攻擊",
+    "addDomain": "新增網域",
+    "workersAndPages": "Workers 和 Pages",
+    "zeroTrust": "零信任安全",
+    "secureAccess": "為團隊提供安全存取",
+    "controlWho": "控制誰能存取內部應用",
+    "getStarted": "開始使用",
+    "welcome": "歡迎，{{name}}",
+    "createReport": "建立報告",
+    "ecommerceOverview": "電商概覽",
+    "revenue": "收入",
+    "orders": "訂單",
+    "customers": "客戶",
+    "products": "產品"
+  },
+  "products": {
+    "title": "產品",
+    "export": "匯出",
+    "import": "匯入",
+    "add": "新增產品",
+    "tabs": {
+      "all": "全部",
+      "active": "上架",
+      "draft": "草稿",
+      "archived": "已封存"
+    },
+    "search": "搜尋產品、SKU...",
+    "filters": {
+      "allStatus": "所有狀態",
+      "allTypes": "所有類型",
+      "allVendors": "所有供應商",
+      "allTags": "所有標籤"
+    },
+    "columns": {
+      "product": "產品",
+      "status": "狀態",
+      "inventory": "庫存",
+      "vendor": "供應商",
+      "price": "價格",
+      "actions": "操作"
+    },
+    "statusLabels": {
+      "active": "上架",
+      "draft": "草稿"
+    },
+    "inventoryLabels": {
+      "inStock": "有貨"
+    },
+    "placeholders": {
+      "name": "產品名稱",
+      "vendor": "供應商"
+    },
+    "empty": "暫無產品"
+  },
+  "system": {
+    "menus": {
+      "title": "選單管理",
+      "description": "組織、新增/刪除和翻譯左側導覽選單。",
+      "addMenuLevel1": "新增一級選單",
+      "structure": "選單結構",
+      "loading": "載入中...",
+      "hidden": "隱藏",
+      "confirmDelete": "您確定要刪除此選單項目嗎？",
+      "errorSaving": "儲存選單時發生錯誤",
+      "errorDeleting": "刪除選單時發生錯誤",
+      "modal": {
+        "addMenu": "新增選單",
+        "editMenu": "編輯選單",
+        "titleFallback": "預設名稱",
+        "path": "路徑",
+        "translationsEn": "翻譯 (英語)",
+        "translationsVi": "翻譯 (越南語)",
+        "icon": "圖示",
+        "permissionId": "權限 ID",
+        "position": "位置",
+        "isActive": "是否啟用",
+        "noPermission": "無需權限 (公開)",
+        "cancel": "取消",
+        "save": "儲存",
+        "parentMenu": "父選單",
+        "isCategoryLabel": "分類標籤",
+        "rootMenu": "--- 根 ---"
+      }
+    },
+    "permissions": {
+      "title": "系統權限管理",
+      "description": "定義可分配給角色的權限。",
+      "addPermission": "新增權限",
+      "confirmDelete": "您確定要刪除此權限嗎？",
+      "errorSaving": "出錯",
+      "errorDeleting": "出錯",
+      "columns": {
+        "slug": "標識 (Slug)",
+        "description": "描述",
+        "createdAt": "建立時間",
+        "actions": "操作"
+      },
+      "modal": {
+        "add": "新增權限",
+        "edit": "編輯權限",
+        "slugLabel": "Slug (例如 users:read)",
+        "descriptionLabel": "描述",
+        "slugPlaceholder": "模組:操作"
+      }
+    },
+    "roles": {
+      "title": "角色管理",
+      "description": "管理使用者角色並分配權限。",
+      "addRole": "新增角色",
+      "confirmDelete": "確定要刪除此角色嗎？",
+      "errorSaving": "出錯",
+      "errorDeleting": "出錯",
+      "columns": {
+        "name": "角色名稱",
+        "slug": "Slug",
+        "description": "描述",
+        "system": "系統角色",
+        "actions": "操作"
+      },
+      "modal": {
+        "add": "新增角色",
+        "edit": "編輯角色",
+        "nameLabel": "角色名稱",
+        "slugLabel": "Slug",
+        "descriptionLabel": "描述",
+        "isSystemLabel": "系統角色 (無法刪除)",
+        "permissionsLabel": "分配權限",
+        "selectAll": "全選",
+        "unselectAll": "取消全選",
+        "namePlaceholder": "例如 管理員"
+      }
+    }
+  },
+  "header": {
+    "askAI": "詢問 AI",
+    "notifications": "通知",
+    "support": "支援",
+    "account": "帳戶",
+    "logout": "登出"
+  },
+  "auth": {
+    "login": {
+      "title": "登入",
+      "subtitle": "登入到管理系統",
+      "email": "電子郵件",
+      "password": "密碼",
+      "submit": "登入",
+      "forgotPassword": "忘記密碼？",
+      "error": "電子郵件或密碼無效"
+    },
+    "forgotPassword": {
+      "title": "找回密碼",
+      "subtitle": "輸入電子郵件接收重置連結。",
+      "email": "電子郵件",
+      "submit": "發送連結",
+      "backToLogin": "返回登入",
+      "success": "已發送說明。",
+      "error": "請求失敗"
+    }
+  },
+  "media": {
+    "title": "媒體庫",
+    "description": "管理圖像和檔案",
+    "upload": "上傳",
+    "newFolder": "新增資料夾",
+    "search": "搜尋檔案...",
+    "filter": "過濾",
+    "images": "圖像",
+    "documents": "文件",
+    "all": "全部",
+    "grid": "網格視圖",
+    "list": "列表視圖",
+    "delete": "刪除",
+    "empty": "找不到檔案"
+  },
+  "apps": {
+    "installed": {
+      "title": "已安裝應用",
+      "description": "管理已安裝的應用",
+      "search": "搜尋...",
+      "running": "執行中",
+      "stopped": "已停止",
+      "settings": "設定",
+      "uninstall": "解除安裝",
+      "openApp": "開啟",
+      "restart": "重啟",
+      "stop": "停止",
+      "confirmUninstall": "您確定要解除安裝此應用嗎？",
+      "updateAvailable": "有可用更新",
+      "updating": "正在更新...",
+      "update": "更新",
+      "updateSent": "已發送更新請求",
+      "updateFailed": "失敗：",
+      "updateError": "錯誤：",
+      "appStore": "應用商店",
+      "empty": "暫無應用。"
+    },
+    "store": {
+      "title": "應用商店",
+      "description": "發現新應用",
+      "search": "搜尋...",
+      "filter": "類別",
+      "install": "安裝",
+      "free": "免費",
+      "paid": "付費",
+      "reviews": "評論",
+      "popular": "熱門",
+      "new": "最新",
+      "categories": {
+        "marketing": "行銷",
+        "sales": "銷售",
+        "support": "支援",
+        "analytics": "分析",
+        "design": "設計",
+        "inventory": "庫存"
+      }
+    }
+  },
+  "users": {
+    "title": "使用者管理",
+    "description": "管理帳戶和權限",
+    "add": "新增使用者",
+    "search": "搜尋使用者...",
+    "filter": "過濾",
+    "columns": {
+      "user": "使用者",
+      "role": "角色",
+      "status": "狀態",
+      "joined": "加入時間",
+      "actions": "操作"
+    },
+    "status": {
+      "active": "活躍",
+      "inactive": "非活躍"
+    },
+    "actions": {
+      "edit": "編輯",
+      "delete": "刪除",
+      "resetPassword": "重置密碼",
+      "lock": "鎖定",
+      "unlock": "解鎖",
+      "archive": "封存"
+    },
+    "modal": {
+      "add": "新增",
+      "edit": "編輯",
+      "resetPassword": "重置密碼",
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "電子郵件",
+      "password": "密碼",
+      "role": "角色",
+      "permissions": "權限",
+      "copyPassword": "複製密碼",
+      "sendPassword": "發送郵件",
+      "autoGenerate": "自動生成",
+      "smtpWarning": "SMTP 未設定。",
+      "smtpLink": "立即設定",
+      "confirmArchive": "確定要封存此使用者嗎？"
+    }
+  },
+  "audit": {
+    "title": "稽核日誌",
+    "description": "監控系統活動",
+    "search": "搜尋日誌...",
+    "filter": "過濾",
+    "export": "匯出",
+    "refresh": "重整",
+    "columns": {
+      "action": "操作",
+      "user": "使用者",
+      "resource": "資源",
+      "date": "日期",
+      "ip": "IP 地址",
+      "details": "詳細資訊"
+    },
+    "timeFilters": {
+      "all": "所有時間",
+      "today": "今天",
+      "last7Days": "過去7天",
+      "last30Days": "過去30天"
+    }
+  },
+  "settings": {
+    "title": "系統設定",
+    "description": "設定系統參數",
+    "save": "儲存變更",
+    "saving": "儲存中...",
+    "messages": {
+      "loadFailed": "載入失敗",
+      "saveSuccess": "儲存成功",
+      "saveFailed": "儲存失敗"
+    },
+    "tabs": {
+      "general": "一般",
+      "security": "安全",
+      "notifications": "通知",
+      "appearance": "外觀",
+      "email": "電子郵件"
+    },
+    "general": {
+      "siteInfo": "業務資訊",
+      "siteName": "業務名稱",
+      "sitePhone": "聯絡電話",
+      "regionAndLanguage": "地區和語言",
+      "timezone": "時區",
+      "language": "預設語言",
+      "currency": "預設貨幣",
+      "measurement": "測量單位",
+      "formatOptions": "格式",
+      "orderPrefix": "訂單前綴",
+      "invoicePrefix": "發票前缀",
+      "languageVi": "越南語 (vi)",
+      "languageEn": "英語 (en)",
+      "systemConfig": "系統配置",
+      "cdnUrl": "CDN 域名（用於媒體庫）",
+      "cdnUrlDesc": "此域名必須有一個指向您的 Cloudflare R2 存儲桶的 CNAME。"
+    },
+    "security": {
+      "title": "系統安全",
+      "require2fa": "強制兩步驗證 (2FA)",
+      "require2faDesc": "強制員工使用 2FA。",
+      "passwordPolicy": "密碼原則",
+      "passwordPolicyDesc": "密碼複雜性。",
+      "policyLow": "低",
+      "policyMedium": "中",
+      "policyHigh": "高"
+    },
+    "notifications": {
+      "title": "通知管道",
+      "description": "設定提醒。",
+      "email": "郵件接收",
+      "inApp": "應用內接收",
+      "zalo": "Zalo 接收",
+      "events": "觸發事件",
+      "onNewOrder": "新訂單",
+      "onNewUser": "新使用者"
+    },
+    "appearance": {
+      "title": "ERP 外觀",
+      "description": "設定內部品牌。",
+      "logo": "標誌",
+      "favicon": "網站圖示",
+      "uploadBtn": "上傳圖像",
+      "freePlanNotice": "僅 Webbi Pro 可用",
+      "freePlanDesc": "升級以變更圖示。",
+      "upgradeBtn": "立即升級"
+    },
+    "email": {
+      "title": "電子郵件設定 (SMTP)",
+      "description": "內部通知伺服器。",
+      "host": "主機",
+      "port": "連接埠",
+      "user": "使用者名稱",
+      "pass": "密碼",
+      "from": "發件人信箱",
+      "upsellBanner": "需要群發郵件？",
+      "upsellDesc": "探索應用商店的 Mailer。",
+      "exploreApps": "應用商店"
+    }
+  },
+  "apiKeys": {
+    "title": "API 金鑰",
+    "description": "管理 API 存取金鑰",
+    "create": "建立金鑰",
+    "columns": {
+      "name": "名稱",
+      "key": "金鑰",
+      "created": "建立時間",
+      "lastUsed": "最後使用",
+      "actions": "操作"
+    },
+    "copy": "複製",
+    "revoke": "撤銷",
+    "modal": {
+      "add": "建立 API 金鑰",
+      "name": "名稱",
+      "scopes": "權限",
+      "secretWarning": "請複製此安全碼。僅顯示一次！"
+    }
+  },
+  "account": {
+    "title": "我的帳戶",
+    "description": "管理個人資訊",
+    "tabs": {
+      "profile": "個人資料",
+      "security": "密碼"
+    },
+    "profile": {
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "電子郵件",
+      "emailNote": "無法變更",
+      "role": "角色：",
+      "update": "更新資料"
+    },
+    "security": {
+      "currentPassword": "目前密碼",
+      "newPassword": "新密碼",
+      "confirmPassword": "確認密碼",
+      "update": "更新密碼"
+    }
+  }
+}

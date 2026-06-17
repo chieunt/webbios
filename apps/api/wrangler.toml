@@ -5,7 +5,7 @@ compatibility_date = "2024-03-20"
 [[d1_databases]]
 binding = "DB"
 database_name = "webbios_core_db"
-database_id = "9239e198-c71e-4ef4-b2e3-abe3eaaf7411"
+database_id = "0fd4eaa5-30b2-4933-a2fb-d06bb4f47948"
 
 [vars]
 ENVIRONMENT = "production"

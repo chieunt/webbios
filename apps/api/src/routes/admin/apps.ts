@@ -9,7 +9,7 @@ const PLATFORM_API_URL = 'https://platform.webbios.dev';
 const app = new Hono<{ Bindings: Env }>();
 
 // Helper: Fetch marketplace apps and enrich with latest version from R2
-async function fetchMarketplaceApps(storage?: R2Bucket): Promise<any[]> {
+async function fetchMarketplaceApps(): Promise<any[]> {
   try {
     const res = await fetch(`${PLATFORM_API_URL}/api/v1/platform/marketplace/apps`, {
       method: 'GET',
@@ -18,58 +18,10 @@ async function fetchMarketplaceApps(storage?: R2Bucket): Promise<any[]> {
     if (!res.ok) return [];
     const data: any = await res.json();
     const apps: any[] = data.success && data.data ? data.data : [];
-    
-    // Enrich each app with latestVersion from R2
-    if (storage) {
-      for (const app of apps) {
-        const latestVer = await getLatestVersionFromR2(storage, app.slug);
-        if (latestVer) {
-          app.latestVersion = latestVer;
-          app.version = latestVer;
-        }
-      }
-    }
-    
+
     return apps;
   } catch {
     return [];
-  }
-}
-
-// Helper: Scan R2 bucket to find the latest version for an app
-async function getLatestVersionFromR2(storage: R2Bucket, appSlug: string): Promise<string | null> {
-  try {
-    // List objects under webbios-apps/{appSlug}/
-    const listed = await storage.list({ prefix: `webbios-apps/${appSlug}/webbios-app-${appSlug}-` });
-    
-    if (!listed.objects || listed.objects.length === 0) return null;
-    
-    // Extract versions from filenames: webbios-app-crm-v1.0.2.zip -> v1.0.2
-    const versions: string[] = [];
-    for (const obj of listed.objects) {
-      // Key format: webbios-apps/crm/webbios-app-crm-v1.0.2.zip
-      const match = obj.key.match(/webbios-app-[^/]+-v?([\d.]+)\.zip$/);
-      if (match) {
-        versions.push(match[1]);
-      }
-    }
-    
-    if (versions.length === 0) return null;
-    
-    // Sort semver descending and return the latest
-    versions.sort((a, b) => {
-      const pa = a.split('.').map(Number);
-      const pb = b.split('.').map(Number);
-      for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
-        const diff = (pb[i] || 0) - (pa[i] || 0);
-        if (diff !== 0) return diff;
-      }
-      return 0;
-    });
-    
-    return `v${versions[0]}`;
-  } catch {
-    return null;
   }
 }
 
@@ -99,21 +51,21 @@ app.get('/', async (c) => {
   try {
     const db = getDb(c.env.DB);
     const apps = await db.select().from(wbInstalledApps);
-    
+
     // Fetch marketplace apps enriched with latestVersion from R2
-    const marketplaceApps = await fetchMarketplaceApps(c.env.STORAGE);
-    
+    const marketplaceApps = await fetchMarketplaceApps();
+
     const data = apps.map(app => {
       // Find corresponding marketplace app
       const marketApp = marketplaceApps.find(
         (ma: any) => ma.slug === app.slug || ma.id === app.id
       );
-      
+
       // latestVersion from R2 scan (e.g. "v1.0.2"), normalize to strip leading 'v'
       const rawLatest = marketApp?.latestVersion || marketApp?.version || app.version;
       const latestVersion = rawLatest.startsWith('v') ? rawLatest.slice(1) : rawLatest;
       const hasUpdate = isNewerVersion(app.version, latestVersion);
-      
+
       return {
         ...app,
         status: app.status === 'active' || app.status === 'running' ? 'running' : 'stopped',
@@ -135,19 +87,19 @@ app.get('/check-updates', async (c) => {
   try {
     const db = getDb(c.env.DB);
     const installedApps = await db.select().from(wbInstalledApps);
-    const marketplaceApps = await fetchMarketplaceApps(c.env.STORAGE);
-    
+    const marketplaceApps = await fetchMarketplaceApps();
+
     const updates = installedApps
       .map(app => {
         const marketApp = marketplaceApps.find(
           (ma: any) => ma.slug === app.slug || ma.id === app.id
         );
         if (!marketApp) return null;
-        
+
         const rawLatest = marketApp.latestVersion || marketApp.version || app.version;
         const latestVersion = rawLatest.startsWith('v') ? rawLatest.slice(1) : rawLatest;
         if (!isNewerVersion(app.version, latestVersion)) return null;
-        
+
         return {
           id: app.id,
           slug: app.slug,
@@ -158,7 +110,7 @@ app.get('/check-updates', async (c) => {
         };
       })
       .filter(Boolean);
-    
+
     return c.json({ success: true, data: updates });
   } catch (err: any) {
     return c.json({ success: false, error: err.message }, 500);
@@ -170,18 +122,18 @@ app.delete('/:id', async (c) => {
   try {
     const id = c.req.param('id');
     const db = getDb(c.env.DB);
-    
+
     // 1. Get app info before deleting
     const [appInfo] = await db.select().from(wbInstalledApps).where(eq(wbInstalledApps.id, id));
-    
+
     if (!appInfo) {
       return c.json({ success: false, error: 'App not found' }, 404);
     }
-    
+
     // 2. Try to delete Cloudflare Pages project
     const cfToken = c.env.CLOUDFLARE_API_TOKEN;
     const cfAccountId = c.env.CLOUDFLARE_ACCOUNT_ID;
-    
+
     if (cfToken && cfAccountId && appInfo.workerUrl) {
       try {
         // Extract Pages project name from workerUrl
@@ -189,10 +141,10 @@ app.delete('/:id', async (c) => {
         const urlObj = new URL(appInfo.workerUrl);
         const hostname = urlObj.hostname; // wb-app-crm-wbshop9050.pages.dev
         const projectName = hostname.split('.')[0]; // wb-app-crm-wbshop9050
-        
+
         if (projectName) {
           console.log(`Deleting Cloudflare Pages project: ${projectName}`);
-          
+
           const deleteRes = await fetch(
             `https://api.cloudflare.com/client/v4/accounts/${cfAccountId}/pages/projects/${projectName}`,
             {
@@ -203,7 +155,7 @@ app.delete('/:id', async (c) => {
               }
             }
           );
-          
+
           const deleteData: any = await deleteRes.json();
           if (!deleteRes.ok) {
             console.warn(`Failed to delete Pages project ${projectName}:`, deleteData);
@@ -217,15 +169,15 @@ app.delete('/:id', async (c) => {
         // Continue with local uninstall even if CF cleanup fails
       }
     }
-    
+
     // 3. Delete related menus
     if (appInfo.slug) {
       await db.delete(wbMenus).where(eq(wbMenus.appSlug, appInfo.slug));
     }
-    
+
     // 4. Delete app record
     await db.delete(wbInstalledApps).where(eq(wbInstalledApps.id, id));
-    
+
     return c.json({ success: true, message: 'App uninstalled and Cloudflare resources cleaned up' });
   } catch (err: any) {
     return c.json({ success: false, error: err.message }, 500);
@@ -260,7 +212,7 @@ app.post('/install', async (c) => {
     if (!zipExists) {
       return c.json({
         success: false,
-        error: `Phiên bản ${version} của app ${targetId} chưa được upload lên kho lưu trữ. File mong đợi: ${zipKey}`
+        error: `Version ${version} of app ${targetId} has not been uploaded to the repository. Expected file: ${zipKey}`
       }, 400);
     }
 
@@ -345,16 +297,16 @@ app.post('/install', async (c) => {
 function getAppMetadata(targetId: string, version: string, shopId: string) {
   const projectName = `wb-app-${targetId.toLowerCase()}-${shopId.toLowerCase()}`;
   const workerUrl = `https://${projectName}.pages.dev`;
-  
+
   const metadata: Record<string, { name: string; description: string; iconUrl: string; author: string }> = {
     crm: {
       name: 'WebbiOS CRM',
-      description: 'Quản lý khách hàng, đơn hàng, sản phẩm, kho hàng, báo cáo...',
+      description: 'Manage customers, orders, products, inventory, reports...',
       iconUrl: 'ShoppingCart',
       author: 'Webbi'
     }
   };
-  
+
   const meta = metadata[targetId] || {
     name: `WebbiOS ${targetId.toUpperCase()}`,
     description: `App ${targetId} v${version}`,
@@ -383,42 +335,96 @@ async function insertAppMenus(db: any, targetId: string) {
     await db.insert(wbMenus).values({
       id: crmMenuId,
       label: 'CRM',
-      icon: 'Users',
+      icon: null,
       path: '',
       appSlug: 'crm',
       position: 5,
       isSystem: false,
-      translations: '{"isCategory":true}'
+      translations: '{"vi":"CRM","en":"CRM","isCategory":true}'
     }).onConflictDoNothing();
 
     await db.insert(wbMenus).values({
       id: 'menu_app_crm_orders',
       parentId: crmMenuId,
-      label: 'Đơn hàng',
+      label: 'Orders',
+      icon: 'ShoppingCart',
       path: '/apps/crm/orders',
       appSlug: 'crm',
       position: 1,
       isSystem: false,
+      translations: '{"vi":"Đơn hàng","en":"Orders"}'
     }).onConflictDoNothing();
 
     await db.insert(wbMenus).values({
       id: 'menu_app_crm_customers',
       parentId: crmMenuId,
-      label: 'Khách hàng',
+      label: 'Customers',
+      icon: 'Users',
       path: '/apps/crm/customers',
       appSlug: 'crm',
       position: 2,
       isSystem: false,
+      translations: '{"vi":"Khách hàng","en":"Customers"}'
     }).onConflictDoNothing();
 
     await db.insert(wbMenus).values({
       id: 'menu_app_crm_reports',
       parentId: crmMenuId,
-      label: 'Báo cáo',
+      label: 'Reports',
+      icon: 'BarChart3',
       path: '/apps/crm/reports',
+      appSlug: 'crm',
+      position: 7,
+      isSystem: false,
+      translations: '{"vi":"Báo cáo","en":"Reports"}'
+    }).onConflictDoNothing();
+
+    await db.insert(wbMenus).values({
+      id: 'menu_app_crm_products',
+      parentId: crmMenuId,
+      label: 'Products',
+      icon: 'Package',
+      path: '/apps/crm/products',
       appSlug: 'crm',
       position: 3,
       isSystem: false,
+      translations: '{"vi":"Sản phẩm","en":"Products"}'
+    }).onConflictDoNothing();
+
+    await db.insert(wbMenus).values({
+      id: 'menu_app_crm_inventory',
+      parentId: crmMenuId,
+      label: 'Inventory',
+      icon: 'Warehouse',
+      path: '/apps/crm/inventory',
+      appSlug: 'crm',
+      position: 4,
+      isSystem: false,
+      translations: '{"vi":"Kho hàng","en":"Inventory"}'
+    }).onConflictDoNothing();
+
+    await db.insert(wbMenus).values({
+      id: 'menu_app_crm_purchase_orders',
+      parentId: crmMenuId,
+      label: 'Purchase Orders',
+      icon: 'ClipboardList',
+      path: '/apps/crm/purchase_orders',
+      appSlug: 'crm',
+      position: 5,
+      isSystem: false,
+      translations: '{"vi":"Nhập hàng","en":"Purchase Orders"}'
+    }).onConflictDoNothing();
+
+    await db.insert(wbMenus).values({
+      id: 'menu_app_crm_suppliers',
+      parentId: crmMenuId,
+      label: 'Suppliers',
+      icon: 'Truck',
+      path: '/apps/crm/suppliers',
+      appSlug: 'crm',
+      position: 6,
+      isSystem: false,
+      translations: '{"vi":"Nhà cung cấp","en":"Suppliers"}'
     }).onConflictDoNothing();
   }
 }
@@ -451,7 +457,7 @@ app.post('/update', async (c) => {
     if (!zipExists) {
       return c.json({
         success: false,
-        error: `Phiên bản ${version} của app ${targetId} chưa được upload lên kho lưu trữ. File mong đợi: ${zipKey}`
+        error: `Version ${version} of app ${targetId} has not been uploaded to the repository. Expected file: ${zipKey}`
       }, 400);
     }
 

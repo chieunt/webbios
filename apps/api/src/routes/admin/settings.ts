@@ -9,7 +9,7 @@ const settingsApp = new Hono<{ Bindings: Env }>()
 
 settingsApp.use('*', authMiddleware)
 
-// Lấy danh sách cấu hình
+// Get settings list
 settingsApp.get('/', async (c) => {
   const db = getDb(c.env.DB)
   const group = c.req.query('group')
@@ -22,7 +22,7 @@ settingsApp.get('/', async (c) => {
     
     const settings = await query.all()
     
-    // Format thành dạng object { "key": "value" }
+    // Format as object { "key": "value" }
     const result: Record<string, any> = {}
     for (const s of settings) {
       result[s.key] = s.value
@@ -34,7 +34,7 @@ settingsApp.get('/', async (c) => {
   }
 })
 
-// Cập nhật cấu hình (Upsert)
+// Update settings (Upsert)
 settingsApp.put('/', async (c) => {
   const db = getDb(c.env.DB)
   
@@ -45,7 +45,7 @@ settingsApp.put('/', async (c) => {
     const keys = Object.keys(body)
     if (keys.length === 0) return c.json({ success: true })
     
-    // Xử lý từng key để upsert
+    // Process each key for upsert
     for (const key of keys) {
       const val = body[key]
       
@@ -54,7 +54,7 @@ settingsApp.put('/', async (c) => {
         .values({
           key: key,
           value: val,
-          groupName: key.split('.')[0] || 'general' // ví dụ: "site" hoặc "system"
+          groupName: key.split('.')[0] || 'general' // e.g., "site" or "system"
         })
         .onConflictDoUpdate({
           target: wbSettings.key,
@@ -67,9 +67,9 @@ settingsApp.put('/', async (c) => {
     }
     
     // Log audit
-    // (Bỏ qua đoạn log chi tiết để đơn giản hóa, có thể thêm vào sau nếu cần)
+    // (Skipped detailed log for simplicity, can be added later if needed)
     
-    return c.json({ success: true, message: 'Cập nhật cấu hình thành công' })
+    return c.json({ success: true, message: 'Settings updated successfully' })
   } catch (err: any) {
     return c.json({ success: false, error: err.message }, 500)
   }

@@ -9,7 +9,7 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>();
 
-// Lấy config của theme đang active cho domain
+// Get active theme config for domain
 app.get('/:domain', async (c) => {
   const domain = c.req.param('domain');
   
@@ -29,7 +29,7 @@ app.get('/:domain', async (c) => {
   }, 404);
 });
 
-// Cập nhật/Publish config theme cho domain
+// Update/Publish theme config for domain
 app.post('/:domain', async (c) => {
   const domain = c.req.param('domain');
   const payload = await c.req.json();

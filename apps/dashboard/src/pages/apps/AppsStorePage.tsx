@@ -28,14 +28,14 @@ const AppsStorePage = () => {
 
   const mapStatusToProgress = (status: string): { label: string; progress: number } => {
     switch (status) {
-      case 'in_progress': return { label: 'Đang xếp hàng chờ xử lý...', progress: 5 };
-      case 'downloading': return { label: 'Đang tải mã nguồn...', progress: 20 };
-      case 'extracting': return { label: 'Đang giải nén...', progress: 40 };
-      case 'installing': return { label: 'Đang thiết lập môi trường...', progress: 50 };
-      case 'deploying_api': return { label: 'Đang triển khai API...', progress: 70 };
-      case 'deploying_dashboard': return { label: 'Đang triển khai giao diện...', progress: 90 };
-      case 'success': return { label: 'Hoàn tất! Đang tải lại...', progress: 100 };
-      default: return { label: 'Đang xử lý...', progress: 10 };
+      case 'in_progress': return { label: t('webbios.updates.progress.inProgress'), progress: 5 };
+      case 'downloading': return { label: t('webbios.updates.progress.downloading'), progress: 20 };
+      case 'extracting': return { label: t('webbios.updates.progress.extracting'), progress: 40 };
+      case 'installing': return { label: t('webbios.updates.progress.installing'), progress: 50 };
+      case 'deploying_api': return { label: t('webbios.updates.progress.deployingApi'), progress: 70 };
+      case 'deploying_dashboard': return { label: t('webbios.updates.progress.deployingDashboard'), progress: 90 };
+      case 'success': return { label: t('webbios.updates.progress.success'), progress: 100 };
+      default: return { label: t('webbios.updates.progress.default'), progress: 10 };
     }
   };
 
@@ -69,7 +69,7 @@ const AppsStorePage = () => {
             
             setActiveJobs(prev => ({
               ...prev,
-              [appId]: { status: 'Lỗi: ' + (jobData.job.errorMessage || 'Thất bại'), progress: 0, isError: true }
+              [appId]: { status: t('webbios.updates.progress.errorPrefix') + (jobData.job.errorMessage || t('webbios.updates.progress.errorFailed')), progress: 0, isError: true }
             }));
             setInstallingAppId(null);
             setUpdatingAppId(null);
@@ -103,20 +103,20 @@ const AppsStorePage = () => {
         if (res.jobId) {
           setActiveJobs(prev => ({
             ...prev,
-            [app.id]: { status: 'Đang khởi tạo tiến trình...', progress: 5, isError: false }
+            [app.id]: { status: t('webbios.updates.progress.statusInit', 'Initializing process...'), progress: 5, isError: false }
           }));
           startPolling(app.id, res.jobId);
         } else {
-          alert('Đã gửi yêu cầu cài đặt ứng dụng: ' + app.name);
+          alert(`${t('apps.store.installSent', 'Install request sent: ')} ${app.name}`);
           setInstallingAppId(null);
           window.location.reload();
         }
       } else {
-        alert('Cài đặt thất bại: ' + res.error);
+        alert(t('apps.store.installFailed', 'Install failed: ') + res.error);
         setInstallingAppId(null);
       }
     } catch (err: any) {
-      alert('Lỗi cài đặt: ' + err.message);
+      alert(t('apps.store.installError', 'Install error: ') + err.message);
       setInstallingAppId(null);
     }
   };
@@ -137,20 +137,20 @@ const AppsStorePage = () => {
         if (res.jobId) {
           setActiveJobs(prev => ({
             ...prev,
-            [app.id]: { status: 'Đang khởi tạo tiến trình...', progress: 5, isError: false }
+            [app.id]: { status: t('webbios.updates.progress.statusInit', 'Initializing process...'), progress: 5, isError: false }
           }));
           startPolling(app.id, res.jobId);
         } else {
-          alert(`Đã gửi yêu cầu cập nhật ${app.name} lên v${app.latestVersion || app.version}`);
+          alert(`${t('apps.installed.updateSent', 'Update request sent')} ${app.name} -> v${app.latestVersion || app.version}`);
           setUpdatingAppId(null);
           window.location.reload();
         }
       } else {
-        alert('Cập nhật thất bại: ' + (res.error || 'Unknown error'));
+        alert(t('apps.installed.updateFailed', 'Update failed: ') + (res.error || 'Unknown error'));
         setUpdatingAppId(null);
       }
     } catch (err: any) {
-      alert('Lỗi cập nhật: ' + err.message);
+      alert(t('apps.installed.updateError', 'Update error: ') + err.message);
       setUpdatingAppId(null);
     }
   };
@@ -308,7 +308,7 @@ const AppsStorePage = () => {
                     ) : status === 'installed' ? (
                       <div className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-green-50 text-green-700 border border-green-200 w-fit">
                         <CheckCircle size={16} />
-                        {t('apps.store.installed', 'Đã cài đặt')} • v{installedVersion}
+                        {t('apps.store.installed', 'Installed')} • v{installedVersion}
                       </div>
                     ) : status === 'update_available' ? (
                       <button
@@ -322,8 +322,8 @@ const AppsStorePage = () => {
                       >
                         <ArrowUpCircle size={16} className="mr-2" />
                         {updatingAppId === app.id 
-                          ? t('apps.store.updating', 'Đang cập nhật...') 
-                          : `${t('apps.store.update', 'Cập nhật')} v${installedVersion} → v${app.latestVersion || app.version}`
+                          ? t('apps.store.updating', 'Updating...') 
+                          : `${t('apps.store.update', 'Update')} v${installedVersion} → v${app.latestVersion || app.version}`
                         }
                       </button>
                     ) : (
@@ -337,7 +337,7 @@ const AppsStorePage = () => {
                         }`}
                       >
                         <Download size={16} className="mr-2" />
-                        {installingAppId === app.id ? 'Đang cài đặt...' : t('apps.store.install')}
+                        {installingAppId === app.id ? t('apps.store.installing', 'Installing...') : t('apps.store.install')}
                       </button>
                     )}
                   </div>

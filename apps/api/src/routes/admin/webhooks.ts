@@ -10,7 +10,7 @@ const webhooksApp = new Hono<{ Bindings: Env }>()
 
 webhooksApp.use('*', authMiddleware)
 
-// Lấy danh sách Webhooks
+// Get webhooks list
 webhooksApp.get('/', async (c) => {
   const db = getDb(c.env.DB)
   
@@ -22,7 +22,7 @@ webhooksApp.get('/', async (c) => {
   }
 })
 
-// Tạo mới Webhook
+// Create new Webhook
 webhooksApp.post('/', async (c) => {
   const db = getDb(c.env.DB)
   
@@ -39,13 +39,13 @@ webhooksApp.post('/', async (c) => {
     
     await db.insert(wbWebhooks).values(newWebhook).run()
     
-    return c.json({ success: true, data: newWebhook, message: 'Tạo Webhook thành công' })
+    return c.json({ success: true, data: newWebhook, message: 'Webhook created successfully' })
   } catch (err: any) {
     return c.json({ success: false, error: err.message }, 500)
   }
 })
 
-// Cập nhật Webhook
+// Update Webhook
 webhooksApp.put('/:id', async (c) => {
   const db = getDb(c.env.DB)
   const id = c.req.param('id')
@@ -65,20 +65,20 @@ webhooksApp.put('/:id', async (c) => {
       .where(eq(wbWebhooks.id, id))
       .run()
     
-    return c.json({ success: true, message: 'Cập nhật Webhook thành công' })
+    return c.json({ success: true, message: 'Webhook updated successfully' })
   } catch (err: any) {
     return c.json({ success: false, error: err.message }, 500)
   }
 })
 
-// Xoá Webhook
+// Delete Webhook
 webhooksApp.delete('/:id', async (c) => {
   const db = getDb(c.env.DB)
   const id = c.req.param('id')
   
   try {
     await db.delete(wbWebhooks).where(eq(wbWebhooks.id, id)).run()
-    return c.json({ success: true, message: 'Xóa Webhook thành công' })
+    return c.json({ success: true, message: 'Webhook deleted successfully' })
   } catch (err: any) {
     return c.json({ success: false, error: err.message }, 500)
   }

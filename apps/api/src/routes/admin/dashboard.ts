@@ -15,8 +15,8 @@ dashboardApp.use('*', authMiddleware)
 
 /**
  * GET /v1/admin/dashboard/stats
- * Core Kernel dashboard — trả về system-level stats.
- * Suite-specific stats (orders, products, customers) sẽ được cung cấp bởi Suite API riêng.
+ * Core Kernel dashboard — returns system-level stats.
+ * Suite-specific stats (orders, products, customers) will be provided by separate Suite APIs.
  */
 dashboardApp.get('/stats', checkPermission('dashboard:view'), async (c) => {
   const db = getDb(c.env.DB)

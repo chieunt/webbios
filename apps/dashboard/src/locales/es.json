@@ -1,0 +1,586 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "Seleccionar icono...",
+      "selectIconTitle": "Seleccionar Icono",
+      "search": "Buscar...",
+      "select": "Seleccionar..."
+    },
+    "actions": {
+      "settings": "Configuración",
+      "cancel": "Cancelar",
+      "create": "Crear"
+    },
+    "messages": {
+      "underConstruction": "Característica en desarrollo."
+    },
+    "loading": "Cargando...",
+    "systemDefault": "Por defecto",
+    "appLoader": {
+      "errorTitle": "Error de carga de la aplicación",
+      "networkError": "No se pudo conectar a la aplicación en {{url}}. La aplicación podría no estar implementada o la URL es incorrecta.",
+      "moduleError": "No se pudo cargar el módulo {{module}} de la aplicación {{app}}. Es posible que el módulo no se haya exportado correctamente.",
+      "networkTipTitle": "💡 Consejos de solución:",
+      "networkTip1": "Verifique si la aplicación se implementó con éxito en Cloudflare Pages",
+      "networkTip2": "Verifique la URL del worker:",
+      "networkTip3": "Intente desinstalar y reinstalar la aplicación",
+      "moduleTipTitle": "💡 Consejos de solución:",
+      "moduleTip1": "La aplicación necesita una configuración adecuada de Vite Module Federation",
+      "moduleTip2": "Verifique si existe remoteEntry.js",
+      "moduleTip3": "El módulo necesita exportar:",
+      "retry": "Reintentar",
+      "retrying": "Reintentando...",
+      "retriedCount": "Intentado {{count}} veces",
+      "loadingApp": "Cargando aplicación...",
+      "initializing": "Inicializando la interfaz de la aplicación..."
+    }
+  },
+  "sidebar": {
+    "quickSearch": "Búsqueda rápida...",
+    "accountHome": "Inicio de cuenta",
+    "recents": "Recientes",
+    "domains": "Dominios",
+    "observe": "Observar",
+    "investigate": "Investigar",
+    "logExplorer": "Explorador de registros",
+    "logSearch": "Búsqueda de registros",
+    "trace": "Rastrear",
+    "logpush": "Logpush",
+    "analytics": "Análisis",
+    "build": "Construir",
+    "compute": "Computación",
+    "ai": "IA",
+    "storage": "Almacenamiento y bases de datos",
+    "media": "Medios",
+    "protect": "Proteger y conectar",
+    "security": "Seguridad de la aplicación",
+    "zeroTrust": "Zero Trust",
+    "networking": "Redes",
+    "delivery": "Entrega y rendimiento",
+    "collapseSidebar": "Contraer barra lateral",
+    "expandSidebar": "Expandir barra lateral"
+  },
+  "webbios": {
+    "updates": {
+      "title": "Actualizaciones del Sistema",
+      "subtitle": "Compruebe y actualice WebbiOS a la última versión.",
+      "versionStatus": "Estado de la versión",
+      "current": "Actual:",
+      "latest": "Última:",
+      "updateTo": "Actualizar a v{{version}}",
+      "upToDate": "Actualizado",
+      "updating": "Procesando...",
+      "statusDownloading": "Descargando código fuente desde Platform CDN...",
+      "statusChecksum": "Verificando el checksum de seguridad...",
+      "statusDeploying": "Implementando la nueva versión del Worker...",
+      "statusDone": "¡Listo! El sistema se recargará en 3 segundos.",
+      "progress": {
+        "inProgress": "En cola para procesamiento...",
+        "downloading": "Descargando paquete de instalación...",
+        "extracting": "Extrayendo archivos...",
+        "installing": "Instalando bibliotecas...",
+        "deployingApi": "Implementando Core API...",
+        "deployingDashboard": "Implementando Dashboard...",
+        "success": "¡Actualización completa! Recargando...",
+        "default": "Procesando...",
+        "restoring": "Restaurando progreso...",
+        "errorPrefix": "Error: ",
+        "errorFailed": "Actualización fallida",
+        "errorNoShop": "No se pudo determinar el ID de la tienda. Actualización cancelada.",
+        "errorNoJobId": "No se recibió el ID del trabajo del servidor.",
+        "statusUpdating": "Actualizando...",
+        "statusInit": "Inicializando el proceso de actualización..."
+      },
+      "releaseNotes": "Notas de la versión (v{{version}})",
+      "releaseNotesIntro": "Esta versión trae correcciones de errores importantes y mejoras de rendimiento:",
+      "releaseNote1": "Optimiza la velocidad de carga de la página Storefront en un 15%.",
+      "releaseNote2": "Soporte de Webhooks para aplicaciones de terceros.",
+      "releaseNote3": "Corrección de vulnerabilidades de seguridad relacionadas con el acceso a la API."
+    },
+    "licenses": {
+      "title": "Licencias y Planes",
+      "subtitle": "Administre la información de licencias de WebbiOS para esta tienda.",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "Estado:",
+      "statusActive": "Activo",
+      "durationLabel": "Duración:",
+      "durationPermanent": "De por vida",
+      "shopIdLabel": "Shop ID:",
+      "proTitle": "Webbi Pro",
+      "proDesc": "Actualice a Pro para desbloquear el 100% del poder de Cloudflare Edge, almacenamiento ilimitado de R2 y soporte prioritario.",
+      "upgradeBtn": "Actualizar ahora - $29/mes"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "Licencias",
+      "updates": "Actualizaciones"
+    },
+    "backupRestore": {
+      "title": "Copia de seguridad y Restauración",
+      "description": "Realice copias de seguridad y restaure configuraciones enteras del sistema y datos.",
+      "export": {
+        "title": "Exportar Datos",
+        "description": "Cree una copia de seguridad de todas las configuraciones actuales, aplicaciones instaladas y datos para descargar.",
+        "button": "Hacer copia de seguridad ahora"
+      },
+      "restore": {
+        "title": "Restaurar Datos",
+        "description": "Cargue un archivo de copia de seguridad anterior para restaurar las configuraciones del sistema y los datos.",
+        "button": "Seleccionar archivo de copia de seguridad"
+      }
+    },
+    "cloudflareQuotas": {
+      "title": "Cuotas de Cloudflare",
+      "description": "Supervise y administre los recursos del sistema de Cloudflare utilizados por WebbiOS.",
+      "dashboardBtn": "Abrir Cloudflare Dashboard",
+      "workers": {
+        "title": "Peticiones Workers",
+        "unit": "/ 100,000 (Capa gratuita)",
+        "desc": "Número de llamadas a la API y lógica"
+      },
+      "d1": {
+        "title": "Lecturas D1 Database",
+        "unit": "/ 5,000,000 (Capa gratuita)",
+        "desc": "Número de consultas de lectura de la base de datos"
+      },
+      "r2": {
+        "title": "Almacenamiento R2",
+        "unit": "/ 10 GB (Capa gratuita)",
+        "desc": "Capacidad de almacenamiento de imágenes y archivos"
+      },
+      "upgrade": {
+        "title": "¡Aumente sus límites hoy mismo!",
+        "desc": "Actualice a Webbi Pro o conecte su cuenta Paid de Cloudflare para eliminar estos límites.",
+        "button": "Explorar planes de actualización"
+      }
+    }
+  },
+  "dashboard": {
+    "accountHome": "Inicio de cuenta",
+    "add": "Añadir",
+    "analytics": "Análisis",
+    "last24h": "Últimas 24 horas",
+    "security": "Seguridad",
+    "securityInsights": "Información de seguridad",
+    "encryptedRate": "Tasa de peticiones cifradas",
+    "performance": "Rendimiento",
+    "cpuTime": "Tiempo de CPU (P90)",
+    "workersErrors": "Errores de Workers",
+    "activity": "Actividad",
+    "workersInvocations": "Invocaciones de Workers",
+    "buildMinutes": "Minutos de compilación",
+    "domains": "Dominios",
+    "sitesFaster": "Sus sitios, más rápidos y seguros",
+    "boostPerformance": "Aumente el rendimiento y bloquee ataques",
+    "addDomain": "Añadir un dominio",
+    "workersAndPages": "Workers y Pages",
+    "zeroTrust": "Seguridad Zero Trust",
+    "secureAccess": "Acceso seguro para su equipo",
+    "controlWho": "Controle quién accede a sus aplicaciones sin VPN",
+    "getStarted": "Empezar",
+    "welcome": "Bienvenido, {{name}}",
+    "createReport": "Crear informe",
+    "ecommerceOverview": "Resumen de E-commerce",
+    "revenue": "Ingresos",
+    "orders": "Pedidos",
+    "customers": "Clientes",
+    "products": "Productos"
+  },
+  "products": {
+    "title": "Productos",
+    "export": "Exportar",
+    "import": "Importar",
+    "add": "Añadir nuevo producto",
+    "tabs": {
+      "all": "Todos",
+      "active": "Activo",
+      "draft": "Borrador",
+      "archived": "Archivado"
+    },
+    "search": "Buscar productos, SKU...",
+    "filters": {
+      "allStatus": "Todos los estados",
+      "allTypes": "Todos los tipos",
+      "allVendors": "Todos los proveedores",
+      "allTags": "Todas las etiquetas"
+    },
+    "columns": {
+      "product": "PRODUCTO",
+      "status": "ESTADO",
+      "inventory": "INVENTARIO",
+      "vendor": "PROVEEDOR",
+      "price": "PRECIO",
+      "actions": "ACCIONES"
+    },
+    "statusLabels": {
+      "active": "Activo",
+      "draft": "Borrador"
+    },
+    "inventoryLabels": {
+      "inStock": "en stock"
+    },
+    "placeholders": {
+      "name": "Nombre del producto",
+      "vendor": "Proveedor"
+    },
+    "empty": "Aún no hay productos"
+  },
+  "system": {
+    "menus": {
+      "title": "Gestión de Menús",
+      "description": "Organice, agregue/elimine y traduzca el menú de navegación izquierdo.",
+      "addMenuLevel1": "Añadir Menú Nivel 1",
+      "structure": "Estructura del Menú",
+      "loading": "Cargando...",
+      "hidden": "Oculto",
+      "confirmDelete": "¿Estás seguro de que quieres eliminar este elemento de menú?",
+      "errorSaving": "Error al guardar el menú",
+      "errorDeleting": "Error al eliminar el menú",
+      "modal": {
+        "addMenu": "Añadir Menú",
+        "editMenu": "Editar Menú",
+        "titleFallback": "Nombre predeterminado",
+        "path": "Ruta",
+        "translationsEn": "Traducción (Inglés)",
+        "translationsVi": "Traducción (Vietnamita)",
+        "icon": "Icono",
+        "permissionId": "ID de Permiso",
+        "position": "Posición",
+        "isActive": "Activo",
+        "noPermission": "Sin permiso (Público)",
+        "cancel": "Cancelar",
+        "save": "Guardar cambios",
+        "parentMenu": "Menú Padre",
+        "isCategoryLabel": "Es una Etiqueta de Categoría",
+        "rootMenu": "--- Raíz ---",
+        "placeholders": {
+          "translationsEn": "ej. Dashboard",
+          "translationsVi": "ej. Tổng quan",
+          "icon": "ej. Home",
+          "path": "ej. /orders"
+        }
+      }
+    },
+    "permissions": {
+      "title": "Gestión de Permisos del Sistema",
+      "description": "Definir los permisos que se pueden asignar a los roles.",
+      "addPermission": "Añadir nuevo permiso",
+      "confirmDelete": "¿Estás seguro de que quieres eliminar este permiso?",
+      "errorSaving": "Error al guardar el permiso",
+      "errorDeleting": "Error al eliminar el permiso",
+      "columns": {
+        "slug": "Slug",
+        "description": "Descripción",
+        "createdAt": "Fecha de creación",
+        "actions": "Acciones"
+      },
+      "modal": {
+        "add": "Añadir nuevo permiso",
+        "edit": "Editar permiso",
+        "slugLabel": "Slug (ej. users:read)",
+        "descriptionLabel": "Descripción",
+        "slugPlaceholder": "modulo:accion",
+        "descriptionPlaceholder": "ej. Permite al usuario leer listas"
+      }
+    },
+    "roles": {
+      "title": "Gestión de Roles",
+      "description": "Administre los roles de usuario y asigne permisos a los mismos.",
+      "addRole": "Añadir nuevo rol",
+      "confirmDelete": "¿Estás seguro de que quieres eliminar este rol?",
+      "errorSaving": "Error al guardar el rol",
+      "errorDeleting": "Error al eliminar el rol",
+      "columns": {
+        "name": "Nombre del rol",
+        "slug": "Slug",
+        "description": "Descripción",
+        "system": "Rol del sistema",
+        "actions": "Acciones"
+      },
+      "modal": {
+        "add": "Añadir nuevo rol",
+        "edit": "Editar rol",
+        "nameLabel": "Nombre del rol (ej. Administrador)",
+        "slugLabel": "Slug (ej. admin)",
+        "descriptionLabel": "Descripción",
+        "isSystemLabel": "Rol del sistema (No puede eliminar o editar)",
+        "permissionsLabel": "Asignar Permisos",
+        "selectAll": "Seleccionar todo",
+        "unselectAll": "Deseleccionar todo",
+        "namePlaceholder": "ej. Admin",
+        "slugPlaceholder": "ej. admin"
+      }
+    }
+  },
+  "header": {
+    "askAI": "Preguntar IA",
+    "notifications": "Notificaciones",
+    "support": "Soporte",
+    "account": "Cuenta",
+    "logout": "Cerrar sesión"
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Inicie sesión en el sistema de administración",
+      "email": "Correo",
+      "password": "Contraseña",
+      "submit": "Entrar",
+      "forgotPassword": "¿Olvidaste la contraseña?",
+      "error": "Correo o contraseña inválidos"
+    },
+    "forgotPassword": {
+      "title": "Recuperar contraseña",
+      "subtitle": "Ingrese su correo electrónico para recibir un enlace de restablecimiento.",
+      "email": "Correo",
+      "submit": "Enviar enlace",
+      "backToLogin": "Volver al inicio de sesión",
+      "success": "Si el correo es válido, hemos enviado instrucciones de recuperación. Revisa tu bandeja de entrada.",
+      "error": "No se pudo enviar la solicitud"
+    }
+  },
+  "media": {
+    "title": "Biblioteca de Medios",
+    "description": "Administre sus imágenes y archivos",
+    "upload": "Subir",
+    "newFolder": "Nueva carpeta",
+    "search": "Buscar archivos...",
+    "filter": "Filtro",
+    "images": "Imágenes",
+    "documents": "Documentos",
+    "all": "Todos",
+    "grid": "Vista de cuadrícula",
+    "list": "Vista de lista",
+    "delete": "Eliminar",
+    "empty": "No se encontraron archivos"
+  },
+  "apps": {
+    "installed": {
+      "title": "Aplicaciones Instaladas",
+      "description": "Administre sus aplicaciones activas",
+      "search": "Buscar aplicaciones...",
+      "running": "En ejecución",
+      "stopped": "Detenido",
+      "settings": "Configuración",
+      "uninstall": "Desinstalar",
+      "openApp": "Abrir aplicación",
+      "restart": "Reiniciar",
+      "stop": "Detener",
+      "confirmUninstall": "¿Seguro que desea desinstalar esta aplicación? Todos los datos se eliminarán.",
+      "updateAvailable": "Actualización disponible",
+      "updating": "Actualizando...",
+      "update": "Actualizar",
+      "updateSent": "Solicitud de actualización enviada para",
+      "updateFailed": "Actualización fallida: ",
+      "updateError": "Error de actualización: ",
+      "appStore": "App Store",
+      "empty": "Aún no hay aplicaciones instaladas."
+    },
+    "store": {
+      "title": "Tienda de Aplicaciones",
+      "description": "Descubre e instala nuevas aplicaciones",
+      "search": "Buscar...",
+      "filter": "Categorías",
+      "install": "Instalar",
+      "free": "Gratis",
+      "paid": "De pago",
+      "reviews": "Reseñas",
+      "popular": "Popular",
+      "new": "Más nuevo",
+      "categories": {
+        "marketing": "Marketing",
+        "sales": "Ventas",
+        "support": "Soporte",
+        "analytics": "Análisis",
+        "design": "Diseño",
+        "inventory": "Inventario"
+      },
+      "priceMonthly": "${{price}}/mes"
+    }
+  },
+  "users": {
+    "title": "Gestión de Usuarios",
+    "description": "Gestionar cuentas y permisos",
+    "add": "Añadir Usuario",
+    "search": "Buscar usuarios...",
+    "filter": "Filtrar",
+    "columns": {
+      "user": "Usuario",
+      "role": "Rol",
+      "status": "Estado",
+      "joined": "Fecha de registro",
+      "actions": "Acciones"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "resetPassword": "Restablecer contraseña",
+      "lock": "Bloquear",
+      "unlock": "Desbloquear",
+      "archive": "Archivar"
+    },
+    "modal": {
+      "add": "Añadir Usuario",
+      "edit": "Editar Usuario",
+      "resetPassword": "Restablecer Contraseña",
+      "firstName": "Nombre",
+      "lastName": "Apellidos",
+      "email": "Correo",
+      "password": "Contraseña",
+      "role": "Rol",
+      "permissions": "Permisos adicionales",
+      "copyPassword": "Copiar contraseña",
+      "sendPassword": "Enviar contraseña por correo",
+      "autoGenerate": "Generación automática",
+      "smtpWarning": "SMTP no está configurado en el sistema.",
+      "smtpLink": "Configurar ahora",
+      "confirmArchive": "¿Estás seguro de que quieres archivar este usuario?"
+    }
+  },
+  "audit": {
+    "title": "Registros de Auditoría",
+    "description": "Supervisar las actividades del sistema",
+    "search": "Buscar registros...",
+    "filter": "Filtrar",
+    "export": "Exportar",
+    "refresh": "Actualizar",
+    "columns": {
+      "action": "Acción",
+      "user": "Usuario",
+      "resource": "Recurso",
+      "date": "Fecha",
+      "ip": "Dirección IP",
+      "details": "Detalles"
+    },
+    "timeFilters": {
+      "all": "Todo el tiempo",
+      "today": "Hoy",
+      "last7Days": "Últimos 7 días",
+      "last30Days": "Últimos 30 días"
+    }
+  },
+  "settings": {
+    "title": "Configuración del Sistema",
+    "description": "Configurar parámetros del sistema y normas de negocio",
+    "save": "Guardar cambios",
+    "saving": "Guardando...",
+    "messages": {
+      "loadFailed": "Error al cargar la configuración",
+      "saveSuccess": "Configuración actualizada con éxito",
+      "saveFailed": "Error al guardar la configuración"
+    },
+    "tabs": {
+      "general": "General",
+      "security": "Seguridad",
+      "notifications": "Notificaciones",
+      "appearance": "Apariencia",
+      "email": "Correo"
+    },
+    "general": {
+      "siteInfo": "Información del negocio",
+      "siteName": "Nombre del negocio",
+      "sitePhone": "Teléfono de contacto",
+      "regionAndLanguage": "Región e idioma",
+      "timezone": "Zona horaria",
+      "language": "Idioma predeterminado",
+      "currency": "Moneda predeterminada",
+      "measurement": "Unidad de medida",
+      "formatOptions": "Formatos de documentos",
+      "orderPrefix": "Prefijo de pedido",
+      "invoicePrefix": "Prefijo de factura",
+      "languageVi": "Vietnamita (vi)",
+      "languageEn": "Inglés (en)",
+      "systemConfig": "Configuración del Sistema",
+      "cdnUrl": "Dominio CDN (Para Biblioteca de Medios)",
+      "cdnUrlDesc": "Este dominio debe tener un CNAME apuntando a su bucket de Cloudflare R2."
+    },
+    "security": {
+      "title": "Seguridad del Sistema",
+      "require2fa": "Requerir Autenticación de Dos Factores (2FA)",
+      "require2faDesc": "Forzar a todo el personal a usar 2FA al iniciar sesión.",
+      "passwordPolicy": "Política de contraseñas",
+      "passwordPolicyDesc": "Establecer reglas de complejidad de contraseñas.",
+      "policyLow": "Baja (Mínimo 6 caracteres)",
+      "policyMedium": "Media (Mínimo 8 caracteres, con números)",
+      "policyHigh": "Alta (Mínimo 8 caracteres, letras, números, símbolos)"
+    },
+    "notifications": {
+      "title": "Canales de Notificación",
+      "description": "Configure cómo el sistema envía alertas a los administradores.",
+      "email": "Recibir por correo",
+      "inApp": "Recibir en la App (Web Push)",
+      "zalo": "Recibir vía Zalo ZNS (En desarrollo)",
+      "events": "Eventos desencadenantes",
+      "onNewOrder": "En un nuevo pedido",
+      "onNewUser": "En el registro de un nuevo usuario"
+    },
+    "appearance": {
+      "title": "Apariencia ERP",
+      "description": "Configure la identidad de marca interna para el ERP.",
+      "logo": "Logotipo del sistema",
+      "favicon": "Favicon",
+      "uploadBtn": "Subir imagen",
+      "freePlanNotice": "Característica disponible solo para Webbi Pro",
+      "freePlanDesc": "Para cambiar el logotipo y el Favicon, actualice al plan Webbi Pro.",
+      "upgradeBtn": "Actualizar ahora"
+    },
+    "email": {
+      "title": "Configuración de Correo (SMTP)",
+      "description": "Configure el servidor de correo para enviar notificaciones internas.",
+      "host": "Host SMTP",
+      "port": "Puerto SMTP",
+      "user": "Nombre de usuario",
+      "pass": "Contraseña",
+      "from": "Correo del remitente (From)",
+      "upsellBanner": "¿Necesitas enviar correos masivos?",
+      "upsellDesc": "Descubra la App Mailer profesional en la App Store.",
+      "exploreApps": "Explorar App Store"
+    }
+  },
+  "apiKeys": {
+    "title": "API Keys",
+    "description": "Administrar claves de acceso a la API",
+    "create": "Crear Clave",
+    "columns": {
+      "name": "Nombre",
+      "key": "API Key",
+      "created": "Creado en",
+      "lastUsed": "Último uso",
+      "actions": "Acciones"
+    },
+    "copy": "Copiar",
+    "revoke": "Revocar",
+    "modal": {
+      "add": "Crear API Key",
+      "name": "Nombre de API Key",
+      "scopes": "Alcances (Scopes)",
+      "secretWarning": "Copia este Código Secreto. ¡Solo se mostrará una vez!"
+    }
+  },
+  "account": {
+    "title": "Mi Cuenta",
+    "description": "Administre la información personal y la seguridad de la cuenta",
+    "tabs": {
+      "profile": "Perfil",
+      "security": "Contraseña"
+    },
+    "profile": {
+      "firstName": "Nombre",
+      "lastName": "Apellidos",
+      "email": "Correo",
+      "emailNote": "El correo no se puede cambiar. Contacte con soporte si es necesario.",
+      "role": "Rol:",
+      "update": "Actualizar Perfil"
+    },
+    "security": {
+      "currentPassword": "Contraseña Actual",
+      "newPassword": "Nueva Contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "update": "Actualizar Contraseña"
+    }
+  }
+}

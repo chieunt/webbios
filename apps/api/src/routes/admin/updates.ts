@@ -51,12 +51,12 @@ app.post('/install', async (c) => {
   }
 });
 
-// API để WebbiPlatform trigger tự động update schema của Database D1 cho khách hàng
+// API for WebbiPlatform to trigger automatic D1 Database schema updates for customers
 app.post('/upgrade-db', async (c) => {
   try {
     const db = getDb(c.env.DB);
     
-    // Nâng cấp cho Webhooks (v1.0.26)
+    // Upgrade for Webhooks (v1.0.26)
     await db.run(sql`
       CREATE TABLE IF NOT EXISTS \`wb_webhooks\` (
         \`id\` text PRIMARY KEY NOT NULL,
@@ -74,15 +74,15 @@ app.post('/upgrade-db', async (c) => {
       CREATE INDEX IF NOT EXISTS \`idx_wb_webhooks_status\` ON \`wb_webhooks\` (\`status\`);
     `);
 
-    // Cập nhật lại Menu Cài đặt (v1.0.26 / 1.0.27)
-    // Biến menu Cài đặt cũ thành menu cha (path rỗng)
+    // Update Settings Menu (v1.0.26 / 1.0.27)
+    // Change old Settings menu to parent menu (empty path)
     await db.run(sql`
       UPDATE \`wb_menus\` 
       SET path = '' 
       WHERE label = 'Cài đặt' AND is_system = 1 AND path = '/settings';
     `);
 
-    // Thêm các menu con (dùng INSERT OR IGNORE để tránh lỗi chạy nhiều lần)
+    // Add child menus (use INSERT OR IGNORE to prevent errors on multiple runs)
     await db.run(sql`
       INSERT OR IGNORE INTO \`wb_menus\` (id, parent_id, label, icon, path, permission_slug, app_slug, position, is_system, translations)
       SELECT 
@@ -104,7 +104,7 @@ app.post('/upgrade-db', async (c) => {
       FROM \`wb_menus\` WHERE label = 'Cài đặt' AND is_system = 1;
     `);
 
-    // Tương lai: Thêm các scripts nâng cấp khác tại đây nếu cần
+    // Future: Add other upgrade scripts here if needed
 
     return c.json({ success: true, message: 'Database schema upgraded successfully' });
   } catch (err: any) {

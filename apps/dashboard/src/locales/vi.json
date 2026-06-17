@@ -15,7 +15,25 @@
       "underConstruction": "Chức năng đang được phát triển."
     },
     "loading": "Đang tải...",
-    "systemDefault": "Mặc định"
+    "systemDefault": "Mặc định",
+    "appLoader": {
+      "errorTitle": "Lỗi nạp ứng dụng",
+      "networkError": "Không thể kết nối đến ứng dụng tại {{url}}. Ứng dụng có thể chưa được deploy hoặc URL không chính xác.",
+      "moduleError": "Không thể nạp module {{module}} từ ứng dụng {{app}}. Module có thể chưa được export đúng cách.",
+      "networkTipTitle": "💡 Gợi ý khắc phục:",
+      "networkTip1": "Kiểm tra ứng dụng đã được deploy thành công trên Cloudflare Pages",
+      "networkTip2": "Kiểm tra URL worker:",
+      "networkTip3": "Thử gỡ cài đặt và cài đặt lại ứng dụng",
+      "moduleTipTitle": "💡 Gợi ý khắc phục:",
+      "moduleTip1": "Ứng dụng cần cấu hình Vite Module Federation đúng cách",
+      "moduleTip2": "Kiểm tra file remoteEntry.js đã tồn tại",
+      "moduleTip3": "Module cần export:",
+      "retry": "Thử lại",
+      "retrying": "Đang thử lại...",
+      "retriedCount": "Đã thử {{count}} lần",
+      "loadingApp": "Đang nạp ứng dụng...",
+      "initializing": "Đang khởi tạo giao diện ứng dụng..."
+    }
   },
   "sidebar": {
     "quickSearch": "Tìm kiếm nhanh...",
@@ -56,6 +74,23 @@
       "statusChecksum": "Đang xác thực bảo mật (Checksum)...",
       "statusDeploying": "Đang deploy phiên bản Worker mới...",
       "statusDone": "Hoàn tất! Hệ thống sẽ tải lại sau 3 giây.",
+      "progress": {
+        "inProgress": "Đang xếp hàng chờ xử lý...",
+        "downloading": "Đang tải gói cài đặt...",
+        "extracting": "Đang giải nén...",
+        "installing": "Đang cài đặt thư viện...",
+        "deployingApi": "Đang triển khai Core API...",
+        "deployingDashboard": "Đang triển khai Dashboard...",
+        "success": "Cập nhật hoàn tất! Đang tải lại...",
+        "default": "Đang xử lý...",
+        "restoring": "Đang khôi phục tiến trình...",
+        "errorPrefix": "Lỗi: ",
+        "errorFailed": "Cập nhật thất bại",
+        "errorNoShop": "Không xác định được ID của Shop. Quá trình cập nhật bị huỷ.",
+        "errorNoJobId": "Không nhận được Job ID từ máy chủ.",
+        "statusUpdating": "Đang cập nhật...",
+        "statusInit": "Đang khởi tạo tiến trình cập nhật..."
+      },
       "releaseNotes": "Release Notes (v{{version}})",
       "releaseNotesIntro": "Phiên bản này mang tới các bản vá lỗi và tối ưu hiệu suất quan trọng:",
       "releaseNote1": "Tối ưu tốc độ tải trang Storefront thêm 15%.",
@@ -79,6 +114,45 @@
       "category": "WEBBIOS",
       "licenses": "Bản quyền",
       "updates": "Cập nhật"
+    },
+    "backupRestore": {
+      "title": "Sao lưu & Khôi phục",
+      "description": "Sao lưu và khôi phục toàn bộ cấu hình, cài đặt, và dữ liệu của hệ thống.",
+      "export": {
+        "title": "Sao lưu dữ liệu (Export)",
+        "description": "Tạo bản sao lưu tất cả cấu hình hệ thống, danh sách ứng dụng và dữ liệu hiện tại để tải về máy.",
+        "button": "Sao lưu ngay"
+      },
+      "restore": {
+        "title": "Khôi phục dữ liệu (Restore)",
+        "description": "Tải lên tệp sao lưu trước đó để khôi phục lại cấu hình và dữ liệu hệ thống.",
+        "button": "Chọn tệp khôi phục"
+      }
+    },
+    "cloudflareQuotas": {
+      "title": "Hạn mức Cloudflare",
+      "description": "Theo dõi và quản lý tài nguyên hệ thống Cloudflare mà WebbiOS đang sử dụng.",
+      "dashboardBtn": "Mở Cloudflare Dashboard",
+      "workers": {
+        "title": "Workers Requests",
+        "unit": "/ 100,000 (Free Tier)",
+        "desc": "Số lượt gọi API & xử lý logic"
+      },
+      "d1": {
+        "title": "D1 Database Reads",
+        "unit": "/ 5,000,000 (Free Tier)",
+        "desc": "Số lượt truy vấn đọc dữ liệu từ DB"
+      },
+      "r2": {
+        "title": "R2 Storage",
+        "unit": "/ 10 GB (Free Tier)",
+        "desc": "Dung lượng lưu trữ ảnh và file media"
+      },
+      "upgrade": {
+        "title": "Mở rộng giới hạn ngay hôm nay!",
+        "desc": "Nâng cấp lên gói Webbi Pro hoặc kết nối tài khoản Cloudflare Paid của bạn để loại bỏ các giới hạn trên.",
+        "button": "Khám phá các gói nâng cấp"
+      }
     }
   },
   "dashboard": {
@@ -290,7 +364,16 @@
       "uninstall": "Gỡ cài đặt",
       "openApp": "Mở ứng dụng",
       "restart": "Khởi động lại",
-      "stop": "Dừng"
+      "stop": "Dừng",
+      "confirmUninstall": "Bạn có chắc muốn gỡ cài đặt ứng dụng này? Toàn bộ dữ liệu và worker trên Cloudflare sẽ bị xóa.",
+      "updateAvailable": "Có phiên bản mới",
+      "updating": "Đang cập nhật...",
+      "update": "Cập nhật",
+      "updateSent": "Đã gửi yêu cầu cập nhật",
+      "updateFailed": "Cập nhật thất bại: ",
+      "updateError": "Lỗi cập nhật: ",
+      "appStore": "Kho ứng dụng",
+      "empty": "Chưa có ứng dụng nào được cài đặt."
     },
     "store": {
       "title": "Cửa hàng ứng dụng",
@@ -409,7 +492,10 @@
       "orderPrefix": "Tiền tố Đơn hàng",
       "invoicePrefix": "Tiền tố Hóa đơn",
       "languageVi": "Tiếng Việt (vi)",
-      "languageEn": "English (en)"
+      "languageEn": "English (en)",
+      "systemConfig": "Cấu hình hệ thống",
+      "cdnUrl": "Tên miền CDN (Cho thư viện Media)",
+      "cdnUrlDesc": "Tên miền này cần có bản ghi CNAME trỏ về Cloudflare R2 bucket của bạn."
     },
     "security": {
       "title": "Bảo mật hệ thống",

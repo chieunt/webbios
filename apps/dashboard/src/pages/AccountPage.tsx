@@ -44,7 +44,7 @@ const AccountPage = () => {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      showToast('error', t('Vui lòng chọn file hình ảnh'));
+      showToast('error', t('account.messages.pleaseSelectImage', 'Please select an image file'));
       return;
     }
 
@@ -54,16 +54,16 @@ const AccountPage = () => {
       if (res.success && res.data?.url) {
         const updateRes = await webbios.auth.updateProfile({ firstName, lastName, avatarUrl: res.data.url });
         if (updateRes.success) {
-          showToast('success', t('Cập nhật ảnh đại diện thành công'));
+          showToast('success', t('account.messages.avatarUpdated', 'Avatar updated successfully'));
           await refreshUser();
         } else {
-          showToast('error', updateRes.error || t('Có lỗi khi lưu ảnh đại diện'));
+          showToast('error', updateRes.error || t('account.messages.errorSavingAvatar', 'Error saving avatar'));
         }
       } else {
-        showToast('error', res.error || t('Có lỗi khi upload ảnh'));
+        showToast('error', res.error || t('account.messages.errorUploadingImage', 'Error uploading image'));
       }
     } catch (error: any) {
-      showToast('error', error.message || t('Lỗi kết nối'));
+      showToast('error', error.message || t('common.messages.connectionError', 'Connection error'));
     } finally {
       setIsUploadingAvatar(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -84,7 +84,7 @@ const AccountPage = () => {
 
   const handleUpdateProfile = async () => {
     if (!firstName || !lastName) {
-      showToast('error', t('Vui lòng nhập đầy đủ họ và tên'));
+      showToast('error', t('account.messages.pleaseEnterFullName', 'Please enter full name'));
       return;
     }
 
@@ -92,13 +92,13 @@ const AccountPage = () => {
       setIsUpdatingProfile(true);
       const res = await webbios.auth.updateProfile({ firstName, lastName });
       if (res.success) {
-        showToast('success', t('Cập nhật hồ sơ thành công!'));
+        showToast('success', t('account.messages.profileUpdated', 'Profile updated successfully!'));
         await refreshUser();
       } else {
-        showToast('error', res.error || t('Cập nhật thất bại'));
+        showToast('error', res.error || t('account.messages.updateFailed', 'Update failed'));
       }
     } catch (error: any) {
-      showToast('error', error.message || t('Lỗi kết nối'));
+      showToast('error', error.message || t('common.messages.connectionError', 'Connection error'));
     } finally {
       setIsUpdatingProfile(false);
     }
@@ -106,15 +106,15 @@ const AccountPage = () => {
 
   const handleUpdatePassword = async () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
-      showToast('error', t('Vui lòng nhập đầy đủ thông tin mật khẩu'));
+      showToast('error', t('account.messages.pleaseEnterPassword', 'Please enter password information'));
       return;
     }
     if (newPassword !== confirmPassword) {
-      showToast('error', t('Mật khẩu xác nhận không khớp'));
+      showToast('error', t('account.messages.passwordsDoNotMatch', 'Passwords do not match'));
       return;
     }
     if (newPassword.length < 8) {
-      showToast('error', t('Mật khẩu mới phải từ 8 ký tự trở lên'));
+      showToast('error', t('account.messages.passwordTooShort', 'New password must be at least 8 characters'));
       return;
     }
 
@@ -122,15 +122,15 @@ const AccountPage = () => {
       setIsUpdatingPassword(true);
       const res = await webbios.auth.changePassword({ currentPassword, newPassword });
       if (res.success) {
-        showToast('success', t('Đổi mật khẩu thành công!'));
+        showToast('success', t('account.messages.passwordChanged', 'Password changed successfully!'));
         setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');
       } else {
-        showToast('error', res.error || t('Đổi mật khẩu thất bại'));
+        showToast('error', res.error || t('account.messages.passwordChangeFailed', 'Password change failed'));
       }
     } catch (error: any) {
-      showToast('error', error.message || t('Lỗi kết nối'));
+      showToast('error', error.message || t('common.messages.connectionError', 'Connection error'));
     } finally {
       setIsUpdatingPassword(false);
     }
@@ -225,7 +225,7 @@ const AccountPage = () => {
               <div className="flex justify-end pt-4 border-t border-cf-border">
                 <button onClick={handleUpdateProfile} disabled={isUpdatingProfile} className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md transition-colors shadow-sm font-medium disabled:opacity-50">
                   <Save size={16} />
-                  <span>{isUpdatingProfile ? t('Đang lưu...') : t('account.profile.update')}</span>
+                  <span>{isUpdatingProfile ? t('common.messages.saving', 'Saving...') : t('account.profile.update')}</span>
                 </button>
               </div>
             </div>
@@ -249,7 +249,7 @@ const AccountPage = () => {
               <div className="pt-4">
                 <button onClick={handleUpdatePassword} disabled={isUpdatingPassword} className="w-full flex justify-center items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-md transition-colors shadow-sm font-medium disabled:opacity-50">
                   <Shield size={16} />
-                  <span>{isUpdatingPassword ? t('Đang đổi...') : t('account.security.update')}</span>
+                  <span>{isUpdatingPassword ? t('account.security.changing', 'Changing...') : t('account.security.update')}</span>
                 </button>
               </div>
             </div>

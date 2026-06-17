@@ -16,14 +16,14 @@ const AppsPage = () => {
 
   const mapStatusToProgress = (status: string): { label: string; progress: number } => {
     switch (status) {
-      case 'in_progress': return { label: 'Đang xếp hàng chờ xử lý...', progress: 5 };
-      case 'downloading': return { label: 'Đang tải mã nguồn...', progress: 20 };
-      case 'extracting': return { label: 'Đang giải nén...', progress: 40 };
-      case 'installing': return { label: 'Đang thiết lập môi trường...', progress: 50 };
-      case 'deploying_api': return { label: 'Đang triển khai API...', progress: 70 };
-      case 'deploying_dashboard': return { label: 'Đang triển khai giao diện...', progress: 90 };
-      case 'success': return { label: 'Hoàn tất! Đang tải lại...', progress: 100 };
-      default: return { label: 'Đang xử lý...', progress: 10 };
+      case 'in_progress': return { label: t('webbios.updates.progress.inProgress'), progress: 5 };
+      case 'downloading': return { label: t('webbios.updates.progress.downloading'), progress: 20 };
+      case 'extracting': return { label: t('webbios.updates.progress.extracting'), progress: 40 };
+      case 'installing': return { label: t('webbios.updates.progress.installing'), progress: 50 };
+      case 'deploying_api': return { label: t('webbios.updates.progress.deployingApi'), progress: 70 };
+      case 'deploying_dashboard': return { label: t('webbios.updates.progress.deployingDashboard'), progress: 90 };
+      case 'success': return { label: t('webbios.updates.progress.success'), progress: 100 };
+      default: return { label: t('webbios.updates.progress.default'), progress: 10 };
     }
   };
 
@@ -57,7 +57,7 @@ const AppsPage = () => {
             
             setActiveJobs(prev => ({
               ...prev,
-              [appId]: { status: 'Lỗi: ' + (jobData.job.errorMessage || 'Thất bại'), progress: 0, isError: true }
+              [appId]: { status: t('webbios.updates.progress.errorPrefix') + (jobData.job.errorMessage || t('webbios.updates.progress.errorFailed')), progress: 0, isError: true }
             }));
             setUpdatingAppId(null);
           } else {
@@ -94,12 +94,12 @@ const AppsPage = () => {
   }, []);
 
   const handleUninstall = async (id: string) => {
-    if (!confirm(t('apps.installed.confirmUninstall', 'Bạn có chắc muốn gỡ cài đặt ứng dụng này? Toàn bộ dữ liệu và worker trên Cloudflare sẽ bị xóa.'))) return;
+    if (!confirm(t('apps.installed.confirmUninstall', 'Are you sure you want to uninstall this app? All data and workers on Cloudflare will be deleted.'))) return;
     try {
       const json = await webbios.client.delete(`/apps/${id}`);
       if (json.success) {
         setInstalledApps(prev => prev.filter(app => app.id !== id));
-        // Dispatch event để sidebar tự reload menu mà không cần refresh trang
+        // Dispatch event for sidebar to reload menus without refreshing page
         window.dispatchEvent(new Event('menusUpdated'));
       }
     } catch (err) {
@@ -120,7 +120,7 @@ const AppsPage = () => {
         if (res.jobId) {
           setActiveJobs(prev => ({
             ...prev,
-            [app.id]: { status: 'Đang khởi tạo tiến trình...', progress: 5, isError: false }
+            [app.id]: { status: t('webbios.updates.progress.statusInit', 'Initializing process...'), progress: 5, isError: false }
           }));
           startPolling(app.id, res.jobId);
         } else {
@@ -130,15 +130,15 @@ const AppsPage = () => {
               ? { ...a, version: app.latestVersion, hasUpdate: false, latestVersion: app.latestVersion }
               : a
           ));
-          alert(`Đã gửi yêu cầu cập nhật ${app.name} lên v${app.latestVersion}`);
+          alert(`${t('apps.installed.updateSent', 'Update request sent')} ${app.name} -> v${app.latestVersion}`);
           setUpdatingAppId(null);
         }
       } else {
-        alert('Cập nhật thất bại: ' + (res.error || 'Unknown error'));
+        alert(t('apps.installed.updateFailed', 'Update failed: ') + (res.error || 'Unknown error'));
         setUpdatingAppId(null);
       }
     } catch (err: any) {
-      alert('Lỗi cập nhật: ' + err.message);
+      alert(t('apps.installed.updateError', 'Update error: ') + err.message);
       setUpdatingAppId(null);
     }
   };
@@ -164,7 +164,7 @@ const AppsPage = () => {
             <input
               type="text"
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white"
-              placeholder={t('apps.store.searchPlaceholder', 'Tìm kiếm ứng dụng...')}
+              placeholder={t('apps.store.searchPlaceholder', 'Search apps...')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -174,7 +174,7 @@ const AppsPage = () => {
             className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium whitespace-nowrap"
           >
             <Store size={18} />
-            {t('apps.installed.appStore', 'Kho ứng dụng')}
+            {t('apps.installed.appStore', 'App Store')}
           </button>
         </div>
       </div>
@@ -208,7 +208,7 @@ const AppsPage = () => {
                         <ArrowUpCircle size={18} className="text-amber-600 flex-shrink-0" />
                         <div>
                           <p className="text-sm font-medium text-amber-800">
-                            {t('apps.installed.updateAvailable', 'Có phiên bản mới')}
+                            {t('apps.installed.updateAvailable', 'Update available')}
                           </p>
                           <p className="text-xs text-amber-600">
                             v{app.version} → v{app.latestVersion}
@@ -225,8 +225,8 @@ const AppsPage = () => {
                         }`}
                       >
                         {updatingAppId === app.id 
-                          ? t('apps.installed.updating', 'Đang cập nhật...') 
-                          : t('apps.installed.update', 'Cập nhật')
+                          ? t('apps.installed.updating', 'Updating...') 
+                          : t('apps.installed.update', 'Update')
                         }
                       </button>
                     </div>
@@ -291,7 +291,7 @@ const AppsPage = () => {
       {loading && <div className="p-4 text-center text-gray-500">{t('common.loading')}</div>}
       {!loading && installedApps.length === 0 && (
         <div className="p-8 text-center text-gray-500 bg-surface border border-cf-border rounded-xl">
-          {t('apps.installed.empty', 'Chưa có ứng dụng nào được cài đặt.')}
+          {t('apps.installed.empty', 'No applications installed yet.')}
         </div>
       )}
     </div>

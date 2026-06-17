@@ -1,0 +1,578 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "アイコンを選択...",
+      "selectIconTitle": "アイコンを選択",
+      "search": "検索...",
+      "select": "選択..."
+    },
+    "actions": {
+      "settings": "設定",
+      "cancel": "キャンセル",
+      "create": "作成"
+    },
+    "messages": {
+      "underConstruction": "機能は開発中です。"
+    },
+    "loading": "読み込み中...",
+    "systemDefault": "システムデフォルト",
+    "appLoader": {
+      "errorTitle": "アプリケーションの読み込みエラー",
+      "networkError": "{{url}}のアプリに接続できませんでした。",
+      "moduleError": "アプリ{{app}}からモジュール{{module}}を読み込めませんでした。",
+      "networkTipTitle": "💡 トラブルシューティングのヒント:",
+      "networkTip1": "アプリが正常にデプロイされているか確認してください",
+      "networkTip2": "WorkerのURLを確認してください:",
+      "networkTip3": "アプリをアンインストールして再インストールしてみてください",
+      "moduleTipTitle": "💡 トラブルシューティングのヒント:",
+      "moduleTip1": "アプリには適切な構成が必要です",
+      "moduleTip2": "remoteEntry.jsが存在するか確認してください",
+      "moduleTip3": "モジュールはエクスポートする必要があります:",
+      "retry": "再試行",
+      "retrying": "再試行中...",
+      "retriedCount": "{{count}}回試行しました",
+      "loadingApp": "アプリを読み込み中...",
+      "initializing": "アプリのインターフェースを初期化中..."
+    }
+  },
+  "sidebar": {
+    "quickSearch": "クイック検索...",
+    "accountHome": "アカウントホーム",
+    "recents": "最近",
+    "domains": "ドメイン",
+    "observe": "観察",
+    "investigate": "調査",
+    "logExplorer": "ログエクスプローラー",
+    "logSearch": "ログ検索",
+    "trace": "トレース",
+    "logpush": "Logpush",
+    "analytics": "分析",
+    "build": "ビルド",
+    "compute": "コンピュート",
+    "ai": "AI",
+    "storage": "ストレージとデータベース",
+    "media": "メディア",
+    "protect": "保護と接続",
+    "security": "アプリケーションセキュリティ",
+    "zeroTrust": "ゼロトラスト",
+    "networking": "ネットワーキング",
+    "delivery": "配信とパフォーマンス",
+    "collapseSidebar": "サイドバーを折りたたむ",
+    "expandSidebar": "サイドバーを展開"
+  },
+  "webbios": {
+    "updates": {
+      "title": "システムアップデート",
+      "subtitle": "WebbiOSを最新バージョンにアップグレードします。",
+      "versionStatus": "バージョンステータス",
+      "current": "現在:",
+      "latest": "最新:",
+      "updateTo": "v{{version}}にアップデート",
+      "upToDate": "最新です",
+      "updating": "処理中...",
+      "statusDownloading": "ソースコードをダウンロード中...",
+      "statusChecksum": "セキュリティチェックサムを確認中...",
+      "statusDeploying": "新しいWorkerバージョンをデプロイ中...",
+      "statusDone": "完了しました！システムは3秒後にリロードされます。",
+      "progress": {
+        "inProgress": "処理待ち...",
+        "downloading": "インストールパッケージをダウンロード中...",
+        "extracting": "ファイルを展開中...",
+        "installing": "ライブラリをインストール中...",
+        "deployingApi": "Core APIをデプロイ中...",
+        "deployingDashboard": "ダッシュボードをデプロイ中...",
+        "success": "アップデート完了！再読み込み中...",
+        "default": "処理中...",
+        "restoring": "進行状況を復元中...",
+        "errorPrefix": "エラー: ",
+        "errorFailed": "アップデート失敗",
+        "errorNoShop": "ショップIDを特定できませんでした。",
+        "errorNoJobId": "サーバーからジョブIDを受信しませんでした。",
+        "statusUpdating": "更新中...",
+        "statusInit": "更新プロセスを初期化中..."
+      },
+      "releaseNotes": "リリースノート (v{{version}})",
+      "releaseNotesIntro": "このバージョンには重要なバグ修正とパフォーマンスの改善が含まれています:",
+      "releaseNote1": "ページの読み込み速度を15%最適化。",
+      "releaseNote2": "サードパーティアプリのWebhookをサポート。",
+      "releaseNote3": "APIアクセスに関連するセキュリティの脆弱性を修正。"
+    },
+    "licenses": {
+      "title": "ライセンスとプラン",
+      "subtitle": "ライセンス情報を管理します。",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "ステータス:",
+      "statusActive": "アクティブ",
+      "durationLabel": "期間:",
+      "durationPermanent": "無期限",
+      "shopIdLabel": "ショップID:",
+      "proTitle": "Webbi Pro",
+      "proDesc": "無制限のストレージのためにProにアップグレードしてください。",
+      "upgradeBtn": "今すぐアップグレード - $29/月"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "ライセンス",
+      "updates": "アップデート"
+    },
+    "backupRestore": {
+      "title": "バックアップと復元",
+      "description": "システム構成のバックアップと復元。",
+      "export": {
+        "title": "データのエクスポート",
+        "description": "構成のバックアップを作成します。",
+        "button": "今すぐバックアップ"
+      },
+      "restore": {
+        "title": "データの復元",
+        "description": "バックアップファイルをアップロードして復元します。",
+        "button": "バックアップファイルを選択"
+      }
+    },
+    "cloudflareQuotas": {
+      "title": "Cloudflare クォータ",
+      "description": "システムリソースを監視します。",
+      "dashboardBtn": "Cloudflareダッシュボードを開く",
+      "workers": {
+        "title": "Workers リクエスト",
+        "unit": "/ 100,000 (無料)",
+        "desc": "API呼び出しの数"
+      },
+      "d1": {
+        "title": "D1 データベース読み取り",
+        "unit": "/ 5,000,000 (無料)",
+        "desc": "読み取りクエリの数"
+      },
+      "r2": {
+        "title": "R2 ストレージ",
+        "unit": "/ 10 GB (無料)",
+        "desc": "画像のストレージ容量"
+      },
+      "upgrade": {
+        "title": "制限を増やしましょう！",
+        "desc": "Webbi Proにアップグレードして制限を解除してください。",
+        "button": "アップグレードプランを見る"
+      }
+    }
+  },
+  "dashboard": {
+    "accountHome": "アカウントホーム",
+    "add": "追加",
+    "analytics": "分析",
+    "last24h": "過去24時間",
+    "security": "セキュリティ",
+    "securityInsights": "セキュリティインサイト",
+    "encryptedRate": "暗号化リクエスト率",
+    "performance": "パフォーマンス",
+    "cpuTime": "CPU時間 (P90)",
+    "workersErrors": "Workers エラー",
+    "activity": "アクティビティ",
+    "workersInvocations": "Workers 呼び出し",
+    "buildMinutes": "ビルド時間",
+    "domains": "ドメイン",
+    "sitesFaster": "より速く、より安全に",
+    "boostPerformance": "パフォーマンスを向上",
+    "addDomain": "ドメインを追加",
+    "workersAndPages": "WorkersとPages",
+    "zeroTrust": "ゼロトラストセキュリティ",
+    "secureAccess": "チームの安全なアクセス",
+    "controlWho": "内部アプリへのアクセスを制御",
+    "getStarted": "始める",
+    "welcome": "ようこそ、{{name}}",
+    "createReport": "レポートを作成",
+    "ecommerceOverview": "Eコマースの概要",
+    "revenue": "収益",
+    "orders": "注文",
+    "customers": "顧客",
+    "products": "製品"
+  },
+  "products": {
+    "title": "製品",
+    "export": "エクスポート",
+    "import": "インポート",
+    "add": "製品を追加",
+    "tabs": {
+      "all": "すべて",
+      "active": "アクティブ",
+      "draft": "下書き",
+      "archived": "アーカイブ"
+    },
+    "search": "製品を検索...",
+    "filters": {
+      "allStatus": "すべてのステータス",
+      "allTypes": "すべてのタイプ",
+      "allVendors": "すべてのベンダー",
+      "allTags": "すべてのタグ"
+    },
+    "columns": {
+      "product": "製品",
+      "status": "ステータス",
+      "inventory": "在庫",
+      "vendor": "ベンダー",
+      "price": "価格",
+      "actions": "アクション"
+    },
+    "statusLabels": {
+      "active": "アクティブ",
+      "draft": "下書き"
+    },
+    "inventoryLabels": {
+      "inStock": "在庫あり"
+    },
+    "placeholders": {
+      "name": "製品名",
+      "vendor": "ベンダー"
+    },
+    "empty": "製品はまだありません"
+  },
+  "system": {
+    "menus": {
+      "title": "メニュー管理",
+      "description": "ナビゲーションメニューを管理します。",
+      "addMenuLevel1": "レベル1メニューを追加",
+      "structure": "メニュー構造",
+      "loading": "読み込み中...",
+      "hidden": "非表示",
+      "confirmDelete": "このメニュー項目を削除してもよろしいですか？",
+      "errorSaving": "保存エラー",
+      "errorDeleting": "削除エラー",
+      "modal": {
+        "addMenu": "メニューを追加",
+        "editMenu": "メニューを編集",
+        "titleFallback": "デフォルト名",
+        "path": "パス",
+        "translationsEn": "翻訳（英語）",
+        "translationsVi": "翻訳（ベトナム語）",
+        "icon": "アイコン",
+        "permissionId": "権限ID",
+        "position": "位置",
+        "isActive": "アクティブ",
+        "noPermission": "権限なし（公開）",
+        "cancel": "キャンセル",
+        "save": "保存",
+        "parentMenu": "親メニュー",
+        "isCategoryLabel": "カテゴリラベル",
+        "rootMenu": "--- ルート ---"
+      }
+    },
+    "permissions": {
+      "title": "システム権限",
+      "description": "ロールに割り当て可能な権限を定義します。",
+      "addPermission": "新しい権限を追加",
+      "confirmDelete": "削除してもよろしいですか？",
+      "errorSaving": "エラー",
+      "errorDeleting": "エラー",
+      "columns": {
+        "slug": "Slug",
+        "description": "説明",
+        "createdAt": "作成日",
+        "actions": "アクション"
+      },
+      "modal": {
+        "add": "権限を追加",
+        "edit": "権限を編集",
+        "slugLabel": "Slug (例 users:read)",
+        "descriptionLabel": "説明",
+        "slugPlaceholder": "モジュール:アクション"
+      }
+    },
+    "roles": {
+      "title": "ロール管理",
+      "description": "ユーザーのロールを管理します。",
+      "addRole": "新しいロールを追加",
+      "confirmDelete": "ロールを削除しますか？",
+      "errorSaving": "エラー",
+      "errorDeleting": "エラー",
+      "columns": {
+        "name": "ロール名",
+        "slug": "Slug",
+        "description": "説明",
+        "system": "システムロール",
+        "actions": "アクション"
+      },
+      "modal": {
+        "add": "追加",
+        "edit": "編集",
+        "nameLabel": "名前",
+        "slugLabel": "Slug",
+        "descriptionLabel": "説明",
+        "isSystemLabel": "システムロール",
+        "permissionsLabel": "権限を割り当てる",
+        "selectAll": "すべて選択",
+        "unselectAll": "すべて選択解除",
+        "namePlaceholder": "例: 管理者"
+      }
+    }
+  },
+  "header": {
+    "askAI": "AIに質問",
+    "notifications": "通知",
+    "support": "サポート",
+    "account": "アカウント",
+    "logout": "ログアウト"
+  },
+  "auth": {
+    "login": {
+      "title": "ログイン",
+      "subtitle": "管理システムにサインイン",
+      "email": "メール",
+      "password": "パスワード",
+      "submit": "サインイン",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "error": "メールまたはパスワードが無効です"
+    },
+    "forgotPassword": {
+      "title": "パスワードの復元",
+      "subtitle": "メールを入力してください。",
+      "email": "メール",
+      "submit": "リンクを送信",
+      "backToLogin": "ログインに戻る",
+      "success": "手順を送信しました。",
+      "error": "リクエストに失敗しました"
+    }
+  },
+  "media": {
+    "title": "メディアライブラリ",
+    "description": "ファイルを管理",
+    "upload": "アップロード",
+    "newFolder": "新しいフォルダ",
+    "search": "検索...",
+    "filter": "フィルター",
+    "images": "画像",
+    "documents": "ドキュメント",
+    "all": "すべて",
+    "grid": "グリッド",
+    "list": "リスト",
+    "delete": "削除",
+    "empty": "ファイルなし"
+  },
+  "apps": {
+    "installed": {
+      "title": "インストール済みのアプリ",
+      "description": "アプリを管理",
+      "search": "アプリを検索...",
+      "running": "実行中",
+      "stopped": "停止",
+      "settings": "設定",
+      "uninstall": "アンインストール",
+      "openApp": "開く",
+      "restart": "再起動",
+      "stop": "停止",
+      "confirmUninstall": "本当にアンインストールしますか？",
+      "updateAvailable": "更新が利用可能",
+      "updating": "更新中...",
+      "update": "更新",
+      "updateSent": "更新リクエストを送信しました",
+      "updateFailed": "失敗: ",
+      "updateError": "エラー: ",
+      "appStore": "App Store",
+      "empty": "アプリがありません。"
+    },
+    "store": {
+      "title": "App Store",
+      "description": "新しいアプリを発見",
+      "search": "検索...",
+      "filter": "カテゴリー",
+      "install": "インストール",
+      "free": "無料",
+      "paid": "有料",
+      "reviews": "レビュー",
+      "popular": "人気",
+      "new": "最新",
+      "categories": {
+        "marketing": "マーケティング",
+        "sales": "営業",
+        "support": "サポート",
+        "analytics": "分析",
+        "design": "デザイン",
+        "inventory": "在庫"
+      },
+      "priceMonthly": "${{price}}/月"
+    }
+  },
+  "users": {
+    "title": "ユーザー管理",
+    "description": "アカウントの管理",
+    "add": "ユーザーを追加",
+    "search": "検索...",
+    "filter": "フィルター",
+    "columns": {
+      "user": "ユーザー",
+      "role": "ロール",
+      "status": "ステータス",
+      "joined": "参加日",
+      "actions": "アクション"
+    },
+    "status": {
+      "active": "アクティブ",
+      "inactive": "非アクティブ"
+    },
+    "actions": {
+      "edit": "編集",
+      "delete": "削除",
+      "resetPassword": "パスワードをリセット",
+      "lock": "ロック",
+      "unlock": "ロック解除",
+      "archive": "アーカイブ"
+    },
+    "modal": {
+      "add": "追加",
+      "edit": "編集",
+      "resetPassword": "リセット",
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "メール",
+      "password": "パスワード",
+      "role": "ロール",
+      "permissions": "権限",
+      "copyPassword": "コピー",
+      "sendPassword": "メールで送信",
+      "autoGenerate": "自動生成",
+      "smtpWarning": "SMTPが設定されていません。",
+      "smtpLink": "設定する",
+      "confirmArchive": "アーカイブしますか？"
+    }
+  },
+  "audit": {
+    "title": "監査ログ",
+    "description": "システムアクティビティを監視",
+    "search": "ログを検索...",
+    "filter": "フィルター",
+    "export": "エクスポート",
+    "refresh": "更新",
+    "columns": {
+      "action": "アクション",
+      "user": "ユーザー",
+      "resource": "リソース",
+      "date": "日付",
+      "ip": "IP",
+      "details": "詳細"
+    },
+    "timeFilters": {
+      "all": "すべて",
+      "today": "今日",
+      "last7Days": "過去7日間",
+      "last30Days": "過去30日間"
+    }
+  },
+  "settings": {
+    "title": "システム設定",
+    "description": "システムパラメータの構成",
+    "save": "変更を保存",
+    "saving": "保存中...",
+    "messages": {
+      "loadFailed": "読み込み失敗",
+      "saveSuccess": "保存成功",
+      "saveFailed": "保存失敗"
+    },
+    "tabs": {
+      "general": "一般",
+      "security": "セキュリティ",
+      "notifications": "通知",
+      "appearance": "外観",
+      "email": "メール"
+    },
+    "general": {
+      "siteInfo": "ビジネス情報",
+      "siteName": "ビジネス名",
+      "sitePhone": "電話",
+      "regionAndLanguage": "地域と言語",
+      "timezone": "タイムゾーン",
+      "language": "言語",
+      "currency": "通貨",
+      "measurement": "測定単位",
+      "formatOptions": "形式",
+      "orderPrefix": "注文プレフィックス",
+      "invoicePrefix": "請求書プレフィックス",
+      "languageVi": "ベトナム語 (vi)",
+      "languageEn": "英語 (en)",
+      "systemConfig": "システム構成",
+      "cdnUrl": "CDNドメイン (メディアライブラリ用)",
+      "cdnUrlDesc": "このドメインには、Cloudflare R2バケットを指すCNAMEが必要です。"
+    },
+    "security": {
+      "title": "セキュリティ",
+      "require2fa": "2FAを要求",
+      "require2faDesc": "スタッフに2FAを強制します。",
+      "passwordPolicy": "パスワードポリシー",
+      "passwordPolicyDesc": "複雑さのルール。",
+      "policyLow": "低",
+      "policyMedium": "中",
+      "policyHigh": "高"
+    },
+    "notifications": {
+      "title": "通知",
+      "description": "アラートを構成します。",
+      "email": "メール",
+      "inApp": "アプリ内",
+      "zalo": "Zalo",
+      "events": "トリガー",
+      "onNewOrder": "新規注文",
+      "onNewUser": "新規ユーザー"
+    },
+    "appearance": {
+      "title": "外観",
+      "description": "ブランドを構成します。",
+      "logo": "ロゴ",
+      "favicon": "ファビコン",
+      "uploadBtn": "アップロード",
+      "freePlanNotice": "Webbi Proのみ",
+      "freePlanDesc": "アップグレードして変更",
+      "upgradeBtn": "アップグレード"
+    },
+    "email": {
+      "title": "メール構成 (SMTP)",
+      "description": "メールサーバー。",
+      "host": "ホスト",
+      "port": "ポート",
+      "user": "ユーザー名",
+      "pass": "パスワード",
+      "from": "送信者",
+      "upsellBanner": "一斉送信が必要ですか？",
+      "upsellDesc": "Mailerアプリを使用してください。",
+      "exploreApps": "App Store"
+    }
+  },
+  "apiKeys": {
+    "title": "API キー",
+    "description": "アクセスキーの管理",
+    "create": "キーを作成",
+    "columns": {
+      "name": "名前",
+      "key": "キー",
+      "created": "作成日",
+      "lastUsed": "最終使用",
+      "actions": "アクション"
+    },
+    "copy": "コピー",
+    "revoke": "取り消し",
+    "modal": {
+      "add": "キーを作成",
+      "name": "名前",
+      "scopes": "スコープ",
+      "secretWarning": "シークレットコードをコピーしてください！"
+    }
+  },
+  "account": {
+    "title": "マイアカウント",
+    "description": "個人情報",
+    "tabs": {
+      "profile": "プロフィール",
+      "security": "パスワード"
+    },
+    "profile": {
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "メール",
+      "emailNote": "変更できません",
+      "role": "ロール:",
+      "update": "更新"
+    },
+    "security": {
+      "currentPassword": "現在のパスワード",
+      "newPassword": "新しいパスワード",
+      "confirmPassword": "パスワードを確認",
+      "update": "更新"
+    }
+  }
+}

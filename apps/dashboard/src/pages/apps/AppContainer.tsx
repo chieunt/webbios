@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { webbios } from '../../api';
 import RemoteAppLoader from '../../components/RemoteAppLoader';
 
 export default function AppContainer() {
+  const { t } = useTranslation();
   const params = useParams<{ appSlug: string, '*': string }>();
   const appSlug = params.appSlug;
   const subPath = params['*'] || '';
@@ -23,10 +25,10 @@ export default function AppContainer() {
         if (app) {
           setAppInfo(app);
         } else {
-          setError('Ứng dụng không tồn tại hoặc chưa được cài đặt.');
+          setError(t('apps.container.notFound', 'App not found or not installed.'));
         }
       } catch (err: any) {
-        setError(err.message || 'Lỗi lấy thông tin ứng dụng');
+        setError(err.message || t('apps.container.errorFetching', 'Error fetching app info'));
       } finally {
         setLoading(false);
       }
@@ -36,7 +38,7 @@ export default function AppContainer() {
   }, [appSlug]);
 
   if (loading) {
-    return <div className="p-6 text-gray-500">Đang kiểm tra ứng dụng...</div>;
+    return <div className="p-6 text-gray-500">{t('apps.container.checking', 'Checking app...')}</div>;
   }
 
   if (error || !appInfo) {
@@ -44,7 +46,7 @@ export default function AppContainer() {
   }
 
   if (!appInfo.workerUrl) {
-    return <div className="p-6 text-red-600">Ứng dụng chưa được cung cấp URL (workerUrl). Vui lòng cấu hình lại.</div>;
+    return <div className="p-6 text-red-600">{t('apps.container.noWorkerUrl', 'App has no URL (workerUrl) provided. Please reconfigure.')}</div>;
   }
 
   // Determine module to load based on subPath
@@ -52,8 +54,13 @@ export default function AppContainer() {
   const getModuleName = (slug: string, path: string): string => {
     const route = path.split('/')[0];
     if (slug === 'crm') {
+      if (path === 'orders/create') return './CreateOrderPage';
       if (route === 'customers') return './CustomersPage';
       if (route === 'reports') return './ReportsPage';
+      if (route === 'products') return './ProductsPage';
+      if (route === 'inventory') return './InventoryPage';
+      if (route === 'purchase_orders') return './PurchaseOrdersPage';
+      if (route === 'suppliers') return './SuppliersPage';
       // Default (no path or 'orders'): OrdersPage
       return './OrdersPage';
     }
@@ -66,11 +73,11 @@ export default function AppContainer() {
   };
 
   const moduleName = getModuleName(appSlug || '', subPath);
-  console.log('AppContainer DEBUG:', { appSlug, subPath, moduleName, url: window.location.href });
 
   return (
     <div className="h-full w-full">
       <RemoteAppLoader 
+        key={`${appInfo.slug}-${moduleName}`}
         appSlug={appInfo.slug} 
         workerUrl={appInfo.workerUrl} 
         moduleName={moduleName} 

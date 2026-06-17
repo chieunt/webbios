@@ -5,26 +5,26 @@ export class CacheService {
     private apiToken: string
   ) {}
 
-  // Ghi cache (vĩnh viễn, không TTL)
+  // Set cache (permanent, no TTL)
   async set(key: string, value: any): Promise<void> {
     await this.kv.put(`cache:${key}`, JSON.stringify(value));
   }
 
-  // Lấy cache
+  // Get cache
   async get<T>(key: string): Promise<T | null> {
     const value = await this.kv.get(`cache:${key}`);
     return value ? JSON.parse(value) : null;
   }
 
-  // Xóa cache trong KV và Purge CDN theo Cache-Tag
+  // Delete cache in KV and Purge CDN by Cache-Tag
   async invalidate(key: string): Promise<void> {
-    // Tầng 3: Xóa KV
+    // Tier 3: Delete KV
     await this.kv.delete(`cache:${key}`);
-    // Tầng 1+2: Purge CDN Cache bằng Cache-Tag
+    // Tier 1+2: Purge CDN Cache by Cache-Tag
     await this.purgeCDN(`storefront:${key}`);
   }
 
-  // Xóa toàn bộ cache storefront cho 1 shop
+  // Delete all storefront cache for a shop
   async invalidateAll(shopDomain: string): Promise<void> {
     await this.invalidate(`theme:config:${shopDomain}`);
     await this.invalidate(`theme:css:${shopDomain}`);

@@ -1,0 +1,578 @@
+{
+  "common": {
+    "placeholders": {
+      "selectIcon": "เลือกไอคอน...",
+      "selectIconTitle": "เลือกไอคอน",
+      "search": "ค้นหา...",
+      "select": "เลือก..."
+    },
+    "actions": {
+      "settings": "การตั้งค่า",
+      "cancel": "ยกเลิก",
+      "create": "สร้าง"
+    },
+    "messages": {
+      "underConstruction": "ฟีเจอร์อยู่ระหว่างการพัฒนา"
+    },
+    "loading": "กำลังโหลด...",
+    "systemDefault": "ค่าเริ่มต้น",
+    "appLoader": {
+      "errorTitle": "ข้อผิดพลาดในการโหลดแอปพลิเคชัน",
+      "networkError": "ไม่สามารถเชื่อมต่อกับแอปพลิเคชันที่ {{url}} แอปอาจไม่ได้ถูกปรับใช้ หรือ URL ไม่ถูกต้อง",
+      "moduleError": "ไม่สามารถโหลดโมดูล {{module}} จากแอป {{app}} ได้",
+      "networkTipTitle": "💡 เคล็ดลับการแก้ไขปัญหา:",
+      "networkTip1": "ตรวจสอบว่ามีการปรับใช้แอปบน Cloudflare Pages หรือไม่",
+      "networkTip2": "ตรวจสอบ URL ของ worker:",
+      "networkTip3": "ลองถอนการติดตั้งและติดตั้งแอปใหม่",
+      "moduleTipTitle": "💡 เคล็ดลับการแก้ไขปัญหา:",
+      "moduleTip1": "แอปจำเป็นต้องมีการกำหนดค่า Vite Module Federation",
+      "moduleTip2": "ตรวจสอบว่ามีไฟล์ remoteEntry.js หรือไม่",
+      "moduleTip3": "โมดูลต้องทำการ export:",
+      "retry": "ลองใหม่",
+      "retrying": "กำลังลองใหม่...",
+      "retriedCount": "ลองไปแล้ว {{count}} ครั้ง",
+      "loadingApp": "กำลังโหลดแอป...",
+      "initializing": "กำลังเตรียมหน้าจอแอป..."
+    }
+  },
+  "sidebar": {
+    "quickSearch": "ค้นหาด่วน...",
+    "accountHome": "หน้าหลักบัญชี",
+    "recents": "ล่าสุด",
+    "domains": "โดเมน",
+    "observe": "สังเกตการณ์",
+    "investigate": "ตรวจสอบ",
+    "logExplorer": "ตัวจัดการบันทึก",
+    "logSearch": "ค้นหาบันทึก",
+    "trace": "ติดตาม",
+    "logpush": "Logpush",
+    "analytics": "การวิเคราะห์",
+    "build": "สร้าง",
+    "compute": "ประมวลผล",
+    "ai": "AI",
+    "storage": "พื้นที่เก็บข้อมูลและฐานข้อมูล",
+    "media": "สื่อ",
+    "protect": "ป้องกันและเชื่อมต่อ",
+    "security": "ความปลอดภัยแอปพลิเคชัน",
+    "zeroTrust": "Zero Trust",
+    "networking": "เครือข่าย",
+    "delivery": "การส่งมอบและประสิทธิภาพ",
+    "collapseSidebar": "ย่อแถบด้านข้าง",
+    "expandSidebar": "ขยายแถบด้านข้าง"
+  },
+  "webbios": {
+    "updates": {
+      "title": "การอัปเดตระบบ",
+      "subtitle": "ตรวจสอบและอัปเกรด WebbiOS ให้เป็นเวอร์ชันล่าสุด",
+      "versionStatus": "สถานะเวอร์ชัน",
+      "current": "ปัจจุบัน:",
+      "latest": "ล่าสุด:",
+      "updateTo": "อัปเดตเป็น v{{version}}",
+      "upToDate": "เป็นเวอร์ชันล่าสุดแล้ว",
+      "updating": "กำลังดำเนินการ...",
+      "statusDownloading": "กำลังดาวน์โหลดโค้ด...",
+      "statusChecksum": "กำลังตรวจสอบความปลอดภัย...",
+      "statusDeploying": "กำลังปรับใช้ Worker ใหม่...",
+      "statusDone": "เสร็จสิ้น! ระบบจะรีโหลดใน 3 วินาที",
+      "progress": {
+        "inProgress": "กำลังเข้าคิว...",
+        "downloading": "กำลังดาวน์โหลด...",
+        "extracting": "กำลังแตกไฟล์...",
+        "installing": "กำลังติดตั้ง...",
+        "deployingApi": "กำลังปรับใช้ Core API...",
+        "deployingDashboard": "กำลังปรับใช้ Dashboard...",
+        "success": "อัปเดตสำเร็จ! กำลังรีโหลด...",
+        "default": "กำลังดำเนินการ...",
+        "restoring": "กำลังกู้คืน...",
+        "errorPrefix": "ข้อผิดพลาด: ",
+        "errorFailed": "การอัปเดตล้มเหลว",
+        "errorNoShop": "ไม่พบ ID ร้านค้า การอัปเดตถูกยกเลิก",
+        "errorNoJobId": "ไม่ได้รับ ID งานจากเซิร์ฟเวอร์",
+        "statusUpdating": "กำลังอัปเดต...",
+        "statusInit": "กำลังเริ่มต้น..."
+      },
+      "releaseNotes": "บันทึกประจำรุ่น (v{{version}})",
+      "releaseNotesIntro": "เวอร์ชันนี้มีการแก้ไขข้อบกพร่องที่สำคัญ:",
+      "releaseNote1": "ปรับปรุงความเร็วในการโหลด 15%",
+      "releaseNote2": "รองรับ Webhooks",
+      "releaseNote3": "แก้ไขช่องโหว่ด้านความปลอดภัย"
+    },
+    "licenses": {
+      "title": "สิทธิ์การใช้งานและแพ็กเกจ",
+      "subtitle": "จัดการสิทธิ์การใช้งาน WebbiOS",
+      "coreTitle": "Webbi Free",
+      "statusLabel": "สถานะ:",
+      "statusActive": "ใช้งาน",
+      "durationLabel": "ระยะเวลา:",
+      "durationPermanent": "ตลอดชีพ",
+      "shopIdLabel": "Shop ID:",
+      "proTitle": "Webbi Pro",
+      "proDesc": "อัปเกรดเป็น Pro เพื่อรับพื้นที่เก็บข้อมูลไม่จำกัด",
+      "upgradeBtn": "อัปเกรดทันที - $29/เดือน"
+    },
+    "menu": {
+      "category": "WEBBIOS",
+      "licenses": "สิทธิ์การใช้งาน",
+      "updates": "การอัปเดต"
+    },
+    "backupRestore": {
+      "title": "สำรองและกู้คืน",
+      "description": "สำรองและกู้คืนการตั้งค่าระบบ",
+      "export": {
+        "title": "ส่งออกข้อมูล",
+        "description": "สร้างไฟล์สำรองข้อมูลทั้งหมด",
+        "button": "สำรองข้อมูลทันที"
+      },
+      "restore": {
+        "title": "กู้คืนข้อมูล",
+        "description": "อัปโหลดไฟล์สำรอง",
+        "button": "เลือกไฟล์สำรอง"
+      }
+    },
+    "cloudflareQuotas": {
+      "title": "โควต้า Cloudflare",
+      "description": "ตรวจสอบและจัดการทรัพยากร",
+      "dashboardBtn": "เปิด Cloudflare Dashboard",
+      "workers": {
+        "title": "คำขอ Workers",
+        "unit": "/ 100,000 (ฟรี)",
+        "desc": "จำนวนการเรียกใช้งาน API"
+      },
+      "d1": {
+        "title": "การอ่าน D1 Database",
+        "unit": "/ 5,000,000 (ฟรี)",
+        "desc": "จำนวนคำสั่งอ่าน"
+      },
+      "r2": {
+        "title": "พื้นที่ R2",
+        "unit": "/ 10 GB (ฟรี)",
+        "desc": "พื้นที่เก็บภาพและไฟล์"
+      },
+      "upgrade": {
+        "title": "เพิ่มขีดจำกัดวันนี้!",
+        "desc": "อัปเกรดเป็น Webbi Pro เพื่อลบขีดจำกัด",
+        "button": "ดูแพ็กเกจ"
+      }
+    }
+  },
+  "dashboard": {
+    "accountHome": "หน้าหลักบัญชี",
+    "add": "เพิ่ม",
+    "analytics": "การวิเคราะห์",
+    "last24h": "24 ชั่วโมงที่ผ่านมา",
+    "security": "ความปลอดภัย",
+    "securityInsights": "ข้อมูลเชิงลึกด้านความปลอดภัย",
+    "encryptedRate": "อัตราการเข้ารหัส",
+    "performance": "ประสิทธิภาพ",
+    "cpuTime": "เวลา CPU (P90)",
+    "workersErrors": "ข้อผิดพลาด Workers",
+    "activity": "กิจกรรม",
+    "workersInvocations": "การใช้งาน Workers",
+    "buildMinutes": "เวลาในการบิลด์",
+    "domains": "โดเมน",
+    "sitesFaster": "เว็บไซต์เร็วและปลอดภัย",
+    "boostPerformance": "เพิ่มประสิทธิภาพ",
+    "addDomain": "เพิ่มโดเมน",
+    "workersAndPages": "Workers และ Pages",
+    "zeroTrust": "Zero Trust Security",
+    "secureAccess": "การเข้าถึงที่ปลอดภัยสำหรับทีม",
+    "controlWho": "ควบคุมการเข้าถึงแอป",
+    "getStarted": "เริ่มต้น",
+    "welcome": "ยินดีต้อนรับ, {{name}}",
+    "createReport": "สร้างรายงาน",
+    "ecommerceOverview": "ภาพรวมอีคอมเมิร์ซ",
+    "revenue": "รายได้",
+    "orders": "คำสั่งซื้อ",
+    "customers": "ลูกค้า",
+    "products": "สินค้า"
+  },
+  "products": {
+    "title": "สินค้า",
+    "export": "ส่งออก",
+    "import": "นำเข้า",
+    "add": "เพิ่มสินค้า",
+    "tabs": {
+      "all": "ทั้งหมด",
+      "active": "เปิดใช้งาน",
+      "draft": "แบบร่าง",
+      "archived": "เก็บถาวร"
+    },
+    "search": "ค้นหาสินค้า...",
+    "filters": {
+      "allStatus": "สถานะทั้งหมด",
+      "allTypes": "ประเภททั้งหมด",
+      "allVendors": "ผู้จัดจำหน่ายทั้งหมด",
+      "allTags": "แท็กทั้งหมด"
+    },
+    "columns": {
+      "product": "สินค้า",
+      "status": "สถานะ",
+      "inventory": "สินค้าคงคลัง",
+      "vendor": "ผู้จัดจำหน่าย",
+      "price": "ราคา",
+      "actions": "การทำงาน"
+    },
+    "statusLabels": {
+      "active": "เปิดใช้งาน",
+      "draft": "แบบร่าง"
+    },
+    "inventoryLabels": {
+      "inStock": "มีสินค้า"
+    },
+    "placeholders": {
+      "name": "ชื่อสินค้า",
+      "vendor": "ผู้จัดจำหน่าย"
+    },
+    "empty": "ยังไม่มีสินค้า"
+  },
+  "system": {
+    "menus": {
+      "title": "การจัดการเมนู",
+      "description": "จัดการเมนูนำทาง",
+      "addMenuLevel1": "เพิ่มเมนูระดับ 1",
+      "structure": "โครงสร้างเมนู",
+      "loading": "กำลังโหลด...",
+      "hidden": "ซ่อน",
+      "confirmDelete": "คุณแน่ใจหรือไม่ว่าต้องการลบเมนูนี้?",
+      "errorSaving": "เกิดข้อผิดพลาดในการบันทึก",
+      "errorDeleting": "เกิดข้อผิดพลาดในการลบ",
+      "modal": {
+        "addMenu": "เพิ่มเมนู",
+        "editMenu": "แก้ไขเมนู",
+        "titleFallback": "ชื่อเริ่มต้น",
+        "path": "เส้นทาง",
+        "translationsEn": "แปล (อังกฤษ)",
+        "translationsVi": "แปล (เวียดนาม)",
+        "icon": "ไอคอน",
+        "permissionId": "ID สิทธิ์",
+        "position": "ตำแหน่ง",
+        "isActive": "แสดงบนแถบ",
+        "noPermission": "ไม่ต้องใช้สิทธิ์",
+        "cancel": "ยกเลิก",
+        "save": "บันทึก",
+        "parentMenu": "เมนูหลัก",
+        "isCategoryLabel": "เป็นหมวดหมู่",
+        "rootMenu": "--- นอกสุด ---"
+      }
+    },
+    "permissions": {
+      "title": "สิทธิ์การเข้าถึงระบบ",
+      "description": "จัดการสิทธิ์",
+      "addPermission": "เพิ่มสิทธิ์ใหม่",
+      "confirmDelete": "แน่ใจหรือไม่ที่จะลบ?",
+      "errorSaving": "เกิดข้อผิดพลาดในการบันทึก",
+      "errorDeleting": "เกิดข้อผิดพลาดในการลบ",
+      "columns": {
+        "slug": "Slug",
+        "description": "คำอธิบาย",
+        "createdAt": "สร้างเมื่อ",
+        "actions": "การทำงาน"
+      },
+      "modal": {
+        "add": "เพิ่มสิทธิ์",
+        "edit": "แก้ไขสิทธิ์",
+        "slugLabel": "Slug (เช่น users:read)",
+        "descriptionLabel": "คำอธิบาย",
+        "slugPlaceholder": "module:action"
+      }
+    },
+    "roles": {
+      "title": "บทบาท",
+      "description": "จัดการบทบาท",
+      "addRole": "เพิ่มบทบาทใหม่",
+      "confirmDelete": "แน่ใจหรือไม่ที่จะลบ?",
+      "errorSaving": "เกิดข้อผิดพลาด",
+      "errorDeleting": "เกิดข้อผิดพลาด",
+      "columns": {
+        "name": "ชื่อบทบาท",
+        "slug": "Slug",
+        "description": "คำอธิบาย",
+        "system": "ระบบ",
+        "actions": "การทำงาน"
+      },
+      "modal": {
+        "add": "เพิ่มบทบาท",
+        "edit": "แก้ไขบทบาท",
+        "nameLabel": "ชื่อ",
+        "slugLabel": "Slug",
+        "descriptionLabel": "คำอธิบาย",
+        "isSystemLabel": "บทบาทระบบ",
+        "permissionsLabel": "สิทธิ์การใช้งาน",
+        "selectAll": "เลือกทั้งหมด",
+        "unselectAll": "ไม่เลือกทั้งหมด",
+        "namePlaceholder": "เช่น Admin"
+      }
+    }
+  },
+  "header": {
+    "askAI": "ถาม AI",
+    "notifications": "การแจ้งเตือน",
+    "support": "สนับสนุน",
+    "account": "บัญชี",
+    "logout": "ออกจากระบบ"
+  },
+  "auth": {
+    "login": {
+      "title": "เข้าสู่ระบบ",
+      "subtitle": "เข้าสู่ระบบผู้ดูแล",
+      "email": "อีเมล",
+      "password": "รหัสผ่าน",
+      "submit": "ลงชื่อเข้าใช้",
+      "forgotPassword": "ลืมรหัสผ่าน?",
+      "error": "อีเมลหรือรหัสผ่านไม่ถูกต้อง"
+    },
+    "forgotPassword": {
+      "title": "กู้คืนรหัสผ่าน",
+      "subtitle": "ป้อนอีเมลของคุณ",
+      "email": "อีเมล",
+      "submit": "ส่งลิงก์",
+      "backToLogin": "กลับไปหน้าล็อกอิน",
+      "success": "ส่งคำแนะนำแล้ว",
+      "error": "ไม่สามารถส่งได้"
+    }
+  },
+  "media": {
+    "title": "สื่อ",
+    "description": "จัดการไฟล์",
+    "upload": "อัปโหลด",
+    "newFolder": "โฟลเดอร์ใหม่",
+    "search": "ค้นหา...",
+    "filter": "กรอง",
+    "images": "รูปภาพ",
+    "documents": "เอกสาร",
+    "all": "ทั้งหมด",
+    "grid": "ตาราง",
+    "list": "รายการ",
+    "delete": "ลบ",
+    "empty": "ไม่มีไฟล์"
+  },
+  "apps": {
+    "installed": {
+      "title": "แอปที่ติดตั้ง",
+      "description": "จัดการแอป",
+      "search": "ค้นหา...",
+      "running": "กำลังทำงาน",
+      "stopped": "หยุด",
+      "settings": "การตั้งค่า",
+      "uninstall": "ถอนการติดตั้ง",
+      "openApp": "เปิดแอป",
+      "restart": "รีสตาร์ท",
+      "stop": "หยุด",
+      "confirmUninstall": "แน่ใจหรือไม่ที่จะถอนการติดตั้ง?",
+      "updateAvailable": "มีอัปเดต",
+      "updating": "กำลังอัปเดต...",
+      "update": "อัปเดต",
+      "updateSent": "ส่งคำขออัปเดตแล้ว",
+      "updateFailed": "ล้มเหลว: ",
+      "updateError": "เกิดข้อผิดพลาด: ",
+      "appStore": "App Store",
+      "empty": "ยังไม่มีแอป"
+    },
+    "store": {
+      "title": "App Store",
+      "description": "ค้นหาแอปใหม่",
+      "search": "ค้นหา...",
+      "filter": "หมวดหมู่",
+      "install": "ติดตั้ง",
+      "free": "ฟรี",
+      "paid": "มีค่าใช้จ่าย",
+      "reviews": "รีวิว",
+      "popular": "ยอดนิยม",
+      "new": "ใหม่ล่าสุด",
+      "categories": {
+        "marketing": "การตลาด",
+        "sales": "การขาย",
+        "support": "สนับสนุน",
+        "analytics": "การวิเคราะห์",
+        "design": "การออกแบบ",
+        "inventory": "สินค้าคงคลัง"
+      },
+      "priceMonthly": "${{price}}/เดือน"
+    }
+  },
+  "users": {
+    "title": "ผู้ใช้งาน",
+    "description": "จัดการบัญชี",
+    "add": "เพิ่มผู้ใช้",
+    "search": "ค้นหา...",
+    "filter": "กรอง",
+    "columns": {
+      "user": "ผู้ใช้",
+      "role": "บทบาท",
+      "status": "สถานะ",
+      "joined": "วันที่เข้าร่วม",
+      "actions": "การทำงาน"
+    },
+    "status": {
+      "active": "เปิดใช้งาน",
+      "inactive": "ปิดใช้งาน"
+    },
+    "actions": {
+      "edit": "แก้ไข",
+      "delete": "ลบ",
+      "resetPassword": "รีเซ็ตรหัสผ่าน",
+      "lock": "ล็อก",
+      "unlock": "ปลดล็อก",
+      "archive": "เก็บถาวร"
+    },
+    "modal": {
+      "add": "เพิ่ม",
+      "edit": "แก้ไข",
+      "resetPassword": "รีเซ็ต",
+      "firstName": "ชื่อ",
+      "lastName": "นามสกุล",
+      "email": "อีเมล",
+      "password": "รหัสผ่าน",
+      "role": "บทบาท",
+      "permissions": "สิทธิ์",
+      "copyPassword": "คัดลอกรหัส",
+      "sendPassword": "ส่งอีเมล",
+      "autoGenerate": "สร้างอัตโนมัติ",
+      "smtpWarning": "ไม่ได้กำหนดค่า SMTP",
+      "smtpLink": "ตั้งค่าทันที",
+      "confirmArchive": "แน่ใจหรือไม่ที่จะเก็บถาวร?"
+    }
+  },
+  "audit": {
+    "title": "บันทึกระบบ",
+    "description": "ตรวจสอบระบบ",
+    "search": "ค้นหา...",
+    "filter": "กรอง",
+    "export": "ส่งออก",
+    "refresh": "รีเฟรช",
+    "columns": {
+      "action": "การกระทำ",
+      "user": "ผู้ใช้",
+      "resource": "ทรัพยากร",
+      "date": "วันที่",
+      "ip": "IP",
+      "details": "รายละเอียด"
+    },
+    "timeFilters": {
+      "all": "ทั้งหมด",
+      "today": "วันนี้",
+      "last7Days": "7 วันที่ผ่านมา",
+      "last30Days": "30 วันที่ผ่านมา"
+    }
+  },
+  "settings": {
+    "title": "การตั้งค่า",
+    "description": "พารามิเตอร์ระบบ",
+    "save": "บันทึก",
+    "saving": "กำลังบันทึก...",
+    "messages": {
+      "loadFailed": "ไม่สามารถโหลด",
+      "saveSuccess": "บันทึกสำเร็จ",
+      "saveFailed": "บันทึกไม่สำเร็จ"
+    },
+    "tabs": {
+      "general": "ทั่วไป",
+      "security": "ความปลอดภัย",
+      "notifications": "การแจ้งเตือน",
+      "appearance": "รูปลักษณ์",
+      "email": "อีเมล"
+    },
+    "general": {
+      "siteInfo": "ข้อมูลธุรกิจ",
+      "siteName": "ชื่อธุรกิจ",
+      "sitePhone": "เบอร์โทร",
+      "regionAndLanguage": "ภาษา",
+      "timezone": "เขตเวลา",
+      "language": "ภาษา",
+      "currency": "สกุลเงิน",
+      "measurement": "หน่วย",
+      "formatOptions": "รูปแบบ",
+      "orderPrefix": "คำนำหน้าออเดอร์",
+      "invoicePrefix": "คำนำหน้าใบแจ้งหนี้",
+      "languageVi": "Vietnamese (vi)",
+      "languageEn": "English (en)",
+      "systemConfig": "การกำหนดค่าระบบ",
+      "cdnUrl": "โดเมน CDN (สำหรับไลบรารีสื่อ)",
+      "cdnUrlDesc": "โดเมนนี้ต้องมี CNAME ที่ชี้ไปยัง Cloudflare R2 bucket ของคุณ"
+    },
+    "security": {
+      "title": "ความปลอดภัย",
+      "require2fa": "บังคับใช้ 2FA",
+      "require2faDesc": "บังคับ 2FA.",
+      "passwordPolicy": "นโยบายรหัสผ่าน",
+      "passwordPolicyDesc": "ความซับซ้อน",
+      "policyLow": "ต่ำ",
+      "policyMedium": "กลาง",
+      "policyHigh": "สูง"
+    },
+    "notifications": {
+      "title": "ช่องทางการแจ้งเตือน",
+      "description": "การตั้งค่า.",
+      "email": "อีเมล",
+      "inApp": "ในแอป",
+      "zalo": "Zalo",
+      "events": "เหตุการณ์",
+      "onNewOrder": "คำสั่งซื้อใหม่",
+      "onNewUser": "ผู้ใช้ใหม่"
+    },
+    "appearance": {
+      "title": "รูปลักษณ์",
+      "description": "เอกลักษณ์.",
+      "logo": "โลโก้",
+      "favicon": "Favicon",
+      "uploadBtn": "อัปโหลด",
+      "freePlanNotice": "Pro เท่านั้น",
+      "freePlanDesc": "อัปเกรดเพื่อเปลี่ยน",
+      "upgradeBtn": "อัปเกรด"
+    },
+    "email": {
+      "title": "อีเมล (SMTP)",
+      "description": "เซิร์ฟเวอร์เมล",
+      "host": "โฮสต์",
+      "port": "พอร์ต",
+      "user": "ชื่อผู้ใช้",
+      "pass": "รหัสผ่าน",
+      "from": "ผู้ส่ง",
+      "upsellBanner": "ส่งเมลจำนวนมาก?",
+      "upsellDesc": "ใช้ Mailer app.",
+      "exploreApps": "App Store"
+    }
+  },
+  "apiKeys": {
+    "title": "API Keys",
+    "description": "จัดการคีย์",
+    "create": "สร้างคีย์",
+    "columns": {
+      "name": "ชื่อ",
+      "key": "คีย์",
+      "created": "สร้างเมื่อ",
+      "lastUsed": "ใช้งานล่าสุด",
+      "actions": "การทำงาน"
+    },
+    "copy": "คัดลอก",
+    "revoke": "เพิกถอน",
+    "modal": {
+      "add": "สร้างคีย์",
+      "name": "ชื่อ",
+      "scopes": "ขอบเขต",
+      "secretWarning": "คัดลอกคีย์ลับ!"
+    }
+  },
+  "account": {
+    "title": "บัญชีของฉัน",
+    "description": "ข้อมูลส่วนตัว",
+    "tabs": {
+      "profile": "โปรไฟล์",
+      "security": "รหัสผ่าน"
+    },
+    "profile": {
+      "firstName": "ชื่อ",
+      "lastName": "นามสกุล",
+      "email": "อีเมล",
+      "emailNote": "แก้ไขไม่ได้",
+      "role": "บทบาท:",
+      "update": "อัปเดต"
+    },
+    "security": {
+      "currentPassword": "รหัสปัจจุบัน",
+      "newPassword": "รหัสใหม่",
+      "confirmPassword": "ยืนยันรหัสใหม่",
+      "update": "อัปเดต"
+    }
+  }
+}

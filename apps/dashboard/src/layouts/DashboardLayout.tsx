@@ -8,6 +8,7 @@ import { useAuth } from '../App';
 import { webbios } from '../api';
 import { useEffect } from 'react';
 import { useUpdateChecker } from '../hooks/useUpdateChecker';
+import { CommandPalette } from '../components/CommandPalette';
 
 interface LayoutProps {
   children: ReactNode;
@@ -37,6 +38,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
   const [isHoverExpanded, setIsHoverExpanded] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCmdOpen, setCmdOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [cdnUrl, setCdnUrl] = useState('https://cdn.webbios.dev');
 
@@ -52,8 +54,18 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleKeydown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setCmdOpen(true);
+      }
+    };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('keydown', handleKeydown);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('keydown', handleKeydown);
+    };
   }, []);
 
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
@@ -250,18 +262,21 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
 
         <nav className="flex-1 overflow-y-auto px-3 pb-4 thin-scrollbar">
           <div className="pt-3 pb-2">
-            <div className={`flex items-center space-x-2 bg-surface border border-cf-border rounded-md px-3 py-1.5 text-[#6b7280] text-sm ${effectivelyCollapsed ? 'justify-center !px-0 bg-transparent border-transparent hover:bg-cf-hover' : ''}`}>
+            <button 
+              onClick={() => setCmdOpen(true)}
+              className={`w-full flex items-center space-x-2 bg-surface border border-cf-border rounded-md px-3 py-1.5 text-[#6b7280] text-sm hover:bg-gray-50 transition-colors ${effectivelyCollapsed ? 'justify-center !px-0 bg-transparent border-transparent hover:bg-cf-hover' : ''}`}
+            >
               <Search size={16} strokeWidth={1.5} className="text-[#6b7280] flex-shrink-0" />
               {!effectivelyCollapsed && (
                 <>
-                  <span className="flex-1 truncate text-gray-400">{t('sidebar.quickSearch')}</span>
+                  <span className="flex-1 truncate text-left text-gray-500">{t('sidebar.quickSearch') || 'Quick Search...'}</span>
                   <span className="text-xs flex items-center space-x-1 text-gray-400 flex-shrink-0">
                     <span>Ctrl</span>
                     <span className="text-cf-text font-medium border border-cf-border rounded px-1.5 py-0.5 bg-background shadow-sm">K</span>
                   </span>
                 </>
               )}
-            </div>
+            </button>
           </div>
 
           <div className="space-y-0.5">
@@ -380,6 +395,9 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
           </div>
         </div>
       </main>
+      
+      {/* Global Search Command Palette */}
+      <CommandPalette isOpen={isCmdOpen} onClose={() => setCmdOpen(false)} />
     </div>
   );
 };

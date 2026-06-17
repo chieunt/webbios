@@ -76,7 +76,9 @@ import usersApp from './routes/admin/users'
 import auditLogsApp from './routes/admin/audit_logs'
 import apiKeysApp from './routes/admin/api_keys'
 import storefrontConfigApp from './routes/storefront/config'
+import publicApp from './routes/public'
 
+app.route('/v1/public', publicApp)
 app.route('/v1/admin/auth', authApp)
 app.route('/v1/admin/dashboard', dashboardApp)
 app.route('/v1/admin/menus', menusApp)

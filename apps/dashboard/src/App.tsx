@@ -4,8 +4,10 @@ import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
 import ProductsPage from './pages/products/ProductsPage';
-import { webbios } from './api';
+import { webbios, resolveApiUrl } from './api';
+import i18n from './i18n';
 import { DashboardLayout } from './layouts/DashboardLayout';
+import { Loading } from '@webbios/ui';
 
 // --- Simple Auth Context ---
 interface AuthContextType {
@@ -34,13 +36,14 @@ import MenusPage from './pages/system/MenusPage';
 import PermissionsPage from './pages/system/PermissionsPage';
 import { lazy, Suspense } from 'react';
 import RolesPage from './pages/system/RolesPage';
-import { LicensesPage as WebbiOSLicensesPage } from './pages/WebbiOS/LicensesPage';
+import { UpdatesPage } from './pages/WebbiOS/UpdatesPage';
+import { BackupRestorePage } from './pages/WebbiOS/BackupRestorePage';
+import { CloudflareQuotasPage } from './pages/WebbiOS/CloudflareQuotasPage';
 
 // Remote Modules
 const PlatformShopsPage = lazy(() => import('platformSuite/ShopsPage'));
 const PlatformLicensesPage = lazy(() => import('platformSuite/LicensesPage'));
 const PlatformVersionsPage = lazy(() => import('platformSuite/VersionsPage'));
-import { UpdatesPage } from './pages/WebbiOS/UpdatesPage';
 import MediaPage from './pages/media/MediaPage';
 import AppsPage from './pages/apps/AppsPage';
 import AppsStorePage from './pages/apps/AppsStorePage';
@@ -61,7 +64,10 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <DashboardLayout>{children}</DashboardLayout>;
 };
 
+import { useTranslation } from 'react-i18next';
+
 function App() {
+  const { t } = useTranslation();
   const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem('webbios_token'));
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('webbios_token'));
   const [user, setUser] = useState<any>(null);
@@ -69,11 +75,32 @@ function App() {
   const [isInitializing, setIsInitializing] = useState(true);
 
   useEffect(() => {
-    if (token) {
-      fetchUserInfo(token);
-    } else {
-      setIsInitializing(false);
-    }
+    const initApp = async () => {
+      try {
+        // Get public settings (language) before rendering app
+        const publicEndpoint = resolveApiUrl().replace('/v1/admin', '/v1/public/settings');
+        const res = await fetch(publicEndpoint);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data && json.data['site.language']) {
+            let lang = json.data['site.language'];
+            if (typeof lang === 'string' && lang.startsWith('"')) {
+              try { lang = JSON.parse(lang); } catch (e) {}
+            }
+            i18n.changeLanguage(lang);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load public settings', err);
+      }
+
+      if (token) {
+        await fetchUserInfo(token);
+      } else {
+        setIsInitializing(false);
+      }
+    };
+    initApp();
   }, []);
 
   useEffect(() => {
@@ -123,11 +150,7 @@ function App() {
   };
 
   if (isInitializing) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="w-8 h-8 border-4 border-[#0051c3] border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <Loading fullScreen text={t('common.messages.initializingSystem', 'Initializing system...')} />;
   }
 
   return (
@@ -204,7 +227,7 @@ function App() {
             path="/platform/licenses" 
             element={
               <ProtectedRoute>
-                <Suspense fallback={<div className="p-6">Loading Platform Suite...</div>}>
+                <Suspense fallback={<Loading className="py-20" text={t('common.messages.loadingData', 'Loading data...')} />}>
                   <div id="remote-platform" className="h-full">
                     <PlatformLicensesPage />
                   </div>
@@ -216,7 +239,7 @@ function App() {
             path="/platform/shops" 
             element={
               <ProtectedRoute>
-                <Suspense fallback={<div className="p-6">Loading Platform Suite...</div>}>
+                <Suspense fallback={<Loading className="py-20" text={t('common.messages.loadingData', 'Loading data...')} />}>
                   <div id="remote-platform" className="h-full">
                     <PlatformShopsPage />
                   </div>
@@ -228,7 +251,7 @@ function App() {
             path="/platform/versions" 
             element={
               <ProtectedRoute>
-                <Suspense fallback={<div className="p-6">Loading Platform Suite...</div>}>
+                <Suspense fallback={<Loading className="py-20" text={t('common.messages.loadingData', 'Loading data...')} />}>
                   <div id="remote-platform" className="h-full">
                     <PlatformVersionsPage />
                   </div>
@@ -245,12 +268,12 @@ function App() {
             } 
           />
           <Route 
-            path="/webbios/licenses" 
-            element={
-              <ProtectedRoute>
-                <WebbiOSLicensesPage />
-              </ProtectedRoute>
-            } 
+            path="/webbios/backup-restore" 
+            element={<ProtectedRoute><BackupRestorePage /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/webbios/cloudflare-quotas" 
+            element={<ProtectedRoute><CloudflareQuotasPage /></ProtectedRoute>} 
           />
           <Route path="/media" element={<ProtectedRoute><MediaPage /></ProtectedRoute>} />
           <Route path="/apps" element={<ProtectedRoute><AppsPage /></ProtectedRoute>} />

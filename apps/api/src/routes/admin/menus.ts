@@ -32,7 +32,7 @@ menusApp.get('/', async (c) => {
     return c.json({ error: 'Unauthorized' }, 401)
   }
 
-  // 2. Lấy toàn bộ Menu đang visible
+  // 2. Get all visible Menus
   const allMenusResult = await db.select()
     .from(wbMenus)
     .where(eq(wbMenus.isVisible, true))
@@ -41,7 +41,7 @@ menusApp.get('/', async (c) => {
   let allowedMenus = allMenusResult;
 
   if (user.role !== 'owner') {
-    // Lấy danh sách permission slugs của user hiện tại
+    // Get permission slugs of current user
     const userPerms = await db.select({ slug: wbPermissions.slug })
       .from(wbRolePermissions)
       .innerJoin(wbPermissions, eq(wbRolePermissions.permissionId, wbPermissions.id))
@@ -49,10 +49,10 @@ menusApp.get('/', async (c) => {
 
     const permSlugs = userPerms.map(p => p.slug)
 
-    // Lọc Menu dựa trên permissionSlug
+    // Filter Menus based on permissionSlug
     allowedMenus = allMenusResult.filter(menu => {
-      if (!menu.permissionSlug) return true // Không yêu cầu quyền
-      return permSlugs.includes(menu.permissionSlug) // User có quyền
+      if (!menu.permissionSlug) return true // No permission required
+      return permSlugs.includes(menu.permissionSlug) // User has permission
     })
   }
 
@@ -96,7 +96,7 @@ menusApp.put('/:id', async (c) => {
     const id = c.req.param('id')
     const body = await c.req.json()
 
-    // Lấy menu hiện tại để kiểm tra
+    // Get current menu to check
     const existingRows = await db.select().from(wbMenus).where(eq(wbMenus.id, id)).limit(1)
     const existing = existingRows[0]
     if (!existing) {
@@ -104,7 +104,7 @@ menusApp.put('/:id', async (c) => {
     }
 
     if (existing.isSystem) {
-      // Nếu là menu hệ thống, chỉ cho phép sửa label, icon, translations, isVisible
+      // If system menu, only allow updating label, icon, translations, isVisible
       delete body.path
       delete body.permissionSlug
       delete body.parentId
@@ -129,14 +129,14 @@ menusApp.post('/reorder', async (c) => {
     return c.json({ error: 'Invalid payload: items array required' }, 400)
   }
 
-  // Lấy các menu hệ thống để loại trừ việc reorder
+  // Get system menus to exclude from reordering
   const systemMenusRows = await db.select({ id: wbMenus.id }).from(wbMenus).where(eq(wbMenus.isSystem, true))
   const systemMenuIds = systemMenusRows.map(r => r.id)
 
   // Update each menu sequentially within one request
   for (const item of items) {
     if (systemMenuIds.includes(item.id)) {
-      continue; // Bỏ qua không cập nhật position/parentId cho menu hệ thống
+      continue; // Skip updating position/parentId for system menus
     }
     await db.update(wbMenus).set({
       parentId: item.parentId,
