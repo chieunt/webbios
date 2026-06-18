@@ -19,17 +19,19 @@
 > [!WARNING]
 > **🚧 PHIÊN BẢN ALPHA / ĐANG TRONG QUÁ TRÌNH PHÁT TRIỂN 🚧**
 > 
-> WebbiOS hiện đang được phát triển rất tích cực. Kiến trúc lõi và các ứng dụng thiết yếu dự kiến sẽ đạt trạng thái ổn định vào **cuối tháng 8 năm 2026**.
+> WebbiOS hiện đang được phát triển rất tích cực. Để chia sẻ hệ thống này với cộng đồng, chúng tôi đang tinh chỉnh lại kiến trúc và mã nguồn. Nền tảng cốt lõi và các ứng dụng thiết yếu dự kiến sẽ hoàn thiện và đạt trạng thái ổn định vào **ngày 25/08/2026**.
 > 
-> Ở giai đoạn này, mã nguồn có thể chưa ổn định, các tính năng chưa hoàn thiện và tài liệu có thể bị lỗi thời. **Vui lòng chưa sử dụng cho môi trường production.**
+> Ở giai đoạn này, mã nguồn có thể chưa ổn định, các tính năng chưa hoàn thiện và tài liệu có thể bị lỗi thời. **Vui lòng chưa sử dụng cho môi trường production.** Báo cáo lỗi liên quan đến các tính năng chưa hoàn thiện hoặc vấn đề cài đặt có thể sẽ không được xử lý cho đến khi ra mắt phiên bản Beta chính thức.
 
 ---
 
 ## 🚀 Tổng quan
 
-**WebbiOS** là một hệ điều hành mã nguồn mở, hỗ trợ công nghệ edge-native (chạy trên mạng lưới biên) được xây dựng hoàn toàn trên nền tảng **Cloudflare**. WebbiOS cung cấp kiến trúc cơ bản để phát triển nhanh, triển khai và mở rộng website, các ứng dụng thương mại điện tử headless, và công cụ nội bộ mà không cần phải quản lý hạ tầng máy chủ.
+**WebbiOS bắt đầu như một hệ thống cốt lõi nội bộ nhằm giải quyết những nỗi đau thực tế về hạ tầng doanh nghiệp cho CBC GROUP.** Chúng tôi cần một hệ sinh thái thống nhất để xây dựng nhiều sản phẩm đa dạng—từ trang chủ công ty, các cửa hàng bán lẻ xuyên biên giới, cho đến CRM nội bộ, tự động hóa tiếp thị và các hệ thống ERP phức tạp.
 
-Nhờ tận dụng mạng lưới toàn cầu của Cloudflare, WebbiOS mang đến **thời gian Time To First Byte (TTFB) dưới 50ms** trên toàn thế giới và được thiết kế để hoạt động với chi phí $0 trên gói Miễn phí (Free Tier) của Cloudflare.
+Sau khi chứng kiến sự ổn định đáng kinh ngạc, hiệu suất tuyệt đối và chi phí quản lý hạ tầng bằng 0 mà nó mang lại, chúng tôi nhận ra rằng hệ thống này quá mạnh mẽ để chỉ giữ cho riêng mình. Chúng tôi quyết định phát hành nền tảng lõi này dưới dạng mã nguồn mở với giấy phép AGPLv3 nhằm trao quyền cho cộng đồng nhà phát triển toàn cầu.
+
+Hôm nay, **WebbiOS** là một Nền tảng Tăng trưởng Doanh nghiệp Thế hệ Mới. Một hệ điều hành mã nguồn mở, edge-native được xây dựng hoàn toàn trên Cloudflare để phát triển, triển khai và mở rộng nhanh chóng các ứng dụng doanh nghiệp hiệu suất cao với mức quản lý hạ tầng bằng 0.
 
 ## 🏗️ Kiến trúc
 
@@ -55,15 +57,40 @@ WebbiOS được cấu trúc dưới dạng **Monorepo** (sử dụng `pnpm` và
 - **Framework**: React 19, Vite, Hono, Tailwind CSS
 - **Công cụ**: TypeScript, pnpm, Turborepo
 
+## 💎 Nền tảng (The Platform)
+
+Được xây dựng từ đầu dành cho Edge. Bốn trụ cột độc lập cùng nhau tạo ra nền tảng mã nguồn mở mạnh mẽ nhất để tăng trưởng doanh nghiệp:
+
+1. **The Kernel API**: Trái tim của WebbiOS. Một API gateway headless chạy trên Cloudflare Edge cùng với cơ sở dữ liệu D1 và KV Cache.
+2. **Universal Dashboard**: Bảng điều khiển của bạn. Một admin panel sẵn sàng sử dụng được tích hợp sẵn RBAC, Custom Domains và Webhooks.
+3. **Themes**: Tầng trình diễn (Presentation layer). Tải các storefront giao diện động dựa trên JSON. Tùy chỉnh mọi thứ với Theme Builder trực quan của chúng tôi.
+4. **Apps**: Động cơ mở rộng (Extensibility engine). Tiêm (Inject) các Micro-Frontends trực tiếp vào dashboard để mở rộng logic kinh doanh không giới hạn.
+
 ## ✨ Tính năng nổi bật
 
-- **Edge Native**: Chạy 100% serverless, không có thời gian khởi động nguội (zero cold starts), được triển khai tại hơn 300 thành phố trên toàn cầu.
-- **Kiến trúc Micro-Frontend**: Tải động các ứng dụng bên trong bảng điều khiển quản trị thông qua Module Federation.
-- **Universal Storefront Engine**: Kết xuất giao diện động thông qua cấu hình JSON sử dụng Edge SSR.
-- **Bộ nhớ đệm 4 tầng (4-Tier Caching)**: Chiến lược caching nâng cao (CDN -> Worker Cache -> KV -> D1) tối ưu hóa hiệu suất tối đa.
-- **Phân quyền dựa trên vai trò (RBAC)**: Quản lý quyền hạn chi tiết cho người dùng, API keys và ứng dụng.
-- **Hỗ trợ đa ngôn ngữ toàn cầu**: Hệ thống quốc tế hóa (i18n) hỗ trợ hơn 11 ngôn ngữ cho Dashboard, Kho ứng dụng, và Cài đặt.
-- **Chi phí bắt đầu bằng $0**: Được thiết kế để chạy hoàn toàn miễn phí trên giới hạn gói miễn phí của Cloudflare.
+### Nền tảng Lõi & Bảo mật (Core Platform & Security)
+- **Phân quyền dựa trên vai trò (RBAC)**: Quyền hạn chi tiết. Kiểm soát những gì mỗi người dùng có thể xem và thực hiện.
+- **Tên miền tùy chỉnh & SSL (Custom Domains & SSL)**: Ánh xạ tên miền ngay lập tức với tính năng cấp phát SSL tự động.
+- **Quản lý API Keys**: Tạo và quản lý mã khóa API bảo mật cho các tích hợp hệ thống.
+- **Cập nhật OTA 1-Click**: Cập nhật Lõi (Core), Ứng dụng (Apps) và Giao diện (Themes) ngay tức thì. Ngay cả trên gói Miễn phí.
+- **Mạng lưới Biên Toàn cầu (Global Edge Network)**: Triển khai trên hơn 300 thành phố trên toàn thế giới để đạt độ trễ bằng 0.
+- **Tự động thay đổi quy mô (Auto-Scaling)**: Xử lý lưu lượng truy cập đột biến dễ dàng mà không cần can thiệp thủ công.
+
+### Trải nghiệm Lập trình viên (Developer Experience)
+- **Cơ sở dữ liệu Serverless**: Sức mạnh từ Cloudflare D1. Dữ liệu quan hệ mà không cần máy chủ.
+- **Edge Native Logic**: Chạy các logic kinh doanh phức tạp trực tiếp trên Cloudflare Workers.
+- **Real-time Webhooks**: Đăng ký các sự kiện hệ thống để kích hoạt các quy trình làm việc bên ngoài.
+- **Micro-Frontends**: Tải ứng dụng động vào dashboard mà không làm phình lõi hệ thống.
+- **Bộ nhớ đệm 4 tầng (4-Tier Caching)**: Caching nâng cao tận dụng KV, Memory và Edge cache.
+- **Automated Bindings**: Kết nối với lưu trữ R2 và hàng đợi (queues) một cách dễ dàng.
+
+### Thương mại & Nội dung (Commerce & Content)
+- **Universal Storefront**: Các mẫu e-commerce sẵn sàng sử dụng, được tối ưu hóa cho chuyển đổi.
+- **CMS Tích hợp (Built-in CMS)**: Quản lý nội dung, blog và các trang với trình chỉnh sửa trực quan mạnh mẽ.
+- **Tối ưu SEO (SEO Optimized)**: Render phía máy chủ (SSR) và thẻ meta động cho độ hiển thị tối đa.
+- **Sẵn sàng đa kênh (Omni-channel Ready)**: Kiến trúc headless cho phép bạn bán hàng ở mọi nơi, trên mọi thiết bị.
+- **Quản lý Ứng dụng/Giao diện (App/Theme Manager)**: Cài đặt các tính năng mới từ chợ ứng dụng chỉ với một cú nhấp chuột.
+- **Hỗ trợ đa ngôn ngữ (Global Multi-Language)**: Hệ thống quốc tế hóa (i18n) hỗ trợ toàn diện Dashboard, App Store và Settings trên hơn 11 ngôn ngữ.
 
 ## 📦 Bắt đầu
 
