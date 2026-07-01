@@ -17,3 +17,8 @@ CLOUDFLARE_ACCOUNT_ID = "758fa917167175fd22e07a08e402a0c0"
 [[r2_buckets]]
 binding = "STORAGE"
 bucket_name = "webbios-platform"
+
+# Service Bindings — App Workers (0ms latency inter-worker calls)
+[[services]]
+binding = "CRM_API"
+service = "wb-api-crm"

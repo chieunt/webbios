@@ -13,6 +13,7 @@ import { MediaModule } from './modules/media';
 import { UsersModule } from './modules/users';
 import { AuditLogsModule } from './modules/auditLogs';
 import { ApiKeysModule } from './modules/apiKeys';
+import { CrmModule } from './modules/crm';
 
 /**
  * The main entry point for the WebbiOS SDK.
@@ -44,6 +45,7 @@ export class WebbiSDK {
   public users: UsersModule;
   public auditLogs: AuditLogsModule;
   public apiKeys: ApiKeysModule;
+  public crm: CrmModule;
 
   /**
    * Initializes a new WebbiSDK instance.
@@ -68,6 +70,7 @@ export class WebbiSDK {
     this.users = new UsersModule(this.client);
     this.auditLogs = new AuditLogsModule(this.client);
     this.apiKeys = new ApiKeysModule(this.client);
+    this.crm = new CrmModule(this.client);
   }
 
   /**
@@ -91,6 +94,7 @@ export class WebbiSDK {
 
 export * from './client';
 export * from './modules/auth';
+export * from './utils/string';
 export * from './modules/dashboard';
 export * from './modules/products';
 export * from './modules/menus';
@@ -100,3 +104,4 @@ export * from './modules/webhooks';
 export * from './modules/users';
 export * from './modules/auditLogs';
 export * from './modules/apiKeys';
+export * from './modules/crm';

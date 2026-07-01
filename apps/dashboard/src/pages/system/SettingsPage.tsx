@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Save, Globe, Lock, Bell, Palette, Mail, ShieldAlert } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { webbios } from '../../api';
+import { FormField, Input, Select, useToast } from '@webbios/ui';
 
 const SettingsPage = () => {
   const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState('general');
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+  const { showToast } = useToast();
+  const [systemLanguages, setSystemLanguages] = useState<any[]>([]);
 
   // Form State
   const [settings, setSettings] = useState<Record<string, any>>({
@@ -28,7 +30,8 @@ const SettingsPage = () => {
     'smtp.pass': '',
     'smtp.from': '',
     'system.license_plan': 'free',
-    'system.cdn_url': 'https://cdn.webbios.dev'
+    'system.cdn_url': 'https://cdn.webbios.dev',
+    'system.auto_webp': true
   });
 
   useEffect(() => {
@@ -38,8 +41,11 @@ const SettingsPage = () => {
   const fetchSettings = async () => {
     setIsLoading(true);
     try {
-      // Fetch all settings
-      const data = await webbios.settings.getSettings();
+      // Fetch all settings and languages
+      const [data, languagesData] = await Promise.all([
+        webbios.settings.getSettings(),
+        webbios.settings.getLanguages()
+      ]);
       const parsedData: Record<string, any> = {};
       for (const key in data) {
         try {
@@ -49,6 +55,7 @@ const SettingsPage = () => {
         }
       }
       setSettings(prev => ({ ...prev, ...parsedData }));
+      setSystemLanguages(languagesData);
     } catch (err) {
       console.error('Failed to load settings', err);
       showToast('error', t('settings.messages.loadFailed', 'Cannot load settings'));
@@ -90,13 +97,9 @@ const SettingsPage = () => {
     }
   };
 
-  const showToast = (type: 'success' | 'error', message: string) => {
-    setToastMessage({ type, message });
-    setTimeout(() => setToastMessage(null), 3000);
-  };
-
   const tabs = [
     { id: 'general', name: t('settings.tabs.general', 'General Settings'), icon: Globe },
+    { id: 'languages', name: t('settings.tabs.languages', 'Khu vực & Ngôn ngữ'), icon: Globe },
     { id: 'security', name: t('settings.tabs.security', 'Security'), icon: Lock },
     { id: 'notifications', name: t('settings.tabs.notifications', 'Notifications'), icon: Bell },
     { id: 'appearance', name: t('settings.tabs.appearance', 'Appearance'), icon: Palette },
@@ -107,13 +110,6 @@ const SettingsPage = () => {
 
   return (
     <div className="space-y-6 relative">
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className={`fixed top-4 right-4 px-4 py-2 rounded shadow-lg text-white z-50 transition-opacity animate-in fade-in ${toastMessage.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
-          {toastMessage.message}
-        </div>
-      )}
-
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-cf-text">{t('settings.title', 'System Settings')}</h1>
@@ -167,26 +163,20 @@ const SettingsPage = () => {
               <div>
                 <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.siteInfo', 'Business Information')}</h2>
                 <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.siteName', 'Business Name')}</label>
-                    <input 
-                      type="text" 
+                  <FormField label={t('settings.general.siteName', 'Business Name')}>
+                    <Input 
                       name="site.name"
                       value={settings['site.name'] || ''}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
                     />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.sitePhone', 'Contact Phone')}</label>
-                    <input 
-                      type="text" 
+                  </FormField>
+                  <FormField label={t('settings.general.sitePhone', 'Contact Phone')}>
+                    <Input 
                       name="site.phone"
                       value={settings['site.phone'] || ''}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
                     />
-                  </div>
+                  </FormField>
                 </div>
               </div>
 
@@ -194,16 +184,31 @@ const SettingsPage = () => {
                 <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.systemConfig', 'System Configuration')}</h2>
                 <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-2">
                   <div className="sm:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.cdnUrl', 'CDN Domain (For Media Library)')}</label>
-                    <input 
-                      type="text" 
-                      name="system.cdn_url"
-                      value={settings['system.cdn_url'] || ''}
-                      onChange={handleInputChange}
-                      placeholder="https://cdn.yourdomain.com"
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
-                    />
-                    <p className="text-xs text-gray-500 mt-1">{t('settings.general.cdnUrlDesc', 'This domain must have a CNAME pointing to your Cloudflare R2 bucket.')}</p>
+                    <FormField 
+                      label={t('settings.general.cdnUrl', 'CDN Domain (For Media Library)')}
+                      description={t('settings.general.cdnUrlDesc', 'This domain must have a CNAME pointing to your Cloudflare R2 bucket.')}
+                    >
+                      <Input 
+                        name="system.cdn_url"
+                        value={settings['system.cdn_url'] || ''}
+                        onChange={handleInputChange}
+                        placeholder="https://cdn.yourdomain.com"
+                      />
+                    </FormField>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <div className="flex items-start justify-between p-4 border border-cf-border rounded-lg bg-gray-50/50">
+                      <div>
+                        <h3 className="text-sm font-medium text-gray-900">{t('settings.general.autoWebp', 'Auto Convert Images to WebP')}</h3>
+                        <p className="text-sm text-gray-500 mt-1">{t('settings.general.autoWebpDesc', 'Automatically convert uploaded images (jpg, png) to .webp format for faster loading.')}</p>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <label className="relative inline-flex items-center cursor-pointer mt-1">
+                          <input type="checkbox" name="system.auto_webp" checked={settings['system.auto_webp'] === 'true' || settings['system.auto_webp'] === true} onChange={handleInputChange} className="sr-only peer" />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -211,25 +216,23 @@ const SettingsPage = () => {
               <div className="pt-6 border-t border-cf-border">
                 <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.regionAndLanguage', 'Region & Language')}</h2>
                 <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-2">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.timezone', 'Timezone')}</label>
-                    <select 
+                  <FormField label={t('settings.general.timezone', 'Timezone')}>
+                    <Select 
                       name="site.timezone"
                       value={settings['site.timezone'] || 'Asia/Ho_Chi_Minh (GMT+7)'}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="w-full"
                     >
                       <option value="Asia/Ho_Chi_Minh (GMT+7)">Asia/Ho_Chi_Minh (GMT+7)</option>
                       <option value="UTC">UTC</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.language', 'Default Language')}</label>
-                    <select 
+                    </Select>
+                  </FormField>
+                  <FormField label={t('settings.general.language', 'Default Language')}>
+                    <Select 
                       name="site.language"
                       value={settings['site.language'] || 'vi'}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="w-full"
                     >
                       <option value="vi">{t('settings.general.languageVi', 'Tiếng Việt (vi)')}</option>
                       <option value="en">{t('settings.general.languageEn', 'English - Int (en)')}</option>
@@ -244,60 +247,117 @@ const SettingsPage = () => {
                       <option value="zh-TW">{t('settings.general.languageZhTW', '繁體中文 (zh-TW)')}</option>
                       <option value="ja">{t('settings.general.languageJa', '日本語 (ja)')}</option>
                       <option value="ko">{t('settings.general.languageKo', '한국어 (ko)')}</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.currency', 'Default Currency')}</label>
-                    <select 
+                    </Select>
+                  </FormField>
+                  <FormField label={t('settings.general.currency', 'Default Currency')}>
+                    <Select 
                       name="site.currency"
                       value={settings['site.currency'] || 'VND'}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="w-full"
                     >
                       <option value="VND">VND - Việt Nam Đồng</option>
                       <option value="USD">USD - US Dollar</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.measurement', 'Measurement Unit')}</label>
-                    <select 
+                    </Select>
+                  </FormField>
+                  <FormField label={t('settings.general.measurement', 'Measurement Unit')}>
+                    <Select 
                       name="site.measurement"
                       value={settings['site.measurement'] || 'kg'}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="w-full"
                     >
                       <option value="kg">Kilogram (kg) & cm</option>
                       <option value="lb">Pound (lb) & inch</option>
-                    </select>
-                  </div>
+                    </Select>
+                  </FormField>
                 </div>
               </div>
 
               <div className="pt-6 border-t border-cf-border">
                 <h2 className="text-lg font-medium text-cf-text mb-4">{t('settings.general.formatOptions', 'Document Codes (Format)')}</h2>
                 <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-2">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.orderPrefix', 'Order Prefix')}</label>
-                    <input 
-                      type="text" 
+                  <FormField label={t('settings.general.orderPrefix', 'Order Prefix')}>
+                    <Input 
                       name="format.order_prefix"
                       value={settings['format.order_prefix'] || ''}
                       onChange={handleInputChange}
                       placeholder="ORD-"
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
                     />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.general.invoicePrefix', 'Invoice Prefix')}</label>
-                    <input 
-                      type="text" 
+                  </FormField>
+                  <FormField label={t('settings.general.invoicePrefix', 'Invoice Prefix')}>
+                    <Input 
                       name="format.invoice_prefix"
                       value={settings['format.invoice_prefix'] || ''}
                       onChange={handleInputChange}
                       placeholder="INV-"
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
                     />
-                  </div>
+                  </FormField>
+                </div>
+              </div>
+            </div>
+          ) : activeTab === 'languages' ? (
+            <div className="max-w-2xl space-y-8 animate-in fade-in duration-300">
+              <div>
+                <h2 className="text-lg font-medium text-cf-text mb-1">{t('settings.languages.title', 'Cấu hình Đa ngôn ngữ')}</h2>
+                <p className="text-sm text-gray-500 mb-6">{t('settings.languages.description', 'Lựa chọn các ngôn ngữ mà hệ thống của bạn sẽ hỗ trợ. Đánh dấu một ngôn ngữ làm mặc định.')}</p>
+                
+                <div className="space-y-4">
+                  {systemLanguages.map(lang => {
+                    const activeLanguages = settings['site.active_languages'] || [];
+                    const isChecked = activeLanguages.some((l: any) => l.code === lang.code);
+                    const isDefault = activeLanguages.some((l: any) => l.code === lang.code && l.is_default);
+
+                    const handleCheck = (checked: boolean) => {
+                      let newActive = [...activeLanguages];
+                      if (checked) {
+                        // Add language
+                        newActive.push({ code: lang.code, is_default: newActive.length === 0 });
+                      } else {
+                        // Remove language
+                        newActive = newActive.filter((l: any) => l.code !== lang.code);
+                        // If we removed the default, make the first remaining one default
+                        if (isDefault && newActive.length > 0) {
+                          newActive[0].is_default = true;
+                        }
+                      }
+                      setSettings(prev => ({ ...prev, 'site.active_languages': newActive }));
+                    };
+
+                    const handleSetDefault = () => {
+                      const newActive = activeLanguages.map((l: any) => ({
+                        ...l,
+                        is_default: l.code === lang.code
+                      }));
+                      setSettings(prev => ({ ...prev, 'site.active_languages': newActive }));
+                    };
+
+                    return (
+                      <div key={lang.code} className="flex items-center justify-between p-4 border border-cf-border rounded-lg bg-gray-50/50">
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input 
+                            type="checkbox" 
+                            className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" 
+                            checked={isChecked}
+                            onChange={(e) => handleCheck(e.target.checked)}
+                          />
+                          <span className="text-sm font-medium text-gray-900">{lang.name} ({lang.code}) - {lang.nativeName}</span>
+                        </label>
+                        {isChecked && (
+                          <label className="flex items-center space-x-2 cursor-pointer text-sm">
+                            <input 
+                              type="radio" 
+                              name="default_language" 
+                              checked={isDefault}
+                              onChange={handleSetDefault}
+                              className="text-blue-600 focus:ring-blue-500"
+                            />
+                            <span className={isDefault ? "font-medium text-blue-600" : "text-gray-500"}>Mặc định</span>
+                          </label>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -322,16 +382,16 @@ const SettingsPage = () => {
                   <div className="pt-6 border-t border-cf-border">
                     <h3 className="text-sm font-medium text-gray-900">{t('settings.security.passwordPolicy', 'Password Policy')}</h3>
                     <p className="text-sm text-gray-500 mt-1 mb-4">{t('settings.security.passwordPolicyDesc', 'Define password complexity requirements for all accounts.')}</p>
-                    <select 
+                    <Select 
                       name="security.password_policy"
                       value={settings['security.password_policy'] || 'medium'}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="w-full"
                     >
                       <option value="low">{t('settings.security.policyLow', 'Low (Minimum 6 characters)')}</option>
                       <option value="medium">{t('settings.security.policyMedium', 'Medium (Minimum 8 characters, with numbers)')}</option>
                       <option value="high">{t('settings.security.policyHigh', 'High (Min 8 chars, uppercase, number, special char)')}</option>
-                    </select>
+                    </Select>
                   </div>
                 </div>
               </div>
@@ -427,56 +487,53 @@ const SettingsPage = () => {
 
                 <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-2 mb-6">
                   <div className="sm:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.host', 'SMTP Host')}</label>
-                    <input 
-                      type="text" 
-                      name="smtp.host"
-                      value={settings['smtp.host'] || ''}
-                      onChange={handleInputChange}
-                      placeholder="smtp.gmail.com"
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
-                    />
+                    <FormField label={t('settings.email.host', 'SMTP Host')}>
+                      <Input 
+                        name="smtp.host"
+                        value={settings['smtp.host'] || ''}
+                        onChange={handleInputChange}
+                        placeholder="smtp.gmail.com"
+                      />
+                    </FormField>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.port', 'SMTP Port')}</label>
-                    <input 
-                      type="text" 
-                      name="smtp.port"
-                      value={settings['smtp.port'] || '587'}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
-                    />
+                    <FormField label={t('settings.email.port', 'SMTP Port')}>
+                      <Input 
+                        name="smtp.port"
+                        value={settings['smtp.port'] || '587'}
+                        onChange={handleInputChange}
+                      />
+                    </FormField>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.from', 'Sender Email (From)')}</label>
-                    <input 
-                      type="email" 
-                      name="smtp.from"
-                      value={settings['smtp.from'] || ''}
-                      onChange={handleInputChange}
-                      placeholder="no-reply@domain.com"
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
-                    />
+                    <FormField label={t('settings.email.from', 'Sender Email (From)')}>
+                      <Input 
+                        type="email" 
+                        name="smtp.from"
+                        value={settings['smtp.from'] || ''}
+                        onChange={handleInputChange}
+                        placeholder="no-reply@domain.com"
+                      />
+                    </FormField>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.user', 'Username')}</label>
-                    <input 
-                      type="text" 
-                      name="smtp.user"
-                      value={settings['smtp.user'] || ''}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
-                    />
+                    <FormField label={t('settings.email.user', 'Username')}>
+                      <Input 
+                        name="smtp.user"
+                        value={settings['smtp.user'] || ''}
+                        onChange={handleInputChange}
+                      />
+                    </FormField>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.email.pass', 'Password')}</label>
-                    <input 
-                      type="password" 
-                      name="smtp.pass"
-                      value={settings['smtp.pass'] || ''}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-background border border-cf-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
-                    />
+                    <FormField label={t('settings.email.pass', 'Password')}>
+                      <Input 
+                        type="password" 
+                        name="smtp.pass"
+                        value={settings['smtp.pass'] || ''}
+                        onChange={handleInputChange}
+                      />
+                    </FormField>
                   </div>
                 </div>
 

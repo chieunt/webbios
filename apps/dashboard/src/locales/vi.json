@@ -9,7 +9,9 @@
     "actions": {
       "settings": "Cài đặt",
       "cancel": "Hủy",
-      "create": "Tạo"
+      "create": "Tạo",
+      "save": "Lưu thay đổi",
+      "delete": "Xóa"
     },
     "messages": {
       "underConstruction": "Chức năng đang được phát triển."
@@ -252,7 +254,13 @@
         "save": "Lưu thay đổi",
         "parentMenu": "Menu cha",
         "isCategoryLabel": "Là nhãn nhóm",
-        "rootMenu": "--- Ngoài cùng ---"
+        "rootMenu": "--- Ngoài cùng ---",
+        "placeholders": {
+          "translationsEn": "e.g. Dashboard",
+          "translationsVi": "e.g. Tổng quan",
+          "icon": "e.g. Home",
+          "path": "e.g. /orders"
+        }
       },
       "placeholders": {
         "translationsEn": "Ví dụ: Dashboard",
@@ -271,7 +279,7 @@
       "columns": {
         "slug": "Slug",
         "description": "Mô tả",
-        "createdAt": "Ngày tạo",
+        "createdAt": "Thời gian tải lên",
         "actions": "Thao tác"
       },
       "modal": {
@@ -279,7 +287,8 @@
         "edit": "Sửa quyền",
         "slugLabel": "Slug (VD: users:read)",
         "descriptionLabel": "Mô tả",
-        "slugPlaceholder": "module:action"
+        "slugPlaceholder": "module:action",
+        "descriptionPlaceholder": "e.g. Allows user to read lists"
       }
     },
     "roles": {
@@ -342,16 +351,82 @@
     "title": "Thư viện Media",
     "description": "Quản lý hình ảnh và tập tin",
     "upload": "Tải lên",
-    "newFolder": "Thư mục mới",
+    "uploadFile": "Tải tệp tin",
+    "uploadFolder": "Tải thư mục",
+    "newFolder": "Tạo thư mục",
     "search": "Tìm kiếm tập tin...",
+    "searchBtn": "Tìm kiếm",
     "filter": "Lọc",
+    "filterAll": "Tất cả",
+    "filterFolders": "Thư mục",
+    "filterFiles": "Tệp tin",
+    "timeFilter": {
+      "all": "Mọi lúc",
+      "today": "Hôm nay",
+      "last7days": "7 ngày qua",
+      "last30days": "30 ngày qua",
+      "thisYear": "Năm nay",
+      "custom": "Tùy chỉnh...",
+      "customTitle": "Tuỳ chỉnh thời gian",
+      "startDate": "Từ ngày",
+      "endDate": "Đến ngày",
+      "cancel": "Hủy",
+      "apply": "Áp dụng",
+      "edit": "Nhấn để sửa thời gian",
+      "clear": "Xóa bộ lọc"
+    },
     "images": "Hình ảnh",
     "documents": "Tài liệu",
     "all": "Tất cả",
     "grid": "Dạng lưới",
     "list": "Dạng danh sách",
     "delete": "Xóa",
-    "empty": "Không có tập tin nào"
+    "empty": "Không có tập tin nào",
+    "emptyUploadFirst": "Chưa có tập tin nào. Hãy tải lên tập tin đầu tiên!",
+    "details": "Thông tin tập tin",
+    "filename": "Tên tập tin",
+    "altTag": "Thẻ Alt (Cho SEO)",
+    "cdnLink": "Đường dẫn URL / CDN",
+    "viewFile": "Xem tập tin",
+    "download": "Tải xuống",
+    "uploading": "Đang tải lên...",
+    "confirmDelete": "Bạn có chắc chắn muốn xóa tập tin này?",
+    "confirmBulkDelete": "Bạn có chắc chắn muốn xóa {{count}} mục đã chọn?",
+    "copyUrl": "Sao chép URL",
+    "urlCopied": "Đã sao chép URL!",
+    "showingResults": "Hiển thị {{start}} đến {{end}} trong số {{total}} tập tin",
+    "prev": "Trước",
+    "next": "Sau",
+    "columns": {
+      "name": "Tên",
+      "size": "Kích thước",
+      "type": "Loại",
+      "uploadedAt": "Ngày tải lên"
+    },
+    "createFolderTitle": "Tạo thư mục mới",
+    "folderName": "Tên thư mục",
+    "folderNamePlaceholder": "Nhập tên thư mục...",
+    "sort": {
+      "newest": "Mới nhất",
+      "oldest": "Cũ nhất",
+      "nameAsc": "Tên (A-Z)",
+      "nameDesc": "Tên (Z-A)",
+      "sizeAsc": "Nhỏ nhất",
+      "sizeDesc": "Lớn nhất"
+    },
+    "bulkDelete": "Xóa mục đã chọn",
+    "selected": "Đã chọn {{count}} mục",
+    "selectAll": "Chọn tất cả",
+    "deselectAll": "Bỏ chọn tất cả",
+    "dragDropTitle": "Kéo & thả tập tin vào đây",
+    "dragDropSubtitle": "hoặc nhấn Tải lên để chọn tập tin",
+    "dimensions": "Kích thước ảnh",
+    "fileSize": "Dung lượng",
+    "uploadedBy": "Người tải lên",
+    "createdAt": "Thời gian tải lên",
+    "renameSuccess": "Đã đổi tên tập tin thành công",
+    "folder": "Thư mục",
+    "file": "Tệp tin"
   },
   "apps": {
     "installed": {
@@ -495,7 +570,9 @@
       "languageEn": "English (en)",
       "systemConfig": "Cấu hình hệ thống",
       "cdnUrl": "Tên miền CDN (Cho thư viện Media)",
-      "cdnUrlDesc": "Tên miền này cần có bản ghi CNAME trỏ về Cloudflare R2 bucket của bạn."
+      "cdnUrlDesc": "Tên miền này cần có bản ghi CNAME trỏ về Cloudflare R2 bucket của bạn.",
+      "autoWebp": "Tự động chuyển đổi ảnh sang WebP",
+      "autoWebpDesc": "Tự động nén và chuyển đổi định dạng ảnh tải lên (jpg, png) sang .webp để tối ưu tốc độ."
     },
     "security": {
       "title": "Bảo mật hệ thống",

@@ -252,7 +252,13 @@
         "save": "保存",
         "parentMenu": "親メニュー",
         "isCategoryLabel": "カテゴリラベル",
-        "rootMenu": "--- ルート ---"
+        "rootMenu": "--- ルート ---",
+        "placeholders": {
+          "translationsEn": "e.g. Dashboard",
+          "translationsVi": "e.g. Tổng quan",
+          "icon": "e.g. Home",
+          "path": "e.g. /orders"
+        }
       }
     },
     "permissions": {
@@ -273,7 +279,8 @@
         "edit": "権限を編集",
         "slugLabel": "Slug (例 users:read)",
         "descriptionLabel": "説明",
-        "slugPlaceholder": "モジュール:アクション"
+        "slugPlaceholder": "モジュール:アクション",
+        "descriptionPlaceholder": "e.g. Allows user to read lists"
       }
     },
     "roles": {
@@ -300,7 +307,8 @@
         "permissionsLabel": "権限を割り当てる",
         "selectAll": "すべて選択",
         "unselectAll": "すべて選択解除",
-        "namePlaceholder": "例: 管理者"
+        "namePlaceholder": "例: 管理者",
+        "slugPlaceholder": "e.g. admin"
       }
     }
   },
@@ -488,7 +496,9 @@
       "languageEn": "英語 (en)",
       "systemConfig": "システム構成",
       "cdnUrl": "CDNドメイン (メディアライブラリ用)",
-      "cdnUrlDesc": "このドメインには、Cloudflare R2バケットを指すCNAMEが必要です。"
+      "cdnUrlDesc": "このドメインには、Cloudflare R2バケットを指すCNAMEが必要です。",
+      "autoWebp": "Auto Convert Images to WebP",
+      "autoWebpDesc": "Automatically convert uploaded images (jpg, png) to .webp format for faster loading."
     },
     "security": {
       "title": "セキュリティ",

@@ -21,4 +21,12 @@ export class SettingsModule {
     const data = await this.client.put('/settings', payload);
     return data;
   }
+
+  /**
+   * Fetch all supported languages from the system.
+   */
+  async getLanguages(): Promise<any[]> {
+    const data = await this.client.get('/settings/languages');
+    return data.data;
+  }
 }

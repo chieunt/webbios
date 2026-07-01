@@ -279,7 +279,8 @@
         "edit": "Bearbeiten",
         "slugLabel": "Slug (z. B. users:read)",
         "descriptionLabel": "Beschreibung",
-        "slugPlaceholder": "modul:aktion"
+        "slugPlaceholder": "modul:aktion",
+        "descriptionPlaceholder": "e.g. Allows user to read lists"
       }
     },
     "roles": {
@@ -306,7 +307,8 @@
         "permissionsLabel": "Berechtigungen zuweisen",
         "selectAll": "Alle auswählen",
         "unselectAll": "Alle abwählen",
-        "namePlaceholder": "z. B. Admin"
+        "namePlaceholder": "z. B. Admin",
+        "slugPlaceholder": "e.g. admin"
       }
     }
   },
@@ -494,7 +496,9 @@
       "languageEn": "Englisch (en)",
       "systemConfig": "Systemkonfiguration",
       "cdnUrl": "CDN-Domain (Für Medienbibliothek)",
-      "cdnUrlDesc": "Diese Domain muss einen CNAME haben, der auf Ihren Cloudflare R2-Bucket verweist."
+      "cdnUrlDesc": "Diese Domain muss einen CNAME haben, der auf Ihren Cloudflare R2-Bucket verweist.",
+      "autoWebp": "Auto Convert Images to WebP",
+      "autoWebpDesc": "Automatically convert uploaded images (jpg, png) to .webp format for faster loading."
     },
     "security": {
       "title": "Systemsicherheit",

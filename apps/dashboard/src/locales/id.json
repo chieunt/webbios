@@ -252,7 +252,13 @@
         "save": "Simpan",
         "parentMenu": "Menu Induk",
         "isCategoryLabel": "Hanya Label",
-        "rootMenu": "--- Akar ---"
+        "rootMenu": "--- Akar ---",
+        "placeholders": {
+          "translationsEn": "e.g. Dashboard",
+          "translationsVi": "e.g. Tổng quan",
+          "icon": "e.g. Home",
+          "path": "e.g. /orders"
+        }
       }
     },
     "permissions": {
@@ -273,7 +279,8 @@
         "edit": "Edit",
         "slugLabel": "Slug (mis. users:read)",
         "descriptionLabel": "Deskripsi",
-        "slugPlaceholder": "modul:aksi"
+        "slugPlaceholder": "modul:aksi",
+        "descriptionPlaceholder": "e.g. Allows user to read lists"
       }
     },
     "roles": {
@@ -300,7 +307,8 @@
         "permissionsLabel": "Tetapkan Izin",
         "selectAll": "Pilih Semua",
         "unselectAll": "Batal Pilih",
-        "namePlaceholder": "mis. Admin"
+        "namePlaceholder": "mis. Admin",
+        "slugPlaceholder": "e.g. admin"
       }
     }
   },
@@ -488,7 +496,9 @@
       "languageEn": "Inggris (en)",
       "systemConfig": "Konfigurasi Sistem",
       "cdnUrl": "Domain CDN (Untuk Pustaka Media)",
-      "cdnUrlDesc": "Domain ini harus memiliki CNAME yang mengarah ke bucket Cloudflare R2 Anda."
+      "cdnUrlDesc": "Domain ini harus memiliki CNAME yang mengarah ke bucket Cloudflare R2 Anda.",
+      "autoWebp": "Auto Convert Images to WebP",
+      "autoWebpDesc": "Automatically convert uploaded images (jpg, png) to .webp format for faster loading."
     },
     "security": {
       "title": "Keamanan",

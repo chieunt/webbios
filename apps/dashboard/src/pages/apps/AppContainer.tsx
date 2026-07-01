@@ -61,6 +61,7 @@ export default function AppContainer() {
       if (route === 'inventory') return './InventoryPage';
       if (route === 'purchase_orders') return './PurchaseOrdersPage';
       if (route === 'suppliers') return './SuppliersPage';
+      if (route === 'vendors') return './VendorsPage';
       // Default (no path or 'orders'): OrdersPage
       return './OrdersPage';
     }

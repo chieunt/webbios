@@ -7,7 +7,7 @@ import ProductsPage from './pages/products/ProductsPage';
 import { webbios, resolveApiUrl } from './api';
 import i18n from './i18n';
 import { DashboardLayout } from './layouts/DashboardLayout';
-import { Loading } from '@webbios/ui';
+import { Loading, ToastProvider } from '@webbios/ui';
 
 // --- Simple Auth Context ---
 interface AuthContextType {
@@ -154,8 +154,9 @@ function App() {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, token, user, permissions, login, logout, refreshUser }}>
-      <BrowserRouter>
+    <ToastProvider>
+      <AuthContext.Provider value={{ isAuthenticated, token, user, permissions, login, logout, refreshUser }}>
+        <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -292,6 +293,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>
+    </ToastProvider>
   );
 }
 

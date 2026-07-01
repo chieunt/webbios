@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { Env } from '../../bindings'
 import { getDb } from '../../db'
-import { wbSettings } from '@webbios/db/src/schema'
+import { wbSettings, wbLanguages } from '@webbios/db/src/schema'
 import { eq, inArray } from 'drizzle-orm'
 import { authMiddleware } from '../../middlewares/auth'
 
@@ -70,6 +70,18 @@ settingsApp.put('/', async (c) => {
     // (Skipped detailed log for simplicity, can be added later if needed)
     
     return c.json({ success: true, message: 'Settings updated successfully' })
+  } catch (err: any) {
+    return c.json({ success: false, error: err.message }, 500)
+  }
+})
+
+// Get system languages
+settingsApp.get('/languages', async (c) => {
+  const db = getDb(c.env.DB)
+  
+  try {
+    const languages = await db.select().from(wbLanguages).where(eq(wbLanguages.isActive, true)).all()
+    return c.json({ success: true, data: languages })
   } catch (err: any) {
     return c.json({ success: false, error: err.message }, 500)
   }

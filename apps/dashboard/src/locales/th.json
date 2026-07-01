@@ -252,7 +252,13 @@
         "save": "บันทึก",
         "parentMenu": "เมนูหลัก",
         "isCategoryLabel": "เป็นหมวดหมู่",
-        "rootMenu": "--- นอกสุด ---"
+        "rootMenu": "--- นอกสุด ---",
+        "placeholders": {
+          "translationsEn": "e.g. Dashboard",
+          "translationsVi": "e.g. Tổng quan",
+          "icon": "e.g. Home",
+          "path": "e.g. /orders"
+        }
       }
     },
     "permissions": {
@@ -273,7 +279,8 @@
         "edit": "แก้ไขสิทธิ์",
         "slugLabel": "Slug (เช่น users:read)",
         "descriptionLabel": "คำอธิบาย",
-        "slugPlaceholder": "module:action"
+        "slugPlaceholder": "module:action",
+        "descriptionPlaceholder": "e.g. Allows user to read lists"
       }
     },
     "roles": {
@@ -300,7 +307,8 @@
         "permissionsLabel": "สิทธิ์การใช้งาน",
         "selectAll": "เลือกทั้งหมด",
         "unselectAll": "ไม่เลือกทั้งหมด",
-        "namePlaceholder": "เช่น Admin"
+        "namePlaceholder": "เช่น Admin",
+        "slugPlaceholder": "e.g. admin"
       }
     }
   },
@@ -488,7 +496,9 @@
       "languageEn": "English (en)",
       "systemConfig": "การกำหนดค่าระบบ",
       "cdnUrl": "โดเมน CDN (สำหรับไลบรารีสื่อ)",
-      "cdnUrlDesc": "โดเมนนี้ต้องมี CNAME ที่ชี้ไปยัง Cloudflare R2 bucket ของคุณ"
+      "cdnUrlDesc": "โดเมนนี้ต้องมี CNAME ที่ชี้ไปยัง Cloudflare R2 bucket ของคุณ",
+      "autoWebp": "Auto Convert Images to WebP",
+      "autoWebpDesc": "Automatically convert uploaded images (jpg, png) to .webp format for faster loading."
     },
     "security": {
       "title": "ความปลอดภัย",

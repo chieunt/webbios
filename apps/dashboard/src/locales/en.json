@@ -9,7 +9,9 @@
     "actions": {
       "settings": "Settings",
       "cancel": "Cancel",
-      "create": "Create"
+      "create": "Create",
+      "save": "Save changes",
+      "delete": "Delete"
     },
     "messages": {
       "underConstruction": "Feature under construction."
@@ -341,19 +343,86 @@
   },
   "media": {
     "title": "Media Library",
-    "description": "Manage your images and files",
+    "description": "Manage images and files",
     "upload": "Upload",
-    "newFolder": "New Folder",
+    "uploadFile": "Upload file",
+    "uploadFolder": "Upload folder",
+    "newFolder": "Create folder",
     "search": "Search files...",
+    "searchBtn": "Search",
     "filter": "Filter",
+    "filterAll": "All",
+    "filterFolders": "Folders",
+    "filterFiles": "Files",
+    "timeFilter": {
+      "all": "All time",
+      "today": "Today",
+      "last7days": "Last 7 days",
+      "last30days": "Last 30 days",
+      "thisYear": "This year",
+      "custom": "Custom...",
+      "customTitle": "Custom Time Range",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "cancel": "Cancel",
+      "apply": "Apply",
+      "edit": "Click to edit time range",
+      "clear": "Clear filter"
+    },
     "images": "Images",
     "documents": "Documents",
     "all": "All",
     "grid": "Grid view",
     "list": "List view",
     "delete": "Delete",
-    "empty": "No files found"
+    "empty": "No files found",
+    "emptyUploadFirst": "No files yet. Upload your first file!",
+    "details": "File details",
+    "filename": "Filename",
+    "altTag": "Alt Tag (For SEO)",
+    "cdnLink": "URL / CDN Link",
+    "viewFile": "View file",
+    "download": "Download",
+    "uploading": "Uploading...",
+    "confirmDelete": "Are you sure you want to delete this file?",
+    "confirmBulkDelete": "Are you sure you want to delete {{count}} selected item(s)?",
+    "copyUrl": "Copy URL",
+    "urlCopied": "URL copied!",
+    "showingResults": "Showing {{start}} to {{end}} of {{total}} files",
+    "prev": "Previous",
+    "next": "Next",
+    "columns": {
+      "name": "Name",
+      "size": "Size",
+      "type": "Type",
+      "uploadedAt": "Uploaded at"
+    },
+    "createFolderTitle": "Create new folder",
+    "folderName": "Folder name",
+    "folderNamePlaceholder": "Enter folder name...",
+    "sort": {
+      "newest": "Newest first",
+      "oldest": "Oldest first",
+      "nameAsc": "Name (A-Z)",
+      "nameDesc": "Name (Z-A)",
+      "sizeAsc": "Size (smallest)",
+      "sizeDesc": "Size (largest)"
+    },
+    "bulkDelete": "Delete selected",
+    "selected": "{{count}} selected",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all",
+    "dragDropTitle": "Drag & drop files here",
+    "dragDropSubtitle": "or click Upload to browse",
+    "dimensions": "Dimensions",
+    "fileSize": "File size",
+    "uploadedBy": "Uploaded by",
+    "createdAt": "Created at",
+    "renameSuccess": "File renamed successfully",
+    "folder": "Folder",
+    "file": "File"
   },
+
   "apps": {
     "installed": {
       "title": "Installed Apps",
@@ -496,7 +565,9 @@
       "languageEn": "English (en)",
       "systemConfig": "System Configuration",
       "cdnUrl": "CDN Domain (For Media Library)",
-      "cdnUrlDesc": "This domain must have a CNAME pointing to your Cloudflare R2 bucket."
+      "cdnUrlDesc": "This domain must have a CNAME pointing to your Cloudflare R2 bucket.",
+      "autoWebp": "Auto Convert Images to WebP",
+      "autoWebpDesc": "Automatically convert uploaded images (jpg, png) to .webp format for faster loading."
     },
     "security": {
       "title": "System Security",

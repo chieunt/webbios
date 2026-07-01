@@ -262,6 +262,21 @@ app.post('/install', async (c) => {
     // 5. Add menus for known apps
     await insertAppMenus(db, targetId);
 
+    // 5.1 If targetId is crm, initialize schema via CRM Worker Service Binding
+    if (targetId === 'crm' && c.env.CRM_API) {
+      try {
+        const migrateRes = await c.env.CRM_API.fetch('https://wb-api-crm.internal/migrate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const migrateData: any = await migrateRes.json().catch(() => ({}));
+        console.log('✅ CRM DB schema initialized via Service Binding:', migrateData.message);
+      } catch (schemaErr) {
+        console.error('Failed to initialize CRM schema:', schemaErr);
+        // Do not fail installation if schema is already there or fails
+      }
+    }
+
     // 6. Fire-and-forget: queue deploy job on platform (background)
     // This will trigger the actual deployment of zip to CF Pages
     let jobId: string | null = null;
@@ -305,6 +320,12 @@ function getAppMetadata(targetId: string, version: string, shopId: string) {
       name: 'WebbiOS CRM',
       description: 'Manage customers, orders, products, inventory, reports...',
       iconUrl: 'ShoppingCart',
+      author: 'Webbi'
+    },
+    wiki: {
+      name: 'WebbiOS Wiki',
+      description: 'Knowledge base and document management with AI RAG',
+      iconUrl: 'BookOpen',
       author: 'Webbi'
     }
   };
@@ -377,7 +398,7 @@ async function insertAppMenus(db: any, targetId: string) {
       icon: 'BarChart3',
       path: '/apps/crm/reports',
       appSlug: 'crm',
-      position: 7,
+      position: 8,
       isSystem: false,
       translations: '{"en":"Reports","en-US":"Reports","en-GB":"Reports","vi":"Báo cáo","es":"Informes","fr":"Rapports","de":"Berichte","id":"Laporan","th":"รายงาน","zh-CN":"报告","zh-TW":"報告","ja":"レポート","ko":"보고서"}'
     }).onConflictDoNothing();
@@ -429,6 +450,18 @@ async function insertAppMenus(db: any, targetId: string) {
       isSystem: false,
       translations: '{"en":"Suppliers","en-US":"Suppliers","en-GB":"Suppliers","vi":"Nhà cung cấp","es":"Proveedores","fr":"Fournisseurs","de":"Lieferanten","id":"Pemasok","th":"ซัพพลายเออร์","zh-CN":"供应商","zh-TW":"供應商","ja":"サプライヤー","ko":"공급업체"}'
     }).onConflictDoNothing();
+
+    await db.insert(wbMenus).values({
+      id: 'menu_app_crm_vendors',
+      parentId: crmMenuId,
+      label: 'Vendors',
+      icon: 'Store',
+      path: '/apps/crm/vendors',
+      appSlug: 'crm',
+      position: 7,
+      isSystem: false,
+      translations: '{"en":"Vendors","en-US":"Vendors","en-GB":"Vendors","vi":"Thương hiệu","es":"Marcas","fr":"Marques","de":"Marken","id":"Merek","th":"แบรนด์","zh-CN":"品牌","zh-TW":"品牌","ja":"ブランド","ko":"브랜드"}'
+    }).onConflictDoNothing();
   } else if (targetId === 'theme-manager') {
     // Thêm Root menu cho Theme Manager
     const themeMenuId = 'menu_app_theme_manager_root';
@@ -455,6 +488,58 @@ async function insertAppMenus(db: any, targetId: string) {
       isSystem: false,
       isCategory: false,
       translations: '{"en":"Themes","vi":"Giao diện"}'
+    }).onConflictDoNothing();
+  } else if (targetId === 'wiki') {
+    const wikiMenuId = 'menu_app_wiki_root';
+    await db.insert(wbMenus).values({
+      id: wikiMenuId,
+      label: 'Wiki',
+      icon: null,
+      path: '',
+      appSlug: 'wiki',
+      position: 7,
+      isSystem: false,
+      isCategory: true,
+      translations: '{"en":"Wiki","vi":"Wiki"}'
+    }).onConflictDoNothing();
+
+    await db.insert(wbMenus).values({
+      id: 'menu_app_wiki_documents',
+      parentId: wikiMenuId,
+      label: 'Documents',
+      icon: 'FileText',
+      path: '/apps/wiki/documents',
+      appSlug: 'wiki',
+      position: 1,
+      isSystem: false,
+      isCategory: false,
+      translations: '{"en":"Documents","vi":"Tài liệu"}'
+    }).onConflictDoNothing();
+
+    await db.insert(wbMenus).values({
+      id: 'menu_app_wiki_reports',
+      parentId: wikiMenuId,
+      label: 'Reports',
+      icon: 'BarChart2',
+      path: '/apps/wiki/reports',
+      appSlug: 'wiki',
+      position: 2,
+      isSystem: false,
+      isCategory: false,
+      translations: '{"en":"Reports","vi":"Báo cáo"}'
+    }).onConflictDoNothing();
+
+    await db.insert(wbMenus).values({
+      id: 'menu_app_wiki_settings',
+      parentId: wikiMenuId,
+      label: 'Settings',
+      icon: 'Settings',
+      path: '/apps/wiki/settings',
+      appSlug: 'wiki',
+      position: 3,
+      isSystem: false,
+      isCategory: false,
+      translations: '{"en":"Settings","vi":"Cài đặt"}'
     }).onConflictDoNothing();
   }
 }

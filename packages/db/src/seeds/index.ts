@@ -25,33 +25,38 @@ export function getSeedSQL(lang: 'vi' | 'en' = 'vi'): string {
   // 2. Permissions
   sql += `-- PERMISSIONS\n`;
   const perms = [
-    { slug: 'dashboard:view', name: dict.permissions.dashboard_view, group: 'dashboard', sort: 1 },
-    { slug: 'settings:view', name: dict.permissions.settings_view, group: 'settings', sort: 1 },
-    { slug: 'settings:edit', name: dict.permissions.settings_edit, group: 'settings', sort: 2 },
-    { slug: 'users:view', name: dict.permissions.users_view, group: 'users', sort: 1 },
-    { slug: 'users:manage', name: dict.permissions.users_manage, group: 'users', sort: 2 },
-    { slug: 'media:view', name: dict.permissions.media_view, group: 'media', sort: 1 },
-    { slug: 'media:upload', name: dict.permissions.media_upload, group: 'media', sort: 2 },
-    { slug: 'media:delete', name: dict.permissions.media_delete, group: 'media', sort: 3 },
-    { slug: 'apps:view', name: dict.permissions.apps_view, group: 'apps', sort: 1 },
-    { slug: 'apps:manage', name: dict.permissions.apps_manage, group: 'apps', sort: 2 },
-    { slug: 'api_keys:view', name: dict.permissions.api_keys_view, group: 'api_keys', sort: 1 },
-    { slug: 'api_keys:manage', name: dict.permissions.api_keys_manage, group: 'api_keys', sort: 2 },
-    { slug: 'roles:view', name: dict.permissions.roles_view, group: 'system', sort: 1 },
-    { slug: 'roles:manage', name: dict.permissions.roles_manage, group: 'system', sort: 2 },
-    { slug: 'permissions:view', name: dict.permissions.permissions_view, group: 'system', sort: 3 },
-    { slug: 'permissions:manage', name: dict.permissions.permissions_manage, group: 'system', sort: 4 },
-    { slug: 'menus:view', name: dict.permissions.menus_view, group: 'system', sort: 5 },
-    { slug: 'menus:manage', name: dict.permissions.menus_manage, group: 'system', sort: 6 },
-    { slug: 'audit:view', name: dict.permissions.audit_view, group: 'audit', sort: 1 },
+    { slug: 'dashboard:view', key: 'dashboard_view', group: 'dashboard', sort: 1 },
+    { slug: 'settings:view', key: 'settings_view', group: 'settings', sort: 1 },
+    { slug: 'settings:edit', key: 'settings_edit', group: 'settings', sort: 2 },
+    { slug: 'users:view', key: 'users_view', group: 'users', sort: 1 },
+    { slug: 'users:manage', key: 'users_manage', group: 'users', sort: 2 },
+    { slug: 'media:view', key: 'media_view', group: 'media', sort: 1 },
+    { slug: 'media:upload', key: 'media_upload', group: 'media', sort: 2 },
+    { slug: 'media:delete', key: 'media_delete', group: 'media', sort: 3 },
+    { slug: 'apps:view', key: 'apps_view', group: 'apps', sort: 1 },
+    { slug: 'apps:manage', key: 'apps_manage', group: 'apps', sort: 2 },
+    { slug: 'api_keys:view', key: 'api_keys_view', group: 'api_keys', sort: 1 },
+    { slug: 'api_keys:manage', key: 'api_keys_manage', group: 'api_keys', sort: 2 },
+    { slug: 'roles:view', key: 'roles_view', group: 'system', sort: 1 },
+    { slug: 'roles:manage', key: 'roles_manage', group: 'system', sort: 2 },
+    { slug: 'permissions:view', key: 'permissions_view', group: 'system', sort: 3 },
+    { slug: 'permissions:manage', key: 'permissions_manage', group: 'system', sort: 4 },
+    { slug: 'menus:view', key: 'menus_view', group: 'system', sort: 5 },
+    { slug: 'menus:manage', key: 'menus_manage', group: 'system', sort: 6 },
+    { slug: 'audit:view', key: 'audit_view', group: 'audit', sort: 1 },
   ];
 
   const permMap: Record<string, string> = {};
-  sql += `INSERT INTO wb_permissions (id, slug, name, group_name, sort_order) VALUES\n`;
+  sql += `INSERT INTO wb_permissions (id, slug, name, group_name, sort_order, translations) VALUES\n`;
   const permValues = perms.map(p => {
     const id = ulid();
     permMap[p.slug] = id;
-    return `(${esc(id)}, ${esc(p.slug)}, ${esc(p.name)}, ${esc(p.group)}, ${p.sort})`;
+    const nameEn = en.permissions[p.key as keyof typeof en.permissions];
+    const trans = JSON.stringify({
+      vi: vi.permissions[p.key as keyof typeof vi.permissions],
+      en: nameEn
+    });
+    return `(${esc(id)}, ${esc(p.slug)}, ${esc(nameEn)}, ${esc(p.group)}, ${p.sort}, ${esc(trans)})`;
   });
   sql += permValues.join(',\n') + ';\n\n';
 
@@ -150,9 +155,26 @@ export function getSeedSQL(lang: 'vi' | 'en' = 'vi'): string {
   sql += `('site.name', '"My WebbiOS Site"', 'site'),\n`;
   sql += `('site.description', '"Powered by WebbiOS"', 'site'),\n`;
   sql += `('site.locale', '"${lang}"', 'site'),\n`;
+  sql += `('site.country', '"VN"', 'site'),\n`;
   sql += `('site.timezone', '"Asia/Ho_Chi_Minh"', 'site'),\n`;
   sql += `('site.currency', '"VND"', 'site'),\n`;
+  sql += `('site.active_languages', '"[{\\"code\\":\\"vi\\",\\"is_default\\":true}]"', 'site'),\n`;
   sql += `('system.version', '"1.0.0"', 'system');\n\n`;
+
+  // 7. Languages
+  sql += `-- LANGUAGES\n`;
+  const languages = [
+    { code: 'vi', name: 'Tiếng Việt', native: 'Tiếng Việt', flag: 'vn' },
+    { code: 'en', name: 'English', native: 'English', flag: 'us' },
+    { code: 'fr', name: 'French', native: 'Français', flag: 'fr' },
+    { code: 'de', name: 'German', native: 'Deutsch', flag: 'de' },
+    { code: 'ja', name: 'Japanese', native: '日本語', flag: 'jp' },
+    { code: 'ko', name: 'Korean', native: '한국어', flag: 'kr' },
+    { code: 'zh', name: 'Chinese', native: '中文', flag: 'cn' }
+  ];
+  sql += `INSERT INTO wb_languages (code, name, native_name, flag, is_active) VALUES\n`;
+  const langValues = languages.map(l => `(${esc(l.code)}, ${esc(l.name)}, ${esc(l.native)}, ${esc(l.flag)}, 1)`);
+  sql += langValues.join(',\n') + ';\n\n';
 
   return sql;
 }

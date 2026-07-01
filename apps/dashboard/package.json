@@ -12,7 +12,6 @@
   "dependencies": {
     "@minoru/react-dnd-treeview": "^3.5.4",
     "@webbios/sdk": "workspace:*",
-    "@webbios/shared": "workspace:*",
     "@webbios/ui": "workspace:*",
     "i18next": "^26.3.0",
     "lucide-react": "^0.378.0",

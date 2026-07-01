@@ -75,6 +75,7 @@ import appsApp from './routes/admin/apps'
 import usersApp from './routes/admin/users'
 import auditLogsApp from './routes/admin/audit_logs'
 import apiKeysApp from './routes/admin/api_keys'
+
 import storefrontConfigApp from './routes/storefront/config'
 import publicApp from './routes/public'
 
@@ -93,6 +94,28 @@ app.route('/v1/admin/apps', appsApp)
 app.route('/v1/admin/users', usersApp)
 app.route('/v1/admin/audit-logs', auditLogsApp)
 app.route('/v1/admin/api-keys', apiKeysApp)
+// Gateway: Forward CRM requests to CRM Worker via Service Binding
+app.all('/v1/admin/crm/*', async (c) => {
+  const crmApi = c.env.CRM_API;
+  if (!crmApi) {
+    return c.json({ success: false, error: 'CRM service not available' }, 503);
+  }
+  // Strip the /v1/admin/crm prefix, pass the rest to CRM Worker
+  const url = new URL(c.req.url);
+  const crmPath = url.pathname.replace('/v1/admin/crm', '');
+  const targetUrl = new URL(crmPath + url.search, 'https://wb-api-crm.internal');
+
+  const res = await crmApi.fetch(targetUrl.toString(), {
+    method: c.req.method,
+    headers: c.req.raw.headers,
+    body: c.req.method !== 'GET' && c.req.method !== 'HEAD' ? c.req.raw.body : undefined,
+  });
+
+  return new Response(res.body, {
+    status: res.status,
+    headers: res.headers,
+  });
+});
 
 // Storefront routes
 app.route('/v1/storefront/config', storefrontConfigApp)

@@ -44,6 +44,7 @@ export const wbPermissions = sqliteTable('wb_permissions', {
   groupName: text('group_name').notNull(), // "settings", "users", "apps"
   description: text('description'),
   sortOrder: integer('sort_order').notNull().default(0),
+  translations: text('translations', { mode: 'json' }).default(sql`'{}'`), // {"vi": "Xem cài đặt"}
 }, (table) => {
   return {
     slugIdx: index('idx_wb_permissions_slug').on(table.slug),
@@ -154,6 +155,7 @@ export const wbApiKeys = sqliteTable('wb_api_keys', {
 // ============================================================
 export const wbMedia = sqliteTable('wb_media', {
   id: text('id').primaryKey(),
+  parentId: text('parent_id'), // ID of the parent folder
   filename: text('filename').notNull(),
   r2Key: text('r2_key').notNull().unique(), // Key on R2 bucket
   url: text('url').notNull(), // CDN URL
@@ -162,17 +164,20 @@ export const wbMedia = sqliteTable('wb_media', {
   width: integer('width'), // pixels (images)
   height: integer('height'), // pixels (images)
   alt: text('alt'), // SEO alt text
+  fileCount: integer('file_count').default(0), // used for folders
+  folderCount: integer('folder_count').default(0), // used for folders
   uploadedBy: text('uploaded_by').references(() => wbUsers.id),
   createdAt: text('created_at').notNull().default(sql`(datetime('now'))`),
 }, (table) => {
   return {
     typeIdx: index('idx_wb_media_type').on(table.mimeType),
     createdIdx: index('idx_wb_media_created').on(table.createdAt),
+    parentIdx: index('idx_wb_media_parent').on(table.parentId),
   };
 });
 
 // ============================================================
-// 8. wb_menus — Dashboard sidebar menu items
+// 9. wb_menus — Dashboard sidebar menu items
 // ============================================================
 export const wbMenus = sqliteTable('wb_menus', {
   id: text('id').primaryKey(),
@@ -298,4 +303,30 @@ export const wbCronJobs = sqliteTable('wb_cron_jobs', {
     statusNextRunIdx: index('idx_wb_cron_jobs_run').on(table.status, table.nextRunAt),
     taskTypeIdx: index('idx_wb_cron_jobs_type').on(table.taskType),
   };
+});
+
+// ============================================================
+// 14. wb_stats — Generic Platform Statistics (Aggregated metrics)
+// ============================================================
+export const wbStats = sqliteTable('wb_stats', {
+  appSlug: text('app_slug').notNull(), // 'crm', 'edu', 'com'
+  entity: text('entity').notNull(), // 'supplier', 'order', 'product'
+  metric: text('metric').notNull(), // 'total', 'status_active', 'status_archived'
+  value: integer('value').notNull().default(0),
+  updatedAt: text('updated_at').notNull().default(sql`(datetime('now'))`),
+}, (table) => {
+  return {
+    pk: primaryKey({ columns: [table.appSlug, table.entity, table.metric] }),
+  };
+});
+
+// ============================================================
+// 15. wb_languages — Supported languages for the platform
+// ============================================================
+export const wbLanguages = sqliteTable('wb_languages', {
+  code: text('code').primaryKey(), // 'vi', 'en'
+  name: text('name').notNull(), // 'Tiếng Việt', 'English'
+  nativeName: text('native_name').notNull(), // 'Tiếng Việt', 'English'
+  flag: text('flag').notNull(), // 'vn', 'us'
+  isActive: integer('is_active', { mode: 'boolean' }).notNull().default(true),
 });

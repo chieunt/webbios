@@ -252,7 +252,13 @@
         "save": "저장",
         "parentMenu": "상위 메뉴",
         "isCategoryLabel": "카테고리 레이블",
-        "rootMenu": "--- 최상위 ---"
+        "rootMenu": "--- 최상위 ---",
+        "placeholders": {
+          "translationsEn": "e.g. Dashboard",
+          "translationsVi": "e.g. Tổng quan",
+          "icon": "e.g. Home",
+          "path": "e.g. /orders"
+        }
       }
     },
     "permissions": {
@@ -273,7 +279,8 @@
         "edit": "권한 편집",
         "slugLabel": "Slug (예: users:read)",
         "descriptionLabel": "설명",
-        "slugPlaceholder": "모듈:작업"
+        "slugPlaceholder": "모듈:작업",
+        "descriptionPlaceholder": "e.g. Allows user to read lists"
       }
     },
     "roles": {
@@ -300,7 +307,8 @@
         "permissionsLabel": "권한 할당",
         "selectAll": "모두 선택",
         "unselectAll": "모두 선택 취소",
-        "namePlaceholder": "예: 관리자"
+        "namePlaceholder": "예: 관리자",
+        "slugPlaceholder": "e.g. admin"
       }
     }
   },
@@ -488,7 +496,9 @@
       "languageEn": "영어 (en)",
       "systemConfig": "시스템 구성",
       "cdnUrl": "CDN 도메인 (미디어 라이브러리 용)",
-      "cdnUrlDesc": "이 도메인에는 Cloudflare R2 버킷을 가리키는 CNAME이 있어야 합니다."
+      "cdnUrlDesc": "이 도메인에는 Cloudflare R2 버킷을 가리키는 CNAME이 있어야 합니다.",
+      "autoWebp": "Auto Convert Images to WebP",
+      "autoWebpDesc": "Automatically convert uploaded images (jpg, png) to .webp format for faster loading."
     },
     "security": {
       "title": "보안",

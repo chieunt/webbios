@@ -252,7 +252,13 @@
         "save": "儲存",
         "parentMenu": "父選單",
         "isCategoryLabel": "分類標籤",
-        "rootMenu": "--- 根 ---"
+        "rootMenu": "--- 根 ---",
+        "placeholders": {
+          "translationsEn": "e.g. Dashboard",
+          "translationsVi": "e.g. Tổng quan",
+          "icon": "e.g. Home",
+          "path": "e.g. /orders"
+        }
       }
     },
     "permissions": {
@@ -273,7 +279,8 @@
         "edit": "編輯權限",
         "slugLabel": "Slug (例如 users:read)",
         "descriptionLabel": "描述",
-        "slugPlaceholder": "模組:操作"
+        "slugPlaceholder": "模組:操作",
+        "descriptionPlaceholder": "e.g. Allows user to read lists"
       }
     },
     "roles": {
@@ -300,7 +307,8 @@
         "permissionsLabel": "分配權限",
         "selectAll": "全選",
         "unselectAll": "取消全選",
-        "namePlaceholder": "例如 管理員"
+        "namePlaceholder": "例如 管理員",
+        "slugPlaceholder": "e.g. admin"
       }
     }
   },
@@ -386,7 +394,8 @@
         "analytics": "分析",
         "design": "設計",
         "inventory": "庫存"
-      }
+      },
+      "priceMonthly": "${{price}}/month"
     }
   },
   "users": {
@@ -487,7 +496,9 @@
       "languageEn": "英語 (en)",
       "systemConfig": "系統配置",
       "cdnUrl": "CDN 域名（用於媒體庫）",
-      "cdnUrlDesc": "此域名必須有一個指向您的 Cloudflare R2 存儲桶的 CNAME。"
+      "cdnUrlDesc": "此域名必須有一個指向您的 Cloudflare R2 存儲桶的 CNAME。",
+      "autoWebp": "Auto Convert Images to WebP",
+      "autoWebpDesc": "Automatically convert uploaded images (jpg, png) to .webp format for faster loading."
     },
     "security": {
       "title": "系統安全",

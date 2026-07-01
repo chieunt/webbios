@@ -252,7 +252,13 @@
         "save": "保存",
         "parentMenu": "父菜单",
         "isCategoryLabel": "分类标签",
-        "rootMenu": "--- 根 ---"
+        "rootMenu": "--- 根 ---",
+        "placeholders": {
+          "translationsEn": "e.g. Dashboard",
+          "translationsVi": "e.g. Tổng quan",
+          "icon": "e.g. Home",
+          "path": "e.g. /orders"
+        }
       }
     },
     "permissions": {
@@ -273,7 +279,8 @@
         "edit": "编辑权限",
         "slugLabel": "Slug (例如 users:read)",
         "descriptionLabel": "描述",
-        "slugPlaceholder": "模块:操作"
+        "slugPlaceholder": "模块:操作",
+        "descriptionPlaceholder": "e.g. Allows user to read lists"
       }
     },
     "roles": {
@@ -300,7 +307,8 @@
         "permissionsLabel": "分配权限",
         "selectAll": "全选",
         "unselectAll": "取消全选",
-        "namePlaceholder": "例如 管理员"
+        "namePlaceholder": "例如 管理员",
+        "slugPlaceholder": "e.g. admin"
       }
     }
   },
@@ -488,7 +496,9 @@
       "languageEn": "英语 (en)",
       "systemConfig": "系统配置",
       "cdnUrl": "CDN 域名（用于媒体库）",
-      "cdnUrlDesc": "此域名必须有一个指向您的 Cloudflare R2 存储桶的 CNAME。"
+      "cdnUrlDesc": "此域名必须有一个指向您的 Cloudflare R2 存储桶的 CNAME。",
+      "autoWebp": "Auto Convert Images to WebP",
+      "autoWebpDesc": "Automatically convert uploaded images (jpg, png) to .webp format for faster loading."
     },
     "security": {
       "title": "系统安全",

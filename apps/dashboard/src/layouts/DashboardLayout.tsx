@@ -2,7 +2,8 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as LucideIcons from 'lucide-react';
-import { Search, Cloud, ChevronRight, ChevronDown, Menu, HelpCircle, User, PanelLeftClose, PanelLeftOpen, Bell, LogOut, Settings as SettingsIcon } from 'lucide-react';
+import { Search, ChevronRight, ChevronDown, Menu, HelpCircle, User, PanelLeftClose, PanelLeftOpen, Bell, LogOut, Settings as SettingsIcon, Sparkles, Globe, Check } from 'lucide-react';
+import { Breadcrumb } from '@webbios/ui';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../App';
 import { webbios } from '../api';
@@ -41,13 +42,35 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
   const [isCmdOpen, setCmdOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [cdnUrl, setCdnUrl] = useState('https://cdn.webbios.dev');
+  const [displayTimezone, setDisplayTimezone] = useState(localStorage.getItem('displayTimezone') || 'Local');
+  const [activeLanguages, setActiveLanguages] = useState<any[]>([
+    { code: 'vi', name: 'Tiếng Việt' },
+    { code: 'en', name: 'English' }
+  ]);
 
   useEffect(() => {
-    webbios.settings.getSettings().then(settings => {
+    Promise.all([
+      webbios.settings.getSettings(),
+      webbios.settings.getLanguages()
+    ]).then(([settings, systemLangs]) => {
       if (settings['system.cdn_url']) {
         let url = settings['system.cdn_url'];
         if (url.startsWith('"')) url = JSON.parse(url);
         setCdnUrl(url);
+      }
+      
+      if (settings['site.active_languages']) {
+        let activeLangs = settings['site.active_languages'];
+        if (typeof activeLangs === 'string') {
+          try { activeLangs = JSON.parse(activeLangs); } catch(e) {}
+        }
+        if (Array.isArray(activeLangs) && activeLangs.length > 0) {
+          const mappedLangs = activeLangs.map((al: any) => {
+            const found = systemLangs.find((sl: any) => sl.code === al.code);
+            return { code: al.code, name: found?.name || al.code };
+          });
+          setActiveLanguages(mappedLangs);
+        }
       }
     }).catch(console.error);
   }, []);
@@ -227,6 +250,27 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
     );
   };
 
+  const getBreadcrumbItems = () => {
+    const traverse = (menu: MenuItemType[], currentPath: MenuItemType[]): MenuItemType[] | null => {
+      for (const item of menu) {
+        if (item.path === location.pathname) {
+            return [...currentPath, item];
+        }
+        if (item.children && item.children.length > 0) {
+            const found = traverse(item.children, [...currentPath, item]);
+            if (found) return found;
+        }
+      }
+      return null;
+    }
+    const foundPath = traverse(menuData, []);
+    
+    if (foundPath) {
+       return foundPath.map(p => ({ label: p.label, href: p.path }));
+    }
+    return [{ label: "WebbiOS", href: "/" }];
+  };
+
   return (
     <div className="flex h-screen w-full bg-background font-sans text-cf-text">
       {/* Mobile Sidebar Overlay */}
@@ -248,8 +292,8 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
       >
         <div className="p-4 border-b border-cf-border flex items-center justify-center h-14">
           <div className="flex items-center space-x-3 w-full justify-center">
-            <div className="text-[#F38020] flex-shrink-0">
-              <Cloud fill="currentColor" size={28} />
+            <div className="flex-shrink-0">
+              <img src="/favicon.svg" alt="WebbiOS" width={28} height={28} />
             </div>
             {!effectivelyCollapsed && (
               <div className="truncate text-sm font-medium text-cf-gray-text flex-1">
@@ -310,28 +354,28 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
               <Menu size={20} />
             </button>
             <div className="hidden sm:flex items-center text-sm text-cf-gray-text space-x-2">
-              <span></span>
+              <Breadcrumb items={getBreadcrumbItems()} />
             </div>
           </div>
 
           <div className="flex items-center space-x-4 text-sm font-medium">
             <button className="flex items-center space-x-2 text-cf-gray-text hover:text-cf-text">
-              <span className="bg-gradient-to-r from-blue-400 to-purple-500 w-4 h-4 rounded-full flex items-center justify-center text-[10px] text-white">✨</span>
+              <Sparkles size={16} strokeWidth={1.5} />
               <span>{t('header.askAI')}</span>
-            </button>
-              <button 
-                onClick={() => navigate('/webbios/updates')}
-                className="flex items-center space-x-2 text-cf-gray-text hover:text-cf-text relative"
-              >
-                <Bell size={20} strokeWidth={1.5} />
-              {hasUpdate && (
-                <span className="absolute -top-1 left-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-surface"></span>
-              )}
-              <span>{t('header.notifications')}</span>
             </button>
             <button className="flex items-center space-x-2 text-cf-gray-text hover:text-cf-text">
               <HelpCircle size={16} strokeWidth={1.5} />
               <span>{t('header.support')}</span>
+            </button>
+            <button 
+              onClick={() => navigate('/webbios/updates')}
+              className="flex items-center space-x-2 text-cf-gray-text hover:text-cf-text relative"
+            >
+              <Bell size={20} strokeWidth={1.5} />
+              {hasUpdate && (
+                <span className="absolute -top-1 left-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-surface"></span>
+              )}
+              <span>{t('header.notifications')}</span>
             </button>
 
             <div className="relative">
@@ -351,8 +395,8 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
               {isUserMenuOpen && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setIsUserMenuOpen(false)}></div>
-                  <div className="absolute right-0 mt-2 w-56 bg-surface border border-cf-border rounded-lg shadow-lg z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="px-4 py-3 border-b border-cf-border bg-gray-50/50">
+                  <div className="absolute right-0 mt-2 w-56 bg-surface border border-cf-border rounded-lg shadow-lg z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="px-4 py-3 border-b border-cf-border bg-gray-50/50 rounded-t-lg">
                       <p className="text-sm font-medium text-cf-text truncate">{user?.firstName} {user?.lastName}</p>
                       <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
                     </div>
@@ -364,13 +408,84 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
                           navigate('/account');
                         }}
                       >
-                        <SettingsIcon size={16} className="text-gray-400" />
+                        <User size={16} className="text-gray-400" />
                         <span>{t('header.account')}</span>
                       </button>
+                      <button 
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2 transition-colors"
+                        onClick={() => {
+                          setIsUserMenuOpen(false);
+                          navigate('/settings');
+                        }}
+                      >
+                        <SettingsIcon size={16} className="text-gray-400" />
+                        <span>Cài đặt</span>
+                      </button>
+
+                      <div className="relative group mt-1 border-t border-cf-border pt-1">
+                        <button 
+                          className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center justify-between transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div className="flex items-center space-x-2">
+                            <Globe size={16} className="text-gray-400" />
+                            <span>Language</span>
+                          </div>
+                          <ChevronRight size={14} className="text-gray-400" />
+                        </button>
+                        
+                        <div className="absolute right-[calc(100%-4px)] top-0 w-40 bg-surface border border-cf-border rounded-lg shadow-lg hidden group-hover:block z-50 overflow-hidden">
+                          {activeLanguages.map((lang) => (
+                            <button
+                              key={lang.code}
+                              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center justify-between"
+                              onClick={async () => {
+                                await webbios.settings.updateSettings({ 'site.language': JSON.stringify(lang.code) });
+                                await i18n.changeLanguage(lang.code);
+                                setIsUserMenuOpen(false);
+                              }}
+                            >
+                              <span>{lang.name}</span>
+                              {i18n.language === lang.code && <Check size={14} className="text-blue-500" />}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="relative group mt-1 border-t border-cf-border pt-1">
+                        <button 
+                          className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center justify-between transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div className="flex items-center space-x-2">
+                            <LucideIcons.Clock size={16} className="text-gray-400" />
+                            <span>Timezone</span>
+                          </div>
+                          <ChevronRight size={14} className="text-gray-400" />
+                        </button>
+                        
+                        <div className="absolute right-[calc(100%-4px)] top-0 w-40 bg-surface border border-cf-border rounded-lg shadow-lg hidden group-hover:block z-50 overflow-hidden">
+                          {[{val: 'UTC', label: 'Standard (UTC)'}, {val: 'Local', label: 'Local'}].map((tz) => (
+                            <button
+                              key={tz.val}
+                              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center justify-between"
+                              onClick={() => {
+                                setDisplayTimezone(tz.val);
+                                localStorage.setItem('displayTimezone', tz.val);
+                                setIsUserMenuOpen(false);
+                                // A real implementation might fire an event so tables re-render
+                                window.dispatchEvent(new Event('timezoneChanged'));
+                              }}
+                            >
+                              <span>{tz.label}</span>
+                              {displayTimezone === tz.val && <Check size={14} className="text-blue-500" />}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                     <div className="py-1 border-t border-cf-border">
                       <button 
-                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2 transition-colors font-medium"
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2 transition-colors font-medium rounded-b-lg"
                         onClick={() => {
                           setIsUserMenuOpen(false);
                           logout();

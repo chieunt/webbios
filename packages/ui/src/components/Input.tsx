@@ -4,14 +4,15 @@ import { cn } from "../lib/utils"
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
+  suffix?: React.ReactNode;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, icon, ...props }, ref) => {
+  ({ className, type, icon, suffix, ...props }, ref) => {
     return (
-      <div className="relative flex items-center">
+      <div className="relative flex items-center w-full">
         {icon && (
-          <div className="absolute left-3 flex items-center justify-center text-cf-gray-text">
+          <div className="absolute left-3 flex items-center justify-center text-cf-gray-text pointer-events-none">
             {icon}
           </div>
         )}
@@ -20,11 +21,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             "flex h-9 w-full rounded-md border border-cf-border bg-white px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
             icon && "pl-9",
+            suffix && "pr-9",
             className
           )}
           ref={ref}
           {...props}
         />
+        {suffix && (
+          <div className="absolute right-3 flex items-center justify-center text-cf-gray-text">
+            {suffix}
+          </div>
+        )}
       </div>
     )
   }

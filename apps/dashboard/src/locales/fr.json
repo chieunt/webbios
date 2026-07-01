@@ -496,7 +496,9 @@
       "languageEn": "Anglais (en)",
       "systemConfig": "Configuration du Système",
       "cdnUrl": "Domaine CDN (Pour la médiathèque)",
-      "cdnUrlDesc": "Ce domaine doit avoir un CNAME pointant vers votre bucket Cloudflare R2."
+      "cdnUrlDesc": "Ce domaine doit avoir un CNAME pointant vers votre bucket Cloudflare R2.",
+      "autoWebp": "Auto Convert Images to WebP",
+      "autoWebpDesc": "Automatically convert uploaded images (jpg, png) to .webp format for faster loading."
     },
     "security": {
       "title": "Sécurité",

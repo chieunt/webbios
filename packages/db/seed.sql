@@ -115,6 +115,7 @@ INSERT INTO wb_settings ("key", "value", group_name) VALUES
 ('site.name', '"My WebbiOS Site"', 'site'),
 ('site.description', '"Powered by WebbiOS"', 'site'),
 ('site.locale', '"vi"', 'site'),
+('site.country', '"VN"', 'site'),
 ('site.timezone', '"Asia/Ho_Chi_Minh"', 'site'),
 ('site.currency', '"VND"', 'site'),
 ('system.version', '"1.0.0"', 'system');

@@ -4,4 +4,6 @@ export interface Env {
   STORAGE: R2Bucket;
   CLOUDFLARE_API_TOKEN: string;
   CLOUDFLARE_ACCOUNT_ID: string;
+  // Service Bindings — App Workers
+  CRM_API: Fetcher;
 }
